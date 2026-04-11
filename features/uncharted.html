@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Gems</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global-nav.css">
+    <style>
+        :root {
+            --bg: #000000;
+            --sidebar: #111111;
+            --accent: #FFD700;
+            --text: #ffffff;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            height: 100vh;
+            padding-top: 60px; 
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- INDEX SIDEBAR --- */
+        .index-panel {
+            width: 320px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .index-header {
+            padding: 40px 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .index-header h1 { font-family: 'Syne'; font-size: 1.5rem; letter-spacing: -1px; }
+
+        .city-scroller {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+
+        .city-item {
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .city-item:hover, .city-item.active {
+            color: #fff;
+            background: rgba(255,255,255,0.03);
+            border-right: 3px solid var(--accent);
+        }
+
+        .city-item span { font-family: 'Syne'; opacity: 0.3; font-size: 0.7rem; }
+
+        /* --- CONTENT VIEWPORT --- */
+        .content-panel {
+            flex-grow: 1;
+            padding: 60px 80px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .city-section {
+            margin-bottom: 150px;
+            padding-top: 20px;
+        }
+
+        .content-header { margin-bottom: 60px; }
+        .content-header h2 { font-family: 'Syne'; font-size: 5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .content-header p { color: #888; max-width: 600px; line-height: 1.6; }
+
+        .gems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .gem-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gem-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            opacity: 0.7;
+            transition: 0.4s;
+        }
+
+        .gem-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.04);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .gem-card:hover .gem-img {
+            opacity: 1;
+        }
+
+        .gem-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .gem-content h3 { font-family: 'Syne'; margin-bottom: 12px; font-size: 1.3rem; color: var(--accent); }
+        .gem-content p { color: #aaa; font-size: 0.9rem; line-height: 1.6; flex-grow: 1; }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 215, 0, 0.05);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 4px;
+            transition: 0.3s;
+            align-self: flex-start;
+        }
+
+        .map-btn:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            .index-panel { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            .city-scroller { display: flex; flex-direction: row; overflow-x: auto; padding: 10px; }
+            .city-item { white-space: nowrap; padding: 8px 16px; border-right: none; border-bottom: 3px solid transparent; }
+            .city-item:hover, .city-item.active { border-right: none; border-bottom: 3px solid var(--accent); }
+            .content-panel { padding: 30px 20px; }
+            .content-header h2 { font-size: 3rem; }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description" content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="gn-navbar">
+      <a href="../features.html" class="gn-logo">Sancharam</a>
+      <div class="gn-links">
+        <a href="itinerary.html" class="gn-link">AI Itinerary</a>
+        <a href="routing.html" class="gn-link">Smart Routing</a>
+        <a href="safety.html" class="gn-link">Safety</a>
+        <a href="uncharted.html" class="gn-link">Hidden Gems</a>
+        <a href="blockchain.html" class="gn-link">Blockchain ID</a>
+      </div>
+    </nav>
+
+    <aside class="index-panel">
+        <div class="index-header">
+            <h1>SANCHARAM</h1>
+            <p style="font-size: 0.7rem; color: #444; margin-top: 5px;">CHENNAI / 6 ZONES</p>
+        </div>
+        <div class="city-scroller">
+            <a href="#zone-NorthChennai" class="city-item active">North Chennai <span>01</span></a>
+            <a href="#zone-Georgetown" class="city-item">Georgetown <span>02</span></a>
+            <a href="#zone-MylaporeBelt" class="city-item">Mylapore Belt <span>03</span></a>
+            <a href="#zone-SouthChennai" class="city-item">South Chennai <span>04</span></a>
+            <a href="#zone-ArtCraft" class="city-item">Art & Craft <span>05</span></a>
+            <a href="#zone-Nature" class="city-item">Nature & Estuaries <span>06</span></a>
+        </div>
+    </aside>
+
+    <main class="content-panel">
+
+        <div id="zone-NorthChennai" class="city-section">
+            <div class="content-header">
+                <h2>North Chennai</h2>
+                <p>The industrial heartbeat, fishing harbours, and forgotten colonial beginnings.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Royapuram Fishing Harbour" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Royapuram Fishing Harbour</h3>
+                        <p>A chaotic, vibrant harbour at dawn where the city's freshest catch is hauled in and auctioned amidst the thundering waves.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Royapuram+Fishing+Harbour+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Tondiarpet Godowns" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>Tondiarpet Godowns</h3>
+                        <p>Faded colonial-era warehouses lining the old port roads, echoing with a century of maritime trade history.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Tondiarpet+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/thyagaraja.jpg" alt="Thyagaraja Temple" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Thyagaraja Temple</h3>
+                        <p>An ancient Tiruvottiyur shrine older than Chennai itself, with deep ties to Carnatic music history and intricate stone carvings.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Thyagaraja+Temple+Tiruvottiyur+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/India_-_Pulicat_Lake_-_023_-_lake_landscape.jpg/960px-India_-_Pulicat_Lake_-_023_-_lake_landscape.jpg" alt="Pulicat Lake" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Pulicat Lake</h3>
+                        <p>A calm coastal stretch just north of the city, famous for its Dutch cemetery ruins and winter flamingo migrations.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Pulicat+Lake+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Madras_Port_In_1996.jpg/960px-Madras_Port_In_1996.jpg" alt="Kasimedu Pier" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Kasimedu Pier</h3>
+                        <p>A scenic breakwater offering gritty, unfiltered views of the sea, popular among locals for evening strolls and sunset watching.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Kasimedu+Pier+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="zone-Georgetown" class="city-section">
+            <div class="content-header">
+                <h2>Georgetown</h2>
+                <p>The original heart of Madras.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/ArmenianStreet_GeorgeTown_Chennai.jpg/960px-ArmenianStreet_GeorgeTown_Chennai.jpg" alt="Armenian Street" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Armenian Street</h3>
+                        <p>Home to the 300-year-old Armenian Church, offering a quiet, bell-towered refuge amidst the bustling wholesale markets.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Armenian+Church+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/linghichetty.jpg" alt="Linghi Chetty Street" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Linghi Chetty Street</h3>
+                        <p>A narrow lane packed with historic merchants, antique dealers, and small eateries serving authentic local staples.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Linghi+Chetty+Street+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Burma Bazaar" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>Burma Bazaar</h3>
+                        <p>A massive, narrow grey-market street along the port wall founded by repatriates, famous for its imported curios.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Burma+Bazaar+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/highcourt.jpg" alt="High Court Corridors" class="gem-img">
+                    <div class="gem-content">
+                        <h3>High Court Corridors</h3>
+                        <p>An Indo-Saracenic architectural marvel with stunning stained glass, painted ceilings, and domed towers wrapped in legal history.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Madras+High+Court+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/parrys.jpg" alt="Parry's Corner" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Parry's Corner</h3>
+                        <p>The historic intersection where fading colonial trading houses meet the energetic chaos of dense local transport.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Parry+Corner+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="zone-MylaporeBelt" class="city-section">
+            <div class="content-header">
+                <h2>Mylapore Belt</h2>
+                <p>Temple tanks, traditional arts, and colonial intersections.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="../assets/images/real/kapaleeshwarar.jpg" alt="Kapaleeshwarar Tank" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Kapaleeshwarar Tank</h3>
+                        <p>A massive, stepped temple tank surrounded by ancient agraharams, especially magical during the floating and dusk festivals.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Kapaleeshwarar+Temple+Tank+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/MTC_orange_line_bus.jpg/960px-MTC_orange_line_bus.jpg" alt="Triplicane Pettai" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Triplicane Pettai</h3>
+                        <p>Ancient residential streets behind the Parthasarathy Temple where heritage tile-roofed houses meet traditional literature.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Parthasarathy+Temple+Triplicane+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="San Thome Backstreets" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>San Thome Backstreets</h3>
+                        <p>Quiet, Portuguese-influenced alleys leading to the historic basilica built over the tomb of St. Thomas the Apostle.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=San+Thome+Basilica+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/luzcorner.jpg" alt="Luz Corner" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Luz Corner</h3>
+                        <p>The traditional shopping hub of Mylapore with decades-old silk merchants, hidden bookstores, and filter coffee aromas.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Luz+Corner+Mylapore+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vivekanandar_Illam.jpg/960px-Vivekanandar_Illam.jpg" alt="Vivekananda House" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Vivekananda House</h3>
+                        <p>A distinctive semi-circular "ice house" built to store imported Boston ice, which now hosts exhibits on the philosopher's life.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Vivekananda+House+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="zone-SouthChennai" class="city-section">
+            <div class="content-header">
+                <h2>South Chennai</h2>
+                <p>Canopies, crumbling bridges, and coastal breezes.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="../assets/images/real/theosophical.jpg" alt="Theosophical Society" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Theosophical Society</h3>
+                        <p>A vast, lush 260-acre campus hiding a 400-year-old banyan tree, quiet philosophical libraries, and ancient ruins.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Theosophical+Society+Adyar+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Adyar_Broken_Bridge.jpg/960px-Adyar_Broken_Bridge.jpg" alt="Broken Bridge" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Broken Bridge</h3>
+                        <p>A crumbling colonial-era bridge on the Adyar river, reclaimed by nature and popular with local fishermen at dawn.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Broken+Bridge+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Map_Adyar.png" alt="Adyar Estuary" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Adyar Estuary</h3>
+                        <p>A vibrant, ecologically crucial intersection where the river meets the sea, rich in migratory birdlife and mangroves.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Adyar+Estuary+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Chennai_Central.jpg" alt="Elliot's Back Lanes" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Elliot's Back Lanes</h3>
+                        <p>Quiet streets lined with old sea-facing bungalows, bougainvillea walls, and modern cafes tucked away from the main beach promenade.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Elliot's+Beach+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Kalakshetra Colony" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>Kalakshetra Colony</h3>
+                        <p>A serene, tree-lined neighborhood famous for its classical dance academy and dedication to traditional aesthetics.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Kalakshetra+Foundation+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="zone-ArtCraft" class="city-section">
+            <div class="content-header">
+                <h2>Art & Craft</h2>
+                <p>Villages of creativity along the coast.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Cholamandal Village" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>Cholamandal Village</h3>
+                        <p>India's largest self-supporting artists' commune, featuring open-air sculptures, studios, and contemporary galleries.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Cholamandal+Artists'+Village" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="DakshinaChitra" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>DakshinaChitra</h3>
+                        <p>A breathtaking living museum recreating traditional heritage houses and folk arts collected from across South India.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=DakshinaChitra+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/kalpadruma.png" alt="Kalpa Druma" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Kalpa Druma</h3>
+                        <p>A sprawling, rustic boutique space celebrating indigenous textiles, pottery, and vibrant sustainable crafts.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Kalpa+Druma+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/silambam.png" alt="Silambam Akharas" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Silambam Akharas</h3>
+                        <p>Local, unassuming sand-pit training grounds where dedicated practitioners master the ancient martial art of stick fighting.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Silambam+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/rukmini.jpg" alt="Rukmini Devi Museum" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Rukmini Devi Museum</h3>
+                        <p>An intimate collection of stunning textiles, jewelry, and artifacts preserving the legacy of the visionary Kalakshetra founder.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Rukmini+Devi+Arundale+Museum" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="zone-Nature" class="city-section">
+            <div class="content-header">
+                <h2>Nature & Estuaries</h2>
+                <p>Wetlands, sanctuaries, and urban escapes.</p>
+            </div>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/ChennaiBirds.jpg/960px-ChennaiBirds.jpg" alt="Vedanthangal" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Vedanthangal</h3>
+                        <p>One of India's oldest water bird sanctuaries, hosting thousands of exotic migratory arrivals every winter.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Vedanthangal+Bird+Sanctuary" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Pallikaranai_Marsh_Residential_Complex_Sholinganallur_Apr22_D72_23210.jpg/960px-Pallikaranai_Marsh_Residential_Complex_Sholinganallur_Apr22_D72_23210.jpg" alt="Pallikaranai Marsh" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Pallikaranai Marsh</h3>
+                        <p>A vital urban wetland situated right next to modern tech parks, sustaining rare avian species and aquatic flora.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Pallikaranai+Marshland+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Muttukadu_Boat_House_Tamilnadu_Aug21_D72_20693-94.jpg/960px-Muttukadu_Boat_House_Tamilnadu_Aug21_D72_20693-94.jpg" alt="Muttukadu Backwaters" class="gem-img" loading="lazy" style="object-fit:cover;">
+                    <div class="gem-content">
+                        <h3>Muttukadu Backwaters</h3>
+                        <p>Serene, wind-swept backwaters ideal for a quiet afternoon of rowing and escaping the noise of the main city.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Muttukadu+Boat+House" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/guindy.jpg" alt="Guindy National Park" class="gem-img">
+                    <div class="gem-content">
+                        <h3>Guindy National Park</h3>
+                        <p>A rare, dense national park located entirely within city limits, home to free-roaming blackbucks and spotted deer.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Guindy+National+Park+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+                <div class="gem-card">
+                    <img src="../assets/images/real/royapuram.png" alt="Chetpet Ecopark" class="gem-img" loading="lazy">
+                    <div class="gem-content">
+                        <h3>Chetpet Ecopark</h3>
+                        <p>A restored, tranquil lake offering a surprisingly calm spot for angling and walking amidst the urban heat island.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Chetpet+Ecopark+Chennai" target="_blank" class="map-btn">📍 View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.city-item').forEach(el => el.classList.remove('active'));
+                    const id = entry.target.id.replace('zone-', '');
+                    const link = document.querySelector(`.city-item[href="#zone-${id}"]`);
+                    if (link) link.classList.add('active');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.city-section').forEach(s => observer.observe(s));
+    </script>
+
+    <button class="back-to-top" aria-label="Scroll Back to Top" onclick="window.scrollTo({top:0, behavior:'smooth'})" style="position:fixed; bottom:30px; right:30px; width:50px; height:50px; border-radius:50%; background:#FFD700; color:black; border:none; font-size:24px; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:1000; transition:0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">↑</button>
+</body>
+
+</html>

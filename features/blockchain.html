@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sancharam | Blockchain Digital ID</title>
+<link rel="stylesheet" href="../assets/css/global-nav.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#0a0a0a;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Animated Background Glow */
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle,#FFD700 0%, transparent 60%);
+    top:-150px;
+    right:-150px;
+    opacity:0.15;
+    animation:moveGlow 8s infinite alternate ease-in-out;
+    z-index:-1;
+}
+
+@keyframes moveGlow{
+    from{transform:translate(0,0);}
+    to{transform:translate(-100px,80px);}
+}
+
+/* Hero */
+.hero{
+    text-align:center;
+    padding:80px 20px 40px;
+}
+
+.hero h1{
+    font-size:60px;
+    letter-spacing:3px;
+}
+
+.hero span{
+    color:#FFD700;
+}
+
+.hero p{
+    opacity:0.6;
+}
+
+/* Glass Container */
+.container{
+    max-width:1000px;
+    margin:40px auto;
+    padding:40px;
+    background:rgba(255,255,255,0.04);
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+}
+
+/* Input Section */
+.input-box{
+    margin-top:20px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border-radius:15px;
+    background:#121212;
+    border:1px solid #222;
+    color:white;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#FFD700;
+    box-shadow:0 0 15px rgba(255,77,0,0.4);
+    outline:none;
+}
+
+/* Button */
+button{
+    margin-top:25px;
+    padding:15px 40px;
+    background:#FFD700;
+    color: black;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 20px rgba(255,77,0,0.5);
+}
+
+/* Digital ID Card */
+.id-card{
+    margin-top:40px;
+    padding:30px;
+    border-radius:20px;
+    background:linear-gradient(145deg,#111,#1a1a1a);
+    border:1px solid rgba(255,255,255,0.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    animation:fadeIn 0.8s ease-in-out;
+}
+
+/* Left Section */
+.id-details h3{
+    margin:0;
+    font-size:22px;
+}
+
+.id-details p{
+    opacity:0.7;
+    margin:5px 0;
+}
+
+/* QR Placeholder */
+.qr{
+    width:120px;
+    height:120px;
+    background:#000;
+    border:2px solid #FFD700;
+}
+
+/* Security Status */
+.status{
+    margin-top:20px;
+    padding:20px;
+    border-radius:15px;
+    background:rgba(0,255,120,0.05);
+    border:1px solid #00ff55;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+@media print {
+    body * { visibility: hidden; }
+    #result, #result * { visibility: visible; }
+    #result { position: absolute; left: 0; top: 0; width: 100%; border: none; }
+}
+</style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description" content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="gn-navbar">
+  <a href="../features.html" class="gn-logo">Sancharam</a>
+  <div class="gn-links">
+    <a href="itinerary.html" class="gn-link">AI Itinerary</a>
+    <a href="routing.html" class="gn-link">Smart Routing</a>
+    <a href="safety.html" class="gn-link">Safety</a>
+    <a href="uncharted.html" class="gn-link">Hidden Gems</a>
+    <a href="blockchain.html" class="gn-link">Blockchain ID</a>
+  </div>
+</nav>
+
+<div class="hero">
+    <h1>BLOCKCHAIN <span>DIGITAL ID</span></h1>
+    <p>Secure Identity for Hotel Check-ins, Bookings & Emergency Verification</p>
+</div>
+
+<div class="container">
+
+    <div class="input-box">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name">
+    </div>
+
+    <div class="input-box">
+        <label>Passport / Aadhaar Number</label>
+        <input type="text" id="idNumber" placeholder="Enter government ID number">
+    </div>
+
+    <div class="input-box">
+        <label>Emergency Contact</label>
+        <input type="text" id="emergency" placeholder="Enter emergency contact">
+    </div>
+
+    <button onclick="generateID()">Generate Secure Digital ID</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+async function generateID() {
+    const name = document.getElementById("name").value.trim();
+    const idNumber = document.getElementById("idNumber").value.trim();
+    const emergency = document.getElementById("emergency").value.trim();
+    const result = document.getElementById("result");
+
+    if (!name || !idNumber || !emergency) {
+        alert("Please fill all details.");
+        return;
+    }
+
+    // Real SHA-256 hash using browser's built-in SubtleCrypto
+    // Hash includes name + idNumber only — emergency contact is NOT hashed in
+    // so the same person always gets the same hash regardless of who they list
+    const raw = name.toLowerCase() + "|" + idNumber.toLowerCase();
+    const encoded = new TextEncoder().encode(raw);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", encoded);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = "0x" + hashArray.map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+
+    // Timestamp of generation
+    const issuedAt = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+    result.innerHTML = `
+        <div class="id-card">
+            <div class="id-details">
+                <h3>${name}</h3>
+                <p><strong>ID:</strong> ${idNumber.slice(0, 4)}••••••••</p>
+                <p><strong>Emergency:</strong> ${emergency}</p>
+                <p><strong>Hash:</strong> ${hash.slice(0, 20)}…</p>
+                <p style="opacity:0.4; font-size:12px; margin-top:8px">Issued: ${issuedAt}</p>
+            </div>
+            <div class="qr" id="qr-canvas"></div>
+        </div>
+
+        <div class="status">
+            ✔ SHA-256 identity hash generated in-browser<br>
+            ✔ ID number masked — not stored or transmitted<br>
+            ✔ Scan QR code to verify identity hash
+        </div>
+        <button onclick="window.print()" style="margin-top:20px; background:white; color:black; border-radius:50px; padding:10px 30px; font-weight:bold;">Download / Print ID</button>
+    `;
+
+    // Generate real scannable QR code from the hash
+    new QRCode(document.getElementById("qr-canvas"), {
+        text: hash,
+        width: 120,
+        height: 120,
+        colorDark: "#FFD700",
+        colorLight: "#000000"
+    });
+}
+</script>
+
+</body>
+</html>

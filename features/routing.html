@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sancharam | Smart Routing Intelligence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global-nav.css">
+    
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-glow: rgba(255, 215, 0, 0.3);
+            --bg-dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 40px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .hero span {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            margin-top: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- SEARCH CARD --- */
+        .route-card {
+            width: 90%;
+            max-width: 800px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 45px;
+            color: var(--primary);
+        }
+
+        label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            margin-left: 5px;
+        }
+
+        input {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 14px 14px 14px 45px;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.05);
+            outline: none;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .btn-container {
+            grid-column: span 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 16px 40px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* --- RESULTS --- */
+        .result {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px 0;
+            display: none; /* Hidden by default */
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-panel {
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .safe {
+            background: rgba(0, 255, 127, 0.05);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+
+        .warning {
+            background: rgba(255, 48, 48, 0.05);
+            border: 1px solid rgba(255, 48, 48, 0.3);
+        }
+
+        .status-icon {
+            font-size: 2.5rem;
+        }
+
+        .safe .status-icon { color: #00ff7f; }
+        .warning .status-icon { color: #ff3030; }
+
+        .status-info h3 { margin: 0 0 5px 0; font-size: 20px; }
+        .status-info p { margin: 0; opacity: 0.8; font-size: 14px; line-height: 1.5; }
+
+        /* --- RISK METER --- */
+        .risk-container {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .risk-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .risk-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff7f, #ffbb00, #ff3030);
+            background-size: 800px 10px;
+            transition: width 1.5s cubic-bezier(0.1, 0, 0.1, 1);
+        }
+
+        /* --- MAP FRAME --- */
+        .map-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .route-card { grid-template-columns: 1fr; padding: 25px; }
+            .btn-container { grid-column: span 1; }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description" content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="gn-navbar">
+      <a href="../features.html" class="gn-logo">Sancharam</a>
+      <div class="gn-links">
+        <a href="itinerary.html" class="gn-link">AI Itinerary</a>
+        <a href="routing.html" class="gn-link">Smart Routing</a>
+        <a href="safety.html" class="gn-link">Safety</a>
+        <a href="uncharted.html" class="gn-link">Hidden Gems</a>
+        <a href="blockchain.html" class="gn-link">Blockchain ID</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+        <h1>SAN<span>CHARAM</span></h1>
+        <p>Routing Intelligence Engine</p>
+    </div>
+
+    <div class="route-card">
+        <div class="input-group">
+            <label>Departure</label>
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" id="source" placeholder="City or Street">
+        </div>
+
+        <div class="input-group">
+            <label>Destination</label>
+            <i class="fa-solid fa-crosshairs"></i>
+            <input type="text" id="destination" placeholder="City or Street">
+        </div>
+
+        <div class="btn-container">
+            <button onclick="analyzeRoute()">
+                <i class="fa-solid fa-shuttle-space"></i> &nbsp;Compute Safety Path
+            </button>
+        </div>
+    </div>
+
+    <div class="result" id="result">
+        </div>
+
+        <script>
+        const RISK_ZONES = [
+          { name: "Koyambedu Bus Terminus", lat: 13.0695, lng: 80.1966, risk: "high", reason: "Highest footfall interchange, pickpocketing and bag-snatching dominant, inadequate CCTV coverage at night" },
+          { name: "Perambur-Vyasarpadi", lat: 13.1204, lng: 80.2416, risk: "high", reason: "Elevated assault and property crime, narrow lanes limit police patrolling, gang-related incidents recorded" },
+          { name: "Broadway-Parrys Corner", lat: 13.0878, lng: 80.2858, risk: "medium", reason: "Crowded wholesale market, chain snatching near bus stops, poor lighting in by-lanes post 9 PM" },
+          { name: "Anna Nagar", lat: 13.0850, lng: 80.2101, risk: "low", reason: "Planned residential zone, active policing, well-lit roads, low violent crime rate" },
+          { name: "Mylapore-Alwarpet", lat: 13.0337, lng: 80.2686, risk: "low", reason: "Dense cultural neighbourhood, moderate footfall, low violent crime, watch for narrow lanes after dark" },
+          { name: "Nungambakkam", lat: 13.0592, lng: 80.2452, risk: "low", reason: "Commercial-residential mix, good street lighting, active police presence, generally safe" },
+          { name: "Adyar", lat: 13.0067, lng: 80.2561, risk: "low", reason: "Calm residential area, low crime rate, ECR junction slightly elevated due to late-night traffic" },
+          { name: "Kathipara Junction", lat: 13.0067, lng: 80.2026, risk: "high", reason: "High-speed merges at 6-way interchange, rear-end crashes dominant" },
+          { name: "GST Road Pallavaram to Tambaram", lat: 12.9582, lng: 80.1490, risk: "high", reason: "High vehicle speeds, inadequate median, frequent lane-change collisions" },
+          { name: "Velachery-Tambaram Stretch SH48", lat: 12.9814, lng: 80.2143, risk: "high", reason: "Long straight stretches enabling speeding, front-rear collisions" },
+          { name: "Inner Ring Road Nanganallur-Adambakkam", lat: 12.9929, lng: 80.1958, risk: "high", reason: "Pedestrian knockdowns at uncontrolled crossings near dense residential zones" },
+          { name: "Thiruvottiyur Ennore Expressway SH1", lat: 13.1657, lng: 80.3004, risk: "high", reason: "Heavy industrial truck traffic, poor night-time lighting, no pedestrian infrastructure" },
+          { name: "Velachery Bypass Road SH48C", lat: 12.9787, lng: 80.2200, risk: "medium", reason: "Heavy commercial and bus traffic, encroached footpaths, rear-end crashes" },
+          { name: "Taramani Link Road SH48B", lat: 12.9874, lng: 80.2460, risk: "medium", reason: "Dense IT corridor, mixed traffic, speeding private cabs, jaywalking near TIDEL Park" },
+          { name: "Vadapalani Junction", lat: 13.0516, lng: 80.2121, risk: "medium", reason: "Signal-jumping, unmanaged 5-way junction during peak hours" },
+          { name: "Ambattur Industrial Estate", lat: 13.1085, lng: 80.1584, risk: "medium", reason: "Heavy goods vehicle movement, accidents peak at factory shift changeover hours" },
+          { name: "Porur Junction", lat: 13.0378, lng: 80.1563, risk: "medium", reason: "High congestion, signal-jumping, frequent two-wheeler vs car collisions" },
+          { name: "OMR Sholinganallur Stretch", lat: 12.9010, lng: 80.2280, risk: "medium", reason: "High-speed IT corridor, reckless overtaking, late-night accidents by cab aggregators" },
+          { name: "Pallikaranai-Medavakkam Road", lat: 12.9268, lng: 80.2013, risk: "medium", reason: "Rapid urbanisation, unsafe junctions, pedestrian infrastructure gaps" }
+        ];
+
+        async function geocode(place) {
+          const r = await fetch(
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(place)},Chennai&format=json&limit=1`,
+            { headers: { 'User-Agent': 'Sancharam/1.0 (sancharam@sancharam.com)' } }
+          );
+          const d = await r.json();
+          return d[0] ? { lat: +d[0].lat, lng: +d[0].lon } : null;
+        }
+
+        function distanceKm(a, b) {
+          const R = 6371, dLat = (b.lat-a.lat)*Math.PI/180,
+            dLng = (b.lng-a.lng)*Math.PI/180;
+          return R * 2 * Math.asin(Math.sqrt(
+            Math.sin(dLat/2)**2 +
+            Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2
+          ));
+        }
+
+        async function analyzeRoute() {
+            const source = document.getElementById("source").value;
+            const dest = document.getElementById("destination").value;
+            const resultDiv = document.getElementById("result");
+
+            if (!source || !dest) {
+                alert("Please enter both departure and destination.");
+                return;
+            }
+
+            resultDiv.style.display = "block";
+            resultDiv.innerHTML = `<p style="text-align:center; opacity:0.5; font-size:1.2rem;"><i class="fa-solid fa-circle-notch fa-spin"></i> Processing neural paths and geocoding...</p>`;
+
+            const srcCoords = await geocode(source);
+            const destCoords = await geocode(dest);
+
+            if (!srcCoords || !destCoords) { 
+                resultDiv.innerHTML = `<p style="text-align:center; color: #FFD700; padding: 20px;">Location not found. Please try another place.</p>`;
+                return; 
+            }
+
+            const nearby = RISK_ZONES.filter(z =>
+                distanceKm(srcCoords, z) < 2 || distanceKm(destCoords, z) < 2
+            );
+            
+            let topRisk = nearby.find(z => z.risk === 'high') || nearby.find(z => z.risk === 'medium') || { risk: "low", reason: "High-activity public corridors selected. Optimal environmental safety detected." };
+            
+            const hour = new Date().getHours();
+            if ((hour >= 21 || hour <= 5) && topRisk.risk !== 'low') {
+                topRisk.reason = "[NIGHT TRANSIT WARNING] " + topRisk.reason + " Avoid transit due to low visibility.";
+                if (topRisk.risk === 'medium') topRisk.risk = 'high';
+            }
+
+            const isRisky = topRisk.risk === 'high' || topRisk.risk === 'medium';
+            const riskScore = topRisk.risk === 'high' ? 85 : (topRisk.risk === 'medium' ? 55 : 25);
+            
+            const statusClass = isRisky ? "warning" : "safe";
+            const icon = isRisky ? "fa-circle-exclamation" : "fa-circle-check";
+            const title = topRisk.risk === 'high' ? "High Risk Detected" : (topRisk.risk === 'medium' ? "Moderate Caution" : "Secure Corridor Confirmed");
+            const desc = isRisky ? `Proximity to ${topRisk.name || 'risk zone'}: ${topRisk.reason}. Transit with caution.` : topRisk.reason;
+
+            resultDiv.innerHTML = `
+                <div class="status-panel ${statusClass}">
+                    <div class="status-icon">
+                        <i class="fa-solid ${icon}"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>${title}</h3>
+                        <p>${desc}</p>
+                    </div>
+                </div>
+
+                <div class="risk-container">
+                    <div class="risk-header">
+                        <span>Threat Assessment Level</span>
+                        <span>${riskScore}%</span>
+                    </div>
+                    <div class="risk-bar">
+                        <div class="risk-fill" style="width: ${riskScore}%"></div>
+                    </div>
+                </div>
+
+                <div class="map-wrapper" style="margin-top: 25px;">
+                    <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(source)}+to+${encodeURIComponent(dest)}&output=embed"></iframe>
+                </div>
+                <p style="font-size: 12px; color: var(--text-dim); text-align: center; margin-top: 10px;">Note: The highlighted route above is a standard base reference map and does not visually reflect the safety analysis overlay.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
