@@ -1,16 +1,23 @@
 exports.handler = async (event) => {
-    const { phone } = JSON.parse(event.body);
-    const response = await fetch('https://api.pushbullet.com/v2/pushes', {
-        method: 'POST',
-        headers: {
-            'Access-Token': process.env.PUSHBULLET_TOKEN,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            type: 'note',
-            title: 'SANCHARAM SOS',
-            body: `Emergency alert — contact: ${phone}`
-        })
-    });
-    return { statusCode: response.ok ? 200 : 500 };
+    const { phone, location } = JSON.parse(event.body);
+    
+    const telegramUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+    
+    // Construct the SOS Alert Message
+    const alertMessage = `🚨 *SANCHARAM SOS* 🚨\n\nEmergency alert triggered.\n*Guardian Contact:* \`${phone}\`\n*Coordinates:* \`${location || 'Unknown'}\``;
+    
+    try {
+        const response = await fetch(telegramUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: process.env.TELEGRAM_CHAT_ID,
+                text: alertMessage,
+                parse_mode: 'Markdown'
+            })
+        });
+        return { statusCode: response.ok ? 200 : 500 };
+    } catch(err) {
+        return { statusCode: 500, body: err.message };
+    }
 };
