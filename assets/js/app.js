@@ -90,8 +90,28 @@ function setDefaultDates() {
   const today    = new Date();
   const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
   const fmt      = d => d.toISOString().split('T')[0];
-  document.getElementById('start-date').value = fmt(today);
-  document.getElementById('end-date').value   = fmt(nextWeek);
+  
+  const startEl = document.getElementById('start-date');
+  const endEl   = document.getElementById('end-date');
+  
+  if (startEl && endEl) {
+    const todayStr = fmt(today);
+    
+    // Set default values and bottom floors (no past dates)
+    startEl.value = todayStr;
+    startEl.min   = todayStr;
+    
+    endEl.value = fmt(nextWeek);
+    endEl.min   = todayStr;
+    
+    // Dynamically shift the end-date floor whenever start-date moves
+    startEl.addEventListener('change', (e) => {
+        endEl.min = e.target.value;
+        if (endEl.value < e.target.value) {
+            endEl.value = e.target.value;
+        }
+    });
+  }
 }
 
 function adjustTravelers(delta) {
