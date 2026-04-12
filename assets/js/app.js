@@ -120,7 +120,7 @@ function adjustTravelers(delta) {
 }
 
 function selectBudget(el) {
-  document.querySelectorAll('.budget-chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.budget-chip, .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   state.budget = el.textContent.trim();
 }
@@ -215,57 +215,54 @@ async function callGeminiAI(destination, days, travelers, budget, style, interes
 
 /* ── 7. RENDER RESULTS ────────────────────────────────────────*/
 function renderResults(data) {
-  document.getElementById('results-title').textContent =
-    `Your ${data.destination} Adventure`;
+  document.getElementById('results-title').textContent = \`Your \${data.destination} Adventure\`;
   document.getElementById('results-subtitle').textContent =
-    `${data.days} day${data.days>1?'s':''} · ${data.travelers} traveler${data.travelers>1?'s':''} · ${data.budget} budget` +
-    (data.style ? ` · ${data.style}` : '');
+    \`\${data.days} day\${data.days>1?'s':''} · \${data.travelers} traveler\${data.travelers>1?'s':''} · \${data.budget} budget\` +
+    (data.style ? \` · \${data.style}\` : '');
 
   // Day cards
-  document.getElementById('itinerary-days').innerHTML = data.itinerary.map((day, idx) => `
-    <div class="day-card ${idx===0?'open':''}" onclick="toggleDay(this)">
+  document.getElementById('itinerary-days').innerHTML = data.itinerary.map((day, idx) => \`
+    <div class="day-card \${idx===0?'open':''}" onclick="toggleDay(this)">
       <div class="day-card-header">
-        <div class="day-title-group">
-          <span class="day-number">${String(day.day).padStart(2,'0')}</span>
-          <div>
-            <div class="day-title">Day ${day.day}</div>
-            <div class="day-theme">${day.theme}</div>
-          </div>
+        <span class="day-num">Day \${String(day.day).padStart(2,'0')}</span>
+        <div class="day-title-grp">
+          <div class="day-title">\${day.theme}</div>
+          <div class="day-theme">\${day.activities?.length || 0} activities planned</div>
         </div>
-        <div class="day-toggle">⌄</div>
+        <div class="day-toggle" aria-hidden="true">⌄</div>
       </div>
       <div class="day-card-body">
-        ${day.activities.map(act => `
+        \${(day.activities||[]).map(act => \`
           <div class="activity-item">
-            <div class="activity-time">${act.time}</div>
+            <div class="act-time">\${act.time}</div>
             <div>
-              <div class="activity-name">${act.name}</div>
-              <div class="activity-desc">${act.desc}</div>
-              <div class="activity-meta">
-                <span>⏱ ${act.duration}</span>
-                <span class="green">🎟 ${act.tickets}</span>
+              <div class="act-name">\${act.name}</div>
+              <div class="act-desc">\${act.desc}</div>
+              <div class="act-meta">
+                <span class="act-badge">⏱ \${act.duration}</span>
+                <span class="act-badge teal">🎟 \${act.tickets}</span>
               </div>
             </div>
-          </div>`).join('')}
+          </div>\`).join('')}
       </div>
-    </div>`).join('');
+    </div>\`).join('');
 
   // Hotel cards
-  document.getElementById('hotels-grid').innerHTML = data.hotels.map(h => `
+  document.getElementById('hotels-grid').innerHTML = data.hotels.map(h => \`
     <div class="hotel-card">
-      <div class="hotel-img">${h.name.split(' ').slice(-1)[0].toUpperCase().slice(0,4)}</div>
+      <div class="hotel-thumb">\${h.name.split(' ').slice(-1)[0].toUpperCase().slice(0,4)}</div>
       <div class="hotel-body">
-        <div class="hotel-name">${h.name}</div>
-        <div class="hotel-address">${h.address}</div>
-        <div class="hotel-footer">
+        <div class="hotel-name">\${h.name}</div>
+        <div class="hotel-addr">\${h.address}</div>
+        <div class="hotel-foot">
           <div>
-            <span class="hotel-price">${h.price}</span>
-            <span class="hotel-price-label">per night</span>
+            <span class="hotel-price">\${h.price}</span>
+            <span class="hotel-price-lbl">/ night</span>
           </div>
-          <div class="hotel-rating"><span class="star">★</span> ${h.rating}</div>
+          <div class="hotel-rating"><span class="star">★</span> \${h.rating}</div>
         </div>
       </div>
-    </div>`).join('');
+    </div>\`).join('');
 
   const section = document.getElementById('results-section');
   section.classList.add('visible');
@@ -366,21 +363,21 @@ function renderSavedTrips() {
     return;
   }
 
-  grid.innerHTML = state.savedTrips.map(trip => `
-    <div class="trip-card" onclick="viewSavedTrip('${trip.id}')">
-      <div class="trip-card-thumb">${trip.destination.split(',')[0].toUpperCase().slice(0,4)}</div>
-      <div class="trip-card-body">
-        <div class="trip-destination">${trip.destination}</div>
+  grid.innerHTML = state.savedTrips.map(trip => \`
+    <div class="trip-card" onclick="viewSavedTrip('\${trip.id}')">
+      <div class="trip-thumb">\${trip.destination.split(',')[0].toUpperCase().slice(0,4)}</div>
+      <div class="trip-body">
+        <div class="trip-dest">\${trip.destination}</div>
         <div class="trip-date">
-          ${trip.days} days · ${trip.travelers} traveler${trip.travelers>1?'s':''} ·
-          ${new Date(trip.savedAt || trip.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+          \${trip.days} days · \${trip.travelers} traveler\${trip.travelers>1?'s':''} ·
+          \${new Date(trip.savedAt || trip.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
         </div>
         <div class="trip-chips">
-          <span class="trip-chip">${trip.budget}</span>
-          ${trip.style ? `<span class="trip-chip">${trip.style}</span>` : ''}
+          <span class="trip-chip">\${trip.budget}</span>
+          \${trip.style ? \`<span class="trip-chip">\${trip.style}</span>\` : ''}
         </div>
       </div>
-    </div>`).join('');
+    </div>\`).join('');
 }
 
 function viewSavedTrip(id) {
