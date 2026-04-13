@@ -8,12 +8,12 @@
    3.  PAGE LOAD
    4.  FORM HELPERS
    5.  TRIP GENERATION
-   6.  AI INTEGRATION   ✅ LIVE — Claude (Anthropic)
+   6.  AI INTEGRATION   ✅ LIVE — OpenAI via Netlify Function
    7.  RENDER RESULTS
    8.  SAVE & LOAD TRIPS  ✅ LIVE — saves to Firestore
    9.  AUTH MODAL
    10. GOOGLE SIGN-IN   ✅ LIVE — real Google OAuth
-   11. GOOGLE PLACES    ← add real API in Step 5
+   11. GOOGLE PLACES
    12. UI UTILITIES
    ============================================================ */
 
@@ -44,16 +44,7 @@ const db = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
 
-/* ─────────────────────────────────────────────────────────────
-   🔑 ANTHROPIC API KEY
-   - Get yours at: https://console.anthropic.com → API Keys
-   - It must start with: sk-ant-
-   - Paste ONLY the Anthropic key — nothing else
-──────────────────────────────────────────────────────────────*/
-
-//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//  ✅ correct:  'sk-ant-api03-abc123...'
-//  ❌ wrong:    'sk-or-v1-...sk-ant-...'  (two keys merged = broken)
+// ⚠️ No API key in frontend — key lives in Netlify environment variables
 
 
 /* ── 2. APP STATE ─────────────────────────────────────────────*/
@@ -149,11 +140,11 @@ async function generateTrip() {
 
   showLoading(
     `Planning your ${days}-day trip to ${destination}…`,
-    'Asking Claude AI for personalised recommendations'
+    'Asking AI for personalised recommendations'
   );
 
   try {
-    const tripData = await callClaudeAI(destination, days, state.travelerCount, state.budget, style, interests);
+    const tripData = await callAI(destination, days, state.travelerCount, state.budget, style, interests);
     state.currentTrip = tripData;
     renderResults(tripData);
   } catch (err) {
@@ -162,13 +153,13 @@ async function generateTrip() {
     } else if (err.message.includes('QUOTA_EXCEEDED')) {
       showToast('⚠️ AI quota exceeded. Please wait a moment and try again.');
     } else if (err.message.includes('AUTH_ERROR')) {
-      showToast('⚠️ Invalid API key. Check your Anthropic key in app.js.');
-    } else if (err.message.includes('SERVER_ERROR') || err.message.includes('API_ERROR')) {
-      showToast('⚠️ AI service issue. Please try again later.');
+      showToast('⚠️ API key error. Check Netlify environment variables.');
+    } else if (err.message.includes('NOT_FOUND')) {
+      showToast('⚠️ Function not found. Check Netlify deployment.');
     } else if (err.message.includes('PARSE_ERROR')) {
       showToast('⚠️ AI returned unexpected data. Please try again.');
     } else {
-      showToast('Something went wrong. Please try again.');
+      showToast('⚠️ AI service issue. Please try again later.');
     }
     console.error('Trip generation error:', err);
   } finally {
@@ -182,13 +173,12 @@ async function generateTrip() {
 }
 
 
-/* ── 6. CLAUDE AI INTEGRATION ────────────────────────────────
-   FIX SUMMARY:
-   ✅ Single clean Anthropic key (no merged keys)
-   ✅ console.log removed from inside headers object
-   ✅ Correct model name: claude-haiku-4-5-20251001
+/* ── 6. AI INTEGRATION ───────────────────────────────────────
+   Calls /.netlify/functions/itinerary (your Netlify function)
+   which securely calls OpenAI using the server-side API key.
+   The OpenAI key is NEVER exposed in the browser.
 ──────────────────────────────────────────────────────────────*/
-async function callClaudeAI(destination, days, travelers, budget, style, interests) {
+async function callAI(destination, days, travelers, budget, style, interests) {
   if (!navigator.onLine) throw new Error('OFFLINE');
 
   const prompt = `You are a professional travel planner. Create a detailed ${days}-day travel itinerary for ${destination}.
@@ -199,16 +189,38 @@ Details:
 - Travel style: ${style || 'General sightseeing'}
 - Special interests: ${interests || 'None'}
 
-Return ONLY raw JSON, no markdown, no explanation:
+Return ONLY a valid JSON object with this exact structure:
 {
-  "itinerary": [{"day":1,"theme":"...","activities":[{"time":"09:00","name":"...","desc":"...","duration":"...","tickets":"..."}]}],
-  "hotels": [{"name":"...","address":"...","price":"...","rating":4.5}]
+  "itinerary": [
+    {
+      "day": 1,
+      "theme": "Theme for the day",
+      "activities": [
+        {
+          "time": "09:00",
+          "name": "Activity name",
+          "desc": "2-sentence description",
+          "duration": "2 hours",
+          "tickets": "Free / ₹500 per person"
+        }
+      ]
+    }
+  ],
+  "hotels": [
+    {
+      "name": "Hotel name",
+      "address": "Full address",
+      "price": "₹2500 per night",
+      "rating": 4.5
+    }
+  ]
 }
-Include 3-5 activities per day and 3 hotels.`;
+
+Include 3-5 activities per day and exactly 3 hotel options. Use realistic local prices.`;
 
   let res;
   try {
-    res = await fetch('/api/itinerary', {  // ← CHANGED: calls Netlify function, not Anthropic directly
+    res = await fetch('/.netlify/functions/itinerary', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),
@@ -217,15 +229,35 @@ Include 3-5 activities per day and 3 hotels.`;
     throw new Error('OFFLINE');
   }
 
+  // Handle specific HTTP errors
   if (res.status === 401) throw new Error('AUTH_ERROR');
+  if (res.status === 404) throw new Error('NOT_FOUND — function not deployed');
   if (res.status === 429) throw new Error('QUOTA_EXCEEDED');
   if (res.status >= 500) throw new Error('SERVER_ERROR');
   if (!res.ok) throw new Error('API_ERROR');
 
-  const parsed = await res.json();
-  if (!parsed.itinerary || !parsed.hotels) throw new Error('PARSE_ERROR');
+  let parsed;
+  try {
+    parsed = await res.json();
+  } catch {
+    throw new Error('PARSE_ERROR');
+  }
 
-  return { destination, days, travelers, budget, style, interests, ...parsed, createdAt: new Date().toISOString() };
+  if (!parsed.itinerary || !parsed.hotels) {
+    console.error('Unexpected structure from function:', parsed);
+    throw new Error('PARSE_ERROR');
+  }
+
+  return {
+    destination,
+    days,
+    travelers,
+    budget,
+    style,
+    interests,
+    ...parsed,
+    createdAt: new Date().toISOString(),
+  };
 }
 
 

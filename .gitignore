@@ -24,3 +24,6 @@ Thumbs.db
 # Deployment / Firebase
 .firebase/
 firebase-export-*
+
+# Local Netlify folder
+.netlify

@@ -1,4 +1,4 @@
-exports.handler = async function (event, context) {
+exports.handler = async function (event) {
     // Handle CORS preflight
     if (event.httpMethod === 'OPTIONS') {
         return {
@@ -6,37 +6,63 @@ exports.handler = async function (event, context) {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS'
+                'Access-Control-Allow-Methods': 'POST, OPTIONS',
             },
-            body: ''
+            body: '',
         };
     }
 
     try {
         const { prompt } = JSON.parse(event.body);
 
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
+        // ── Call OpenAI ──────────────────────────────────────────
+        const res = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.ANTHROPIC_API_KEY,
-                'anthropic-version': '2023-06-01',
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,  // set in Netlify env vars
             },
             body: JSON.stringify({
-                model: 'claude-haiku-4-5-20251001',
+                model: 'gpt-4o-mini',           // cheap + fast + great JSON
                 max_tokens: 4000,
-                messages: [{ role: 'user', content: prompt }],
+                temperature: 0.7,
+                response_format: { type: 'json_object' }, // forces pure JSON — no stripping needed
+                messages: [
+                    {
+                        role: 'system',
+                        content: 'You are a travel planning assistant. Always respond with valid JSON only. No markdown, no explanation, no code fences.',
+                    },
+                    {
+                        role: 'user',
+                        content: prompt,
+                    },
+                ],
             }),
         });
 
         const data = await res.json();
 
-        // Forward auth/quota errors back to frontend
-        if (res.status === 401) return { statusCode: 401, body: JSON.stringify({ error: 'AUTH_ERROR' }) };
-        if (res.status === 429) return { statusCode: 429, body: JSON.stringify({ error: 'QUOTA_EXCEEDED' }) };
-        if (!res.ok) return { statusCode: 500, body: JSON.stringify({ error: 'API_ERROR' }) };
+        // Forward HTTP errors back to frontend
+        if (!res.ok) {
+            console.error('OpenAI error:', data);
+            return {
+                statusCode: res.status,
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                body: JSON.stringify({ error: data.error?.message || 'OpenAI error' }),
+            };
+        }
 
-        const raw = data.content?.[0]?.text;
+        // Parse the JSON content from OpenAI response
+        const raw = data.choices?.[0]?.message?.content;
+        if (!raw) {
+            return {
+                statusCode: 500,
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                body: JSON.stringify({ error: 'No content in OpenAI response' }),
+            };
+        }
+
+        // response_format: json_object guarantees clean JSON — but strip fences just in case
         const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
         const parsed = JSON.parse(cleaned);
 
@@ -53,6 +79,7 @@ exports.handler = async function (event, context) {
         console.error('Function error:', err);
         return {
             statusCode: 500,
+            headers: { 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({ error: err.message }),
         };
     }
