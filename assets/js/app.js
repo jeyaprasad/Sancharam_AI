@@ -220,7 +220,7 @@ Include 3-5 activities per day and exactly 3 hotel options. Use realistic local 
 
   let res;
   try {
-    res = await fetch('/.netlify/functions/itinerary', {
+    res = await fetch('/.netlify/functions/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),

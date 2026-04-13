@@ -17,7 +17,7 @@ exports.handler = async function (event) {
 
         // ── Call Native Google Gemini ─────────────────────────────────────────
         const API_KEY = process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY; // Using existing env or new one
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
         
         const res = await fetch(url, {
             method: 'POST',

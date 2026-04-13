@@ -1,0 +1,11 @@
+{
+  "name": "sancharam-ai",
+  "version": "1.0.0",
+  "description": "Travel Planner",
+  "scripts": {
+    "build": "echo 'Building static site...'"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
