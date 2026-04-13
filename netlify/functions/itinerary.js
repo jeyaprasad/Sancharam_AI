@@ -16,14 +16,14 @@ exports.handler = async function (event) {
         const { prompt } = JSON.parse(event.body);
 
         // ── Call OpenAI ──────────────────────────────────────────
-        const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,  // set in Netlify env vars
             },
             body: JSON.stringify({
-                model: 'gpt-4o-mini',           // cheap + fast + great JSON
+                model: 'google/gemini-2.0-flash-exp:free',           // Free OpenRouter Gemini model
                 max_tokens: 4000,
                 temperature: 0.7,
                 response_format: { type: 'json_object' }, // forces pure JSON — no stripping needed
