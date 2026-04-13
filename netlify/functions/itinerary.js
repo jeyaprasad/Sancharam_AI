@@ -15,28 +15,25 @@ exports.handler = async function (event) {
     try {
         const { prompt } = JSON.parse(event.body);
 
-        // ── Call OpenAI ──────────────────────────────────────────
-        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        // ── Call Native Google Gemini ─────────────────────────────────────────
+        const API_KEY = process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY; // Using existing env or new one
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        
+        const res = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,  // set in Netlify env vars
             },
             body: JSON.stringify({
-                model: 'google/gemini-2.0-flash-exp:free',           // Free OpenRouter Gemini model
-                max_tokens: 4000,
-                temperature: 0.7,
-                response_format: { type: 'json_object' }, // forces pure JSON — no stripping needed
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'You are a travel planning assistant. Always respond with valid JSON only. No markdown, no explanation, no code fences.',
-                    },
-                    {
-                        role: 'user',
-                        content: prompt,
-                    },
-                ],
+                contents: [{
+                    parts: [{
+                        text: "You are a travel planning assistant. Always respond with valid JSON only. No markdown, no explanation.\n\n" + prompt 
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    responseMimeType: "application/json"
+                }
             }),
         });
 
@@ -44,25 +41,25 @@ exports.handler = async function (event) {
 
         // Forward HTTP errors back to frontend
         if (!res.ok) {
-            console.error('OpenAI error:', data);
+            console.error('Gemini error:', data);
             return {
                 statusCode: res.status,
                 headers: { 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ error: data.error?.message || 'OpenAI error' }),
+                body: JSON.stringify({ error: data.error?.message || 'Gemini API error' }),
             };
         }
 
-        // Parse the JSON content from OpenAI response
-        const raw = data.choices?.[0]?.message?.content;
+        // Parse the JSON content from Gemini response
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!raw) {
             return {
                 statusCode: 500,
                 headers: { 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ error: 'No content in OpenAI response' }),
+                body: JSON.stringify({ error: 'No content in Gemini response' }),
             };
         }
 
-        // response_format: json_object guarantees clean JSON — but strip fences just in case
+        // responseMimeType guarantees JSON, but strip any markdown fences just in case
         const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
         const parsed = JSON.parse(cleaned);
 
