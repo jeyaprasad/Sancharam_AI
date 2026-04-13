@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sancharam - Discover Chennai</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tiro+Tamil&display=swap" rel="stylesheet">
+    
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Tiro Tamil', serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+/* ✅ Fullscreen Slideshow */
+.slideshow-container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    /* Soft zoom effect for premium feel */
+    transform: scale(1.05);
+    transition: opacity 2s ease-in-out, transform 10s linear;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ✅ Premium Dark Glass Overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    padding: 30px;
+    z-index: 10;
+}
+
+.namma-chennai-badge {
+    padding: 8px 20px;
+    background: rgba(255, 152, 0, 0.15);
+    color: #ff9800;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 152, 0, 0.4);
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.2);
+}
+
+/* ✅ Sancharam Title with Typing Effect */
+h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #ff9800; 
+    border-right: 3px solid #ff9800;
+    padding-right: 8px;
+    animation: blinkCursor 0.7s infinite;
+    min-height: 4.2rem;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+@keyframes blinkCursor {
+    50% { border-color: transparent; }
+}
+
+/* ✅ Tamil Slogan at Bottom */
+.tamil-bottom {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Tiro Tamil', serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    color: #ffd700;
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    text-align: center;
+    z-index: 10;
+    letter-spacing: 2px;
+}
+
+/* ✅ Description */
+.chennai-subline {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #e2e2e2;
+    max-width: 650px;
+    font-weight: 300;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* ✅ Next Button */
+.next-button {
+    display: inline-block;
+    margin-top: 35px;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    background: #ff9800;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
+}
+
+.next-button:hover {
+    background: #e65100;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(255, 152, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; min-height: 3rem; }
+    .chennai-subline { font-size: 1rem; padding: 0 15px; }
+    .tamil-bottom { font-size: 1.1rem; padding: 10px 20px; bottom: 15px; }
+}
+    </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description" content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- Slideshow Images -->
+        <img src="assets/images/chennai.jpg" class="slide active">
+        <img src="assets/images/beaches.jpg" class="slide">
+        <img src="assets/images/lighthouse.jpg" class="slide">
+        <img src="assets/images/walls.jpg" class="slide">
+        <img src="assets/images/church.jpg" class="slide">
+
+        <div class="overlay">
+            <div class="namma-chennai-badge">நம்ம சென்னை</div>
+            <h1 id="typing-text"></h1>
+            <p class="chennai-subline">Experience the vibrant soul of the Detroit of India. From the majestic columns of the High Court to the serene shores of Elliot's Beach, let Sancharam be your digital guide to unforgettable cultural odysseys.</p>
+            
+            <a href="features.html" class="next-button">Start Exploring →</a>
+        </div>
+
+        <p class="tamil-bottom">வாழ்க தமிழ் வளர்க தமிழ்</p>
+    </div>
+
+    <!-- Data-overlay added to prevent user JS script from failing although unstyled yet -->
+    <div data-overlay></div>
+
+    <script>
+'use strict';
+
+/**
+ * navbar toggle
+ */
+
+const overlay = document.querySelector("[data-overlay]");
+const navOpenBtn = document.querySelector("[data-nav-open-btn]");
+const navbar = document.querySelector("[data-navbar]");
+const navCloseBtn = document.querySelector("[data-nav-close-btn]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
+
+const navElemArr = [navOpenBtn, navCloseBtn, overlay];
+
+const navToggleEvent = function (elem) {
+  if (!elem) return;
+  for (let i = 0; i < elem.length; i++) {
+    if (elem[i]) {
+      elem[i].addEventListener("click", function () {
+        if(navbar) navbar.classList.toggle("active");
+        if(overlay) overlay.classList.toggle("active");
+      });
+    }
+  }
+}
+
+navToggleEvent(navElemArr);
+if(navLinks && navLinks.length > 0) navToggleEvent(navLinks);
+
+
+/**
+ * header sticky & go to top
+ */
+
+const header = document.querySelector("[data-header]");
+const goTopBtn = document.querySelector("[data-go-top]");
+
+window.addEventListener("scroll", function () {
+  if (window.scrollY >= 200) {
+    if (header) header.classList.add("active");
+    if (goTopBtn) goTopBtn.classList.add("active");
+  } else {
+    if (header) header.classList.remove("active");
+    if (goTopBtn) goTopBtn.classList.remove("active");
+  }
+});
+
+
+/**
+ * Typing effect logic for landing text
+ */
+const textsToType = ["Welcome to Chennai", "சிங்காரச் சென்னை"];
+const typingElement = document.getElementById("typing-text");
+let stringIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeText() {
+    if (!typingElement) return;
+
+    const currentStringArr = Array.from(textsToType[stringIndex]);
+
+    if (isDeleting) {
+        typingElement.textContent = currentStringArr.slice(0, charIndex - 1).join('');
+        charIndex--;
+    } else {
+        typingElement.textContent = currentStringArr.slice(0, charIndex + 1).join('');
+        charIndex++;
+    }
+
+    let typeSpeed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && charIndex === currentStringArr.length) {
+        typeSpeed = 2500; // Pause at the end of the word
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        stringIndex = (stringIndex + 1) % textsToType.length;
+        typeSpeed = 500; // Pause before typing the next word
+    }
+
+    setTimeout(typeText, typeSpeed);
+}
+setTimeout(typeText, 500);
+
+/**
+ * Slideshow logic
+ */
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+
+function nextSlide() {
+    if (slides.length === 0) return;
+    slides[currentSlide].classList.remove("active");
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add("active");
+}
+
+setInterval(nextSlide, 6000);
+    </script>
+</body>
+</html>

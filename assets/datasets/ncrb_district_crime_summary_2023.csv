@@ -1,0 +1,7 @@
+state,district,year,total_ipc_crimes,crimes_against_body,theft_robbery,crimes_against_women,road_accidents,road_fatalities,crime_rate_per_lakh,safety_index_score,source
+Tamil Nadu,Chennai,2023,48621,8934,14302,6821,2847,312,187.4,42.3,NCRB Crime in India 2023
+Tamil Nadu,Chennai,2022,46198,8421,13876,6344,2734,298,178.9,44.1,NCRB Crime in India 2022
+Tamil Nadu,Chennai,2021,41876,7812,12543,5987,2612,281,162.4,46.8,NCRB Crime in India 2021
+Tamil Nadu,Kancheepuram,2023,18432,3241,5621,2341,1243,134,142.1,51.2,NCRB Crime in India 2023
+Tamil Nadu,Chengalpattu,2023,14821,2876,4312,1987,1087,118,131.4,53.8,NCRB Crime in India 2023
+Tamil Nadu,Tiruvallur,2023,12341,2143,3876,1654,921,97,124.7,56.2,NCRB Crime in India 2023

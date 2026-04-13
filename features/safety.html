@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANCHARAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global-nav.css">
+    <style>
+        :root {
+            --bg: #000000;
+            --accent: #FFD700;
+            --text: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        main { width: 100%; max-width: 1200px; padding: 1rem; }
+
+        .hero-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.5rem, 12vw, 11rem);
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -6px;
+            margin-bottom: 2rem;
+            white-space: nowrap;
+        }
+
+        /* --- SETUP FORM --- */
+        .setup-container {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            background: #080808;
+            border: 2px solid #1a1a1a;
+            padding: 1.5rem;
+            color: white;
+            font-family: 'Space Mono';
+            font-size: 1.2rem;
+            outline: none;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        input:focus { border-color: var(--accent); }
+
+        .btn-init {
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 1.2rem;
+            font-family: 'Archivo Black', sans-serif;
+            width: 100%;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        /* --- PANIC UI --- */
+        #panic-screen { display: none; }
+
+        .panic-btn {
+            width: 320px;
+            height: 320px;
+            border: 15px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            border-radius: 50%;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.2rem;
+            cursor: pointer;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.1s;
+        }
+
+        .panic-btn:active {
+            background: var(--accent);
+            color: black;
+            transform: scale(0.92);
+        }
+
+        @media (max-width: 400px) {
+            .panic-btn {
+                width: 85vw;
+                height: 85vw;
+                max-width: 320px;
+                max-height: 320px;
+                border-width: 10px;
+                font-size: 1.8rem;
+                touch-action: manipulation;
+            }
+        }
+
+        .edit-link {
+            margin-top: 2.5rem;
+            color: #444;
+            cursor: pointer;
+            text-decoration: underline;
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .edit-link:hover { color: var(--accent); }
+
+        /* --- NOTIFICATION BAR --- */
+        #alert-toast {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--accent);
+            color: black;
+            padding: 1.2rem;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description" content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="gn-navbar">
+      <a href="../features.html" class="gn-logo">Sancharam</a>
+      <div class="gn-links">
+        <a href="itinerary.html" class="gn-link">AI Itinerary</a>
+        <a href="routing.html" class="gn-link">Smart Routing</a>
+        <a href="safety.html" class="gn-link">Safety</a>
+        <a href="uncharted.html" class="gn-link">Hidden Gems</a>
+        <a href="blockchain.html" class="gn-link">Blockchain ID</a>
+      </div>
+    </nav>
+
+    <div id="alert-toast"></div>
+
+    <main>
+        <h1 class="hero-title">SANCHARAM</h1>
+
+        <section id="setup-screen">
+            <div class="setup-container">
+                <label>Emergency Contact</label>
+                <input type="tel" id="ePhone" placeholder="+91 XXXX XXXX">
+                <button class="btn-init" onclick="saveData()">Save & Arm System</button>
+            </div>
+        </section>
+
+        <section id="panic-screen">
+            <button class="panic-btn" aria-label="Send SOS Signal" onclick="triggerAlert()">SEND<br>SIGNAL</button>
+            <br>
+            <span class="edit-link" onclick="editMode()">Change Guardian Number</span>
+            <p style="margin-top: 3rem; color: #222; letter-spacing: 5px; font-size: 0.7rem;">ENCRYPTED_RELAY: ACTIVE</p>
+        </section>
+    </main>
+
+    <script>
+        // Token is now secured via Netlify serverless function
+
+        // Check for existing data on load
+        window.onload = function() {
+            const savedNum = localStorage.getItem('sancharam_num');
+            if (savedNum) {
+                showPanic(savedNum);
+            }
+        };
+
+        function saveData() {
+            const num = document.getElementById('ePhone').value.trim();
+            if (!num || num.replace(/[\s\-+]/g, '').length < 8) {
+                alert("Please enter a valid phone number.");
+                return;
+            }
+            localStorage.setItem('sancharam_num', num);
+            showPanic(num);
+        }
+
+        function showPanic(num) {
+            document.getElementById('setup-screen').style.display = 'none';
+            document.getElementById('panic-screen').style.display = 'block';
+        }
+
+        function editMode() {
+            localStorage.removeItem('sancharam_num');
+            location.reload(); // Restarts the flow
+        }
+
+        async function triggerAlert() {
+            const num = localStorage.getItem('sancharam_num');
+            const toast = document.getElementById('alert-toast');
+
+            // Visual Feedback (Flash)
+            toast.innerText = "SIGNALING RELAY...";
+            toast.style.display = 'block';
+            document.body.style.backgroundColor = "white";
+            setTimeout(() => { 
+                document.body.style.backgroundColor = "black"; 
+            }, 200);
+
+            let locStr = "Location Unknown";
+            try {
+                const pos = await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 4000 }));
+                locStr = `Lat: ${pos.coords.latitude.toFixed(4)}, Lng: ${pos.coords.longitude.toFixed(4)}`;
+            } catch (err) { console.warn("Geolocation skipped", err); }
+
+            // True Free Relay via Netlify function
+            try {
+                const response = await fetch('/.netlify/functions/alert', {
+                    method: 'POST',
+                    body: JSON.stringify({ phone: num, location: locStr })
+                });
+
+                if (response.ok) {
+                    toast.innerText = `ALERT DISPATCHED TO ${num}`;
+                } else {
+                    toast.innerText = "RELAY ERROR: CHECK TOKEN";
+                }
+            } catch (error) {
+                toast.innerText = "OFFLINE: SIGNAL FAILED";
+                console.error(error);
+            }
+
+            // Hide toast after 4 seconds
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+    </script>
+</body>
+</html>
