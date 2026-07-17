@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://sancharam-app.netlify.app/sitemap.xml

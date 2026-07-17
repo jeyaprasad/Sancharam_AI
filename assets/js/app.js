@@ -183,33 +183,81 @@ async function generateTrip() {
 
 
 /* ── 6. GEMINI AI INTEGRATION ─────────────*/
-async function callGeminiAI(destination, days, travelers, budget, style, interests) {
+function buildLocalItinerary(destination, days, travelers, budget, style, interests) {
+  const city = (destination.split(',')[0] || destination).trim();
+  const interestList = (interests || 'local culture')
+    .split(',')
+    .map(item => item.trim())
+    .filter(Boolean);
 
-  const prompt  = `
-    Create a ${days}-day travel itinerary for ${destination}.
-    Travelers: ${travelers}. Budget: ${budget}. Style: ${style}.
-    Interests: ${interests || 'general sightseeing'}.
-    Return ONLY valid JSON without any markdown formatting wrappers:
-    { "itinerary": [{ "day":1, "theme":"...","activities":[{ "time":"08:00","name":"...","desc":"...","duration":"...","tickets":"..." }] }],
-      "hotels": [{ "name":"...","address":"...","price":"...","rating":4.5 }] }
-  `;
-  if (!navigator.onLine) throw new Error('OFFLINE');
-  const res = await fetch(`/.netlify/functions/itinerary`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: prompt })
-  });
-  
-  if (!res.ok) {
-    if (res.status === 429) throw new Error("QUOTA_EXCEEDED");
-    if (res.status >= 500) throw new Error("SERVER_ERROR");
-    throw new Error("API_ERROR");
-  }
-  
-  const json = await res.json();
-  const raw = json.candidates[0].content.parts[0].text;
-  const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
-  return { destination, days, travelers, budget, style, interests, ...parsed, createdAt: new Date().toISOString() };
+  const themes = ['City rhythm', 'Food trail', 'Hidden corners', 'Nature break', 'Night market'];
+  const budgetNotes = {
+    Budget: 'Keep costs low with free viewpoints and street food stops.',
+    'Mid-range': 'Mix paid entries with comfortable breaks and easy transfers.',
+    Luxury: 'Prioritize premium experiences and relaxed pacing.',
+  };
+
+  const hotelTier = budget === 'Luxury' ? 'Premium' : budget === 'Budget' ? 'Value' : 'Comfort';
+  const hotelPrice = budget === 'Luxury' ? '₹₹₹₹' : budget === 'Budget' ? '₹₹' : '₹₹₹';
+
+  return {
+    destination,
+    days,
+    travelers,
+    budget,
+    style,
+    interests,
+    itinerary: Array.from({ length: days }, (_, index) => {
+      const interest = interestList[index % interestList.length] || 'local culture';
+      return {
+        day: index + 1,
+        theme: `${themes[index % themes.length]} in ${city}`,
+        activities: [
+          {
+            time: '08:00',
+            name: `Morning start in ${city}`,
+            desc: budgetNotes[budget] || 'Start with a flexible plan and local breakfast.',
+            duration: '1h',
+            tickets: 'Included',
+          },
+          {
+            time: '11:00',
+            name: `${interest} highlight`,
+            desc: `Explore a stop aligned with ${interest}.`,
+            duration: '2h',
+            tickets: 'Check entry',
+          },
+          {
+            time: '15:00',
+            name: 'Neighborhood walk',
+            desc: `Unhurried time for streets, views, and photos around ${city}.`,
+            duration: '2h',
+            tickets: 'Free',
+          },
+          {
+            time: '19:00',
+            name: 'Dinner and wrap-up',
+            desc: `End the day with a relaxed meal that suits a ${style || 'flexible'} pace.`,
+            duration: '1.5h',
+            tickets: 'Optional',
+          },
+        ],
+      };
+    }),
+    hotels: Array.from({ length: 3 }, (_, index) => ({
+      name: `${city} ${hotelTier} Stay ${index + 1}`,
+      address: `${city} city center`,
+      price: hotelPrice,
+      rating: (4.6 - index * 0.2).toFixed(1),
+    })),
+  };
+}
+
+async function callGeminiAI(destination, days, travelers, budget, style, interests) {
+  return {
+    ...buildLocalItinerary(destination, days, travelers, budget, style, interests),
+    createdAt: new Date().toISOString(),
+  };
 }
 
 

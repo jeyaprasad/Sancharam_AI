@@ -239,22 +239,13 @@
                 locStr = `Lat: ${pos.coords.latitude.toFixed(4)}, Lng: ${pos.coords.longitude.toFixed(4)}`;
             } catch (err) { console.warn("Geolocation skipped", err); }
 
-            // True Free Relay via Netlify function
-            try {
-                const response = await fetch('/.netlify/functions/alert', {
-                    method: 'POST',
-                    body: JSON.stringify({ phone: num, location: locStr })
-                });
-
-                if (response.ok) {
-                    toast.innerText = `ALERT DISPATCHED TO ${num}`;
-                } else {
-                    toast.innerText = "RELAY ERROR: CHECK TOKEN";
-                }
-            } catch (error) {
-                toast.innerText = "OFFLINE: SIGNAL FAILED";
-                console.error(error);
-            }
+            // The server relay has been removed, so keep the alert local.
+            localStorage.setItem('sancharam_last_alert', JSON.stringify({
+                phone: num,
+                location: locStr,
+                capturedAt: new Date().toISOString()
+            }));
+            toast.innerText = num ? `ALERT CAPTURED FOR ${num}` : "ALERT CAPTURED";
 
             // Hide toast after 4 seconds
             setTimeout(() => { toast.style.display = 'none'; }, 4000);
