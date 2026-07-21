@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -11,3 +12,546 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+=======
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sancharam - Discover Chennai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --amber: #F5A524;
+            --amber-deep: #C2410C;
+            --ink: #0B0B0C;
+            --paper: #F5F2EA;
+            --muted: rgba(245, 242, 234, .62);
+            --ease: cubic-bezier(.22, 1, .36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--ink)
+        }
+
+        body {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            color: var(--paper);
+            -webkit-font-smoothing: antialiased
+        }
+
+        :lang(ta) {
+            font-family: 'Noto Sans Tamil', 'Space Grotesk', sans-serif;
+            text-transform: none
+        }
+
+        ::selection {
+            background: var(--amber);
+            color: #000
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 4px;
+            border-radius: 8px
+        }
+
+        /* ── SLIDESHOW ── */
+        .slideshow-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100vh
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 1.8s var(--ease), transform 8s linear;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1)
+        }
+
+        /* Cinematic grade instead of heavy blur */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: center;
+            padding: clamp(28px, 7vw, 96px);
+            padding-bottom: clamp(96px, 14vh, 150px);
+            background:
+                linear-gradient(105deg, rgba(11, 11, 12, .94) 0%, rgba(11, 11, 12, .72) 42%, rgba(11, 11, 12, .28) 78%, rgba(11, 11, 12, .55) 100%),
+                linear-gradient(to top, rgba(11, 11, 12, .92) 0%, transparent 46%);
+            text-align: left;
+        }
+
+        /* subtle film grain */
+        .overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .22;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+        }
+
+        .inner {
+            max-width: 840px;
+            position: relative;
+            z-index: 2
+        }
+
+        /* ── BADGE ── */
+        .namma-chennai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 20px 9px 16px;
+            background: rgba(245, 165, 36, .1);
+            color: var(--amber);
+            font-size: .9rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            border-radius: 99px;
+            border: 1px solid rgba(245, 165, 36, .32);
+            margin-bottom: 28px;
+            backdrop-filter: blur(10px);
+            animation: fadeUp .9s var(--ease) both;
+        }
+
+        .namma-chennai-badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--amber);
+            box-shadow: 0 0 0 0 rgba(245, 165, 36, .6);
+            animation: pulse 2.4s infinite;
+        }
+
+        @keyframes pulse {
+            70% {
+                box-shadow: 0 0 0 9px rgba(245, 165, 36, 0)
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 165, 36, 0)
+            }
+        }
+
+        /* ── TITLE ── */
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: clamp(3rem, 9vw, 7.5rem);
+            line-height: .92;
+            letter-spacing: .01em;
+            color: var(--paper);
+            margin-bottom: 26px;
+            min-height: 1.05em;
+            animation: fadeUp .9s .1s var(--ease) both;
+        }
+
+        h1 .cursor {
+            display: inline-block;
+            width: 4px;
+            height: .78em;
+            background: var(--amber);
+            margin-left: 8px;
+            vertical-align: baseline;
+            transform: translateY(.04em);
+            animation: blinkCursor .8s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            50% {
+                opacity: 0
+            }
+        }
+
+        h1:lang(ta),
+        h1 [lang="ta"] {
+            font-family: 'Noto Sans Tamil', sans-serif;
+            font-size: .62em;
+            line-height: 1.25
+        }
+
+        /* accent rule under title */
+        .rule {
+            width: 78px;
+            height: 3px;
+            background: var(--amber);
+            border-radius: 2px;
+            margin-bottom: 26px;
+            transform-origin: left;
+            animation: grow 1s .35s var(--ease) both;
+        }
+
+        @keyframes grow {
+            from {
+                transform: scaleX(0)
+            }
+
+            to {
+                transform: scaleX(1)
+            }
+        }
+
+        /* ── SUBLINE ── */
+        .chennai-subline {
+            font-size: clamp(1rem, 1.5vw, 1.16rem);
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 56ch;
+            font-weight: 300;
+            animation: fadeUp .9s .2s var(--ease) both;
+        }
+
+        /* ── CTA ── */
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 38px;
+            padding: 17px 36px;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            background: var(--amber);
+            color: #1A1206;
+            border-radius: 99px;
+            text-decoration: none;
+            transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .3s;
+            box-shadow: 0 10px 30px rgba(245, 165, 36, .26);
+            animation: fadeUp .9s .3s var(--ease) both;
+        }
+
+        .next-button svg {
+            width: 16px;
+            height: 16px;
+            transition: transform .35s var(--ease)
+        }
+
+        .next-button:hover {
+            background: #FFB93D;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(245, 165, 36, .42);
+        }
+
+        .next-button:hover svg {
+            transform: translateX(5px)
+        }
+
+        /* ── TAMIL SLOGAN ── */
+        .tamil-bottom {
+            position: absolute;
+            left: clamp(28px, 7vw, 96px);
+            bottom: clamp(26px, 5vh, 44px);
+            z-index: 11;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'Noto Sans Tamil', serif;
+            font-weight: 400;
+            font-size: clamp(.95rem, 1.5vw, 1.15rem);
+            color: var(--amber);
+            letter-spacing: .02em;
+            animation: fadeUp .9s .45s var(--ease) both;
+        }
+
+        .tamil-bottom::before {
+            content: '';
+            width: 34px;
+            height: 1px;
+            background: rgba(245, 165, 36, .5);
+            flex-shrink: 0;
+        }
+
+        /* ── SLIDE PROGRESS DOTS ── */
+        .dots {
+            position: absolute;
+            right: clamp(28px, 7vw, 96px);
+            bottom: clamp(26px, 5vh, 44px);
+            z-index: 11;
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            animation: fadeUp .9s .45s var(--ease) both;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            padding: 0;
+            cursor: pointer;
+            background: rgba(245, 242, 234, .28);
+            border: 0;
+            transition: width .45s var(--ease), background .35s;
+        }
+
+        .dot.active {
+            width: 26px;
+            border-radius: 99px;
+            background: var(--amber)
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:768px) {
+            .overlay {
+                align-content: end;
+                padding-bottom: clamp(110px, 20vh, 170px);
+                text-align: left
+            }
+
+            h1 {
+                font-size: clamp(2.6rem, 13vw, 4rem)
+            }
+
+            .chennai-subline {
+                font-size: .98rem
+            }
+
+            .next-button {
+                width: 100%;
+                justify-content: center
+            }
+
+            .dots {
+                left: clamp(28px, 7vw, 96px);
+                right: auto;
+                bottom: auto;
+                top: clamp(24px, 4vh, 40px)
+            }
+
+            .tamil-bottom {
+                font-size: .92rem
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important
+            }
+
+            .slide {
+                transform: none
+            }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <meta name="description"
+        content="Sancharam – smart travel planning with AI itineraries, safe routing, and hidden gems across Chennai and the world.">
+    <meta property="og:title" content="Sancharam | Digital Odyssey">
+    <meta property="og:description" content="AI-powered travel for the modern voyager.">
+    <meta property="og:image" content="/assets/images/chennai.jpg">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+    <div class="slideshow-container">
+        <img src="assets/images/chennai.jpg" class="slide active" alt="Chennai cityscape">
+        <img src="assets/images/beaches.jpg" class="slide" alt="Chennai beach at dusk">
+        <img src="assets/images/lighthouse.jpg" class="slide" alt="Chennai lighthouse">
+        <img src="assets/images/walls.jpg" class="slide" alt="Painted walls of Chennai">
+        <img src="assets/images/church.jpg" class="slide" alt="San Thome Basilica">
+
+        <div class="overlay">
+            <div class="inner">
+                <div class="namma-chennai-badge" lang="ta">நம்ம சென்னை</div>
+                <h1><span id="typing-text"></span><span class="cursor" aria-hidden="true"></span></h1>
+                <div class="rule"></div>
+                <p class="chennai-subline">Experience the vibrant soul of the Detroit of India. From the majestic
+                    columns of the High Court to the serene shores of Elliot's Beach, let Sancharam be your digital
+                    guide to unforgettable cultural odysseys.</p>
+
+                <a href="features.html" class="next-button">Start Exploring
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M5 12h14m-6-6 6 6-6 6" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <p class="tamil-bottom" lang="ta">வாழ்க தமிழ் வளர்க தமிழ்</p>
+        <div class="dots" id="dots" role="tablist" aria-label="Slideshow"></div>
+    </div>
+
+    <div data-overlay></div>
+
+    <script>
+        'use strict';
+
+        /**
+         * navbar toggle
+         */
+        const overlay = document.querySelector("[data-overlay]");
+        const navOpenBtn = document.querySelector("[data-nav-open-btn]");
+        const navbar = document.querySelector("[data-navbar]");
+        const navCloseBtn = document.querySelector("[data-nav-close-btn]");
+        const navLinks = document.querySelectorAll("[data-nav-link]");
+
+        const navElemArr = [navOpenBtn, navCloseBtn, overlay];
+
+        const navToggleEvent = function (elem) {
+            if (!elem) return;
+            for (let i = 0; i < elem.length; i++) {
+                if (elem[i]) {
+                    elem[i].addEventListener("click", function () {
+                        if (navbar) navbar.classList.toggle("active");
+                        if (overlay) overlay.classList.toggle("active");
+                    });
+                }
+            }
+        }
+
+        navToggleEvent(navElemArr);
+        if (navLinks && navLinks.length > 0) navToggleEvent(navLinks);
+
+
+        /**
+         * header sticky & go to top
+         */
+        const header = document.querySelector("[data-header]");
+        const goTopBtn = document.querySelector("[data-go-top]");
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY >= 200) {
+                if (header) header.classList.add("active");
+                if (goTopBtn) goTopBtn.classList.add("active");
+            } else {
+                if (header) header.classList.remove("active");
+                if (goTopBtn) goTopBtn.classList.remove("active");
+            }
+        });
+
+
+        /**
+         * Typing effect logic for landing text
+         */
+        const textsToType = ["Welcome to Chennai", "சிங்காரச் சென்னை"];
+        const typingElement = document.getElementById("typing-text");
+        let stringIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeText() {
+            if (!typingElement) return;
+
+            const currentStringArr = Array.from(textsToType[stringIndex]);
+
+            // Tag Tamil strings so they pick up the correct font
+            typingElement.lang = /[\u0B80-\u0BFF]/.test(textsToType[stringIndex]) ? "ta" : "en";
+
+            if (isDeleting) {
+                typingElement.textContent = currentStringArr.slice(0, charIndex - 1).join('');
+                charIndex--;
+            } else {
+                typingElement.textContent = currentStringArr.slice(0, charIndex + 1).join('');
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentStringArr.length) {
+                typeSpeed = 2500;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                stringIndex = (stringIndex + 1) % textsToType.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeText, typeSpeed);
+        }
+        setTimeout(typeText, 500);
+
+        /**
+         * Slideshow logic
+         */
+        const slides = document.querySelectorAll(".slide");
+        const dotsWrap = document.getElementById("dots");
+        let currentSlide = 0;
+        let slideTimer;
+
+        // Warn visibly if the image files aren't found at assets/images/
+        slides.forEach(img => {
+            img.addEventListener("error", () => {
+                console.warn("Slide image not found:", img.getAttribute("src"));
+                document.body.style.background =
+                    "linear-gradient(135deg,#1a1206,#0B0B0C)";
+            });
+        });
+
+        // Build progress dots
+        slides.forEach((_, i) => {
+            const b = document.createElement("button");
+            b.className = "dot" + (i === 0 ? " active" : "");
+            b.setAttribute("aria-label", "Go to slide " + (i + 1));
+            b.addEventListener("click", () => goToSlide(i));
+            dotsWrap.appendChild(b);
+        });
+        const dots = dotsWrap.querySelectorAll(".dot");
+
+        function goToSlide(i) {
+            if (slides.length === 0) return;
+            slides[currentSlide].classList.remove("active");
+            dots[currentSlide].classList.remove("active");
+            currentSlide = (i + slides.length) % slides.length;
+            slides[currentSlide].classList.add("active");
+            dots[currentSlide].classList.add("active");
+            restartTimer();
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+
+        function restartTimer() {
+            clearInterval(slideTimer);
+            slideTimer = setInterval(nextSlide, 6000);
+        }
+        restartTimer();
+    </script>
+</body>
+
+</html>
+>>>>>>> 929f869f89e98eb34b278f194914895f5bf23264
