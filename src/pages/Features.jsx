@@ -45,29 +45,31 @@ const Features = () => {
 
   return (
     <div className="features-container">
-      <header>
-        <div className="nav-in">
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/features" aria-current="page">Features</Link>
-            <Link to="/features/itinerary">Planner</Link>
-          </nav>
-        </div>
-      </header>
+      <div className="features-hero-bg">
+        <header>
+          <div className="nav-in">
+            <Link to="/" className="logo">San<span>charam</span></Link>
+            <nav>
+              <Link to="/">Home</Link>
+              <Link to="/features" aria-current="page">Features</Link>
+              <Link to="/features/itinerary">Planner</Link>
+            </nav>
+          </div>
+        </header>
 
-      <section className="hero wrap">
-        <div className="rv" ref={addToRefs}>
-          <span className="pill" lang="ta"><i></i>நம்ம சென்னை</span>
-          <h1>Built for the city that <em>never sits still</em></h1>
-          <p className="hero-sub">Five interlocking systems that read Chennai in real time — safety data, traffic patterns, adaptive schedules, and the streets no map bothers to name.</p>
-        </div>
-        <div className="hero-side rv" ref={addToRefs}>
-          <div className="stat"><b>21</b><span>Risk zones mapped</span></div>
-          <div className="stat"><b>40+</b><span>Uncharted spots</span></div>
-          <div className="stat"><b>5</b><span>Core systems</span></div>
-        </div>
-      </section>
+        <section className="hero wrap">
+          <div className="rv" ref={addToRefs}>
+            <span className="pill" lang="ta"><i></i>நம்ம சென்னை</span>
+            <h1>Built for the city that <em>never sits still</em></h1>
+            <p className="hero-sub">Five interlocking systems that read Chennai in real time — safety data, traffic patterns, adaptive schedules, and the streets no map bothers to name.</p>
+          </div>
+          <div className="hero-side rv" ref={addToRefs}>
+            <div className="stat"><b>21</b><span>Risk zones mapped</span></div>
+            <div className="stat"><b>40+</b><span>Uncharted spots</span></div>
+            <div className="stat"><b>5</b><span>Core systems</span></div>
+          </div>
+        </section>
+      </div>
 
       <section className="sec wrap">
         <div className="sec-head rv" ref={addToRefs}>

@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [typedText, setTypedText] = useState('');
-  const textsToType = ["Welcome to Chennai", "சிங்காரச் சென்னை"];
-  
+  const [showTamil, setShowTamil] = useState(false);
+
   const slides = [
     '/assets/images/chennai.jpg',
     '/assets/images/beaches.jpg',
     '/assets/images/lighthouse.jpg',
-    '/assets/images/walls.jpg',
+    '/assets/images/shoretemple.png',
     '/assets/images/church.jpg'
   ];
 
@@ -22,66 +21,58 @@ const Home = () => {
     return () => clearInterval(slideInterval);
   }, [slides.length]);
 
-  // Typing Effect
+  // Language Toggle Effect
   useEffect(() => {
-    let stringIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let timeout;
-
-    const typeText = () => {
-      const currentStringArr = Array.from(textsToType[stringIndex]);
-
-      if (isDeleting) {
-        setTypedText(currentStringArr.slice(0, charIndex - 1).join(''));
-        charIndex--;
-      } else {
-        setTypedText(currentStringArr.slice(0, charIndex + 1).join(''));
-        charIndex++;
-      }
-
-      let typeSpeed = isDeleting ? 40 : 80;
-
-      if (!isDeleting && charIndex === currentStringArr.length) {
-        typeSpeed = 2500; // Pause at the end of the word
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        stringIndex = (stringIndex + 1) % textsToType.length;
-        typeSpeed = 500; // Pause before typing the next word
-      }
-
-      timeout = setTimeout(typeText, typeSpeed);
-    };
-
-    timeout = setTimeout(typeText, 500);
-
-    return () => clearTimeout(timeout);
+    const langInterval = setInterval(() => {
+      setShowTamil(prev => !prev);
+    }, 4000);
+    return () => clearInterval(langInterval);
   }, []);
 
   return (
-    <div className="home-container">
-      <div className="slideshow-container">
-        {/* Slideshow Images */}
+    <div className="home-center-container">
+      {/* Background Slideshow */}
+      <div className="home-center-slideshow">
         {slides.map((src, index) => (
-          <img 
-            key={index} 
-            src={src} 
-            className={`slide ${index === currentSlide ? 'active' : ''}`} 
+          <img
+            key={index}
+            src={src}
+            className={`home-slide ${index === currentSlide ? 'active' : ''}`}
             alt="Slideshow image"
           />
         ))}
+        {/* Deep dark overlay to make centered text pop */}
+        <div className="home-center-overlay"></div>
+      </div>
 
-        <div className="overlay">
-          <div className="namma-chennai-badge">நம்ம சென்னை</div>
-          <h1>{typedText}</h1>
-          <p className="chennai-subline">
-            Experience the vibrant soul of the Detroit of India. From the majestic columns of the High Court to the serene shores of Elliot's Beach, let Sancharam be your digital guide to unforgettable cultural odysseys.
-          </p>
-          <Link to="/features" className="next-button">Start Exploring →</Link>
+      {/* Centered Content */}
+      <div className="home-center-content">
+        <div className="home-center-badge">
+          <span lang="ta">நம்ம சென்னை</span>
         </div>
 
-        <p className="tamil-bottom">வாழ்க தமிழ் வளர்க தமிழ்</p>
+        <div className="home-title-wrapper">
+          <h1 className={`home-center-title lang-text ${showTamil ? 'fade-out' : 'fade-in'}`}>
+            Welcome to <br /> Chennai
+          </h1>
+          <h1 className={`home-center-title lang-text tamil-title ${showTamil ? 'fade-in' : 'fade-out'}`}>
+            சென்னைக்கு <br /> வரவேற்கிறோம்
+          </h1>
+        </div>
+
+        <p className="home-center-description">
+          Experience the vibrant soul of the Detroit of India. From the majestic columns of the High Court to the serene shores of Elliot's Beach, let Sancharam be your digital guide to unforgettable cultural odysseys.
+        </p>
+
+        <div className="home-center-actions">
+          <Link to="/features" className="home-center-cta-btn">
+            Start Exploring
+          </Link>
+        </div>
+      </div>
+
+      <div className="home-center-footer">
+        வாழ்க தமிழ் வளர்க தமிழ்
       </div>
     </div>
   );
