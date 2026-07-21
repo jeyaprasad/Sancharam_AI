@@ -1,0 +1,42 @@
+[
+  {
+    "id": "RZ-001",
+    "name": "T Nagar Junction",
+    "coordinates": [13.0418, 80.2341],
+    "riskLevel": "High",
+    "description": "High traffic congestion and pedestrian density.",
+    "lastUpdated": "2023-10-25T10:00:00Z"
+  },
+  {
+    "id": "RZ-002",
+    "name": "Velachery Main Road",
+    "coordinates": [12.9815, 80.2180],
+    "riskLevel": "Medium",
+    "description": "Frequent waterlogging during monsoons.",
+    "lastUpdated": "2023-10-25T09:30:00Z"
+  },
+  {
+    "id": "RZ-003",
+    "name": "Guindy Kathipara",
+    "coordinates": [13.0116, 80.2036],
+    "riskLevel": "High",
+    "description": "Complex interchange with frequent accidents.",
+    "lastUpdated": "2023-10-25T11:15:00Z"
+  },
+  {
+    "id": "RZ-004",
+    "name": "OMR Sholinganallur",
+    "coordinates": [12.9008, 80.2279],
+    "riskLevel": "Low",
+    "description": "Peak hour IT corridor traffic.",
+    "lastUpdated": "2023-10-25T08:45:00Z"
+  },
+  {
+    "id": "RZ-005",
+    "name": "Marina Beach Road",
+    "coordinates": [13.0500, 80.2824],
+    "riskLevel": "Medium",
+    "description": "High pedestrian movement on weekends.",
+    "lastUpdated": "2023-10-25T07:20:00Z"
+  }
+]
