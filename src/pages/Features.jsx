@@ -48,7 +48,9 @@ const Features = () => {
       <div className="features-hero-bg">
         <header>
           <div className="nav-in">
-            <Link to="/" className="logo">San<span>charam</span></Link>
+            <Link to="/" className="logo-img-link">
+              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
+            </Link>
             <nav>
               <Link to="/">Home</Link>
               <Link to="/features" aria-current="page">Features</Link>
@@ -81,72 +83,72 @@ const Features = () => {
         <div className="tabs rv" role="tablist" aria-label="Features" ref={addToRefs}>
           <button className="tab" role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)} onKeyDown={handleKeyDown}>
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span className="lbl">Safety</span><span className="tab-n">01</span>
+            <span className="lbl">Sentinel</span><span className="tab-n">01</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 1} onClick={() => setActiveTab(1)} onKeyDown={handleKeyDown}>
             <svg viewBox="0 0 24 24"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6 3-6-3Z"/><path d="M9 7v13M15 4v13"/></svg>
-            <span className="lbl">Routing</span><span className="tab-n">02</span>
+            <span className="lbl">Sacred</span><span className="tab-n">02</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 2} onClick={() => setActiveTab(2)} onKeyDown={handleKeyDown}>
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span className="lbl">Timelines</span><span className="tab-n">03</span>
+            <span className="lbl">Heritage</span><span className="tab-n">03</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 3} onClick={() => setActiveTab(3)} onKeyDown={handleKeyDown}>
             <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-            <span className="lbl">Identity</span><span className="tab-n">04</span>
+            <span className="lbl">Guardian</span><span className="tab-n">04</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 4} onClick={() => setActiveTab(4)} onKeyDown={handleKeyDown}>
             <svg viewBox="0 0 24 24"><path d="M2 12h4m12 0h4M12 2v4m0 12v4"/><circle cx="12" cy="12" r="5"/></svg>
-            <span className="lbl">Uncharted</span><span className="tab-n">05</span>
+            <span className="lbl">Tribes</span><span className="tab-n">05</span>
           </button>
         </div>
 
         <div className={`panel ${activeTab === 0 ? 'on' : ''} rv`} role="tabpanel" hidden={activeTab !== 0} ref={addToRefs}>
           <div>
-            <h3>Safety Intelligence</h3>
-            <p>Ward-level risk scoring built from Chennai Police crime zone data, NCRB district summaries and TNSTA accident blackspots. Know which junction turns hostile after 9 PM before you're standing in it.</p>
-            <div className="chips"><span className="chip">Crime zones</span><span className="chip">NCRB 2023</span><span className="chip">Blackspots</span></div>
-            <Link to="/features/safety" className="go">Explore safety <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Kaavalar Paathaikal <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Sentinel Trails</span></h3>
+            <p>Venture off the beaten path with confidence. Sentinel Trails curates scenic routes through lesser-known neighborhoods, enhanced with real-time safety insights from local authorities and traveler feedback. Discover hidden gems while prioritizing your well-being.</p>
+            <div className="chips"><span className="chip">Scenic Routes</span><span className="chip">Safety Insights</span><span className="chip">Hidden Gems</span></div>
+            <Link to="/features/safety" className="go">Explore trails <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.5"/></svg></div>
         </div>
 
         <div className={`panel ${activeTab === 1 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 1}>
           <div>
-            <h3>Smart Routing</h3>
-            <p>Geocoded route analysis that cross-references your path against high-risk junctions and accident-prone corridors — not just the fastest line on the map. Kathipara at rush hour is a different road than Kathipara at noon.</p>
-            <div className="chips"><span className="chip">Geocoding</span><span className="chip">Risk overlay</span><span className="chip">21 junctions</span></div>
-            <Link to="/features/routing" className="go">Plan a route <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Dharma Diary <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Sacred Journeys</span></h3>
+            <p>Immerse yourself in the spiritual essence of Tamil Nadu. Sacred Journeys crafts personalized temple trails based on your religious interests, connecting you with sacred spaces, ancient rituals, and enlightening experiences. Document your journey with built-in travel journaling.</p>
+            <div className="chips"><span className="chip">Temple Trails</span><span className="chip">Travel Journal</span><span className="chip">Culture</span></div>
+            <Link to="/features/routing" className="go">Start a journey <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><path d="M4 20c4-2 3-8 8-9s6-6 8-8"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="3" r="2"/></svg></div>
         </div>
 
         <div className={`panel ${activeTab === 2 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 2}>
           <div>
-            <h3>Fluid Timelines</h3>
-            <p>Day plans that reflow when you linger over filter coffee. Shift one stop and the rest re-sequences around traffic, opening hours and daylight — no rebuilding the whole afternoon from scratch.</p>
-            <div className="chips"><span className="chip">Auto-reflow</span><span className="chip">Opening hours</span><span className="chip">Save & sync</span></div>
-            <Link to="/features/itinerary" className="go">Build an itinerary <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Vaasal Concierge <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Heritage Concierge</span></h3>
+            <p>Heritage Concierge is your virtual guide to authentic Tamil experiences. From booking traditional homestays to arranging cultural workshops with local artisans, Heritage Concierge ensures a deeper connection with the region's heritage.</p>
+            <div className="chips"><span className="chip">Homestays</span><span className="chip">Workshops</span><span className="chip">Local Artisans</span></div>
+            <Link to="/features/itinerary" className="go">Meet your guide <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 5.5V12l4.5 3"/></svg></div>
         </div>
 
         <div className={`panel ${activeTab === 3 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 3}>
           <div>
-            <h3>Vault Identity</h3>
-            <p>Check-ins and bookings verified against a decentralised identity record. Your documents stay yours; the hotel only gets the proof it actually needs, and nothing more.</p>
-            <div className="chips"><span className="chip">Self-custody</span><span className="chip">Zero-knowledge</span><span className="chip">Check-in</span></div>
-            <Link to="/features/blockchain" className="go">See how it works <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Kaaval Companion <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Guardian Shield</span></h3>
+            <p>Stay protected round the clock with Guardian Shield, your personal safety companion. Leveraging advanced risk assessment and live location tracking, it provides discreet alerts when entering higher-risk areas and offers swift emergency assistance.</p>
+            <div className="chips"><span className="chip">Live Tracking</span><span className="chip">Risk Alerts</span><span className="chip">SOS Assistance</span></div>
+            <Link to="/features/blockchain" className="go">Enable shield <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><rect x="3.5" y="9.5" width="17" height="12" rx="2.5"/><path d="M7.5 9.5V6.5a4.5 4.5 0 0 1 9 0v3"/></svg></div>
         </div>
 
         <div className={`panel ${activeTab === 4 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 4}>
           <div>
-            <h3>Uncharted Madras</h3>
-            <p>Kasimedu at dawn, Linghi Chetty Street's ledgers, Broken Bridge at dusk. Forty-odd places the algorithms overlook, each with a pin you can actually open.</p>
-            <div className="chips"><span className="chip">40+ places</span><span className="chip">Map pins</span><span className="chip">Local notes</span></div>
-            <Link to="/features/uncharted" className="go">Go off-map <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Namma Nanbargal <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Travel Tribes</span></h3>
+            <p>Connect with like-minded travelers and unlock community-sourced wisdom. Join interest-based travel circles, exchange insider tips, and coordinate group activities. Collaborate on itineraries and build lasting friendships with fellow explorers.</p>
+            <div className="chips"><span className="chip">Travel Circles</span><span className="chip">Group Activities</span><span className="chip">Itinerary Sync</span></div>
+            <Link to="/features/uncharted" className="go">Join a tribe <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><path d="M2 12h4.5m11 0H22M12 2v4.5m0 11V22"/><circle cx="12" cy="12" r="5.5"/></svg></div>
         </div>
