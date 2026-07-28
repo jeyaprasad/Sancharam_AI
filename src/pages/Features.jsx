@@ -53,6 +53,7 @@ const Features = () => {
               <Link to="/">Home</Link>
               <Link to="/features" aria-current="page">Features</Link>
               <Link to="/features/itinerary">Planner</Link>
+              <Link to="/features/budget">Budget</Link>
             </nav>
           </div>
         </header>
@@ -143,10 +144,10 @@ const Features = () => {
 
         <div className={`panel ${activeTab === 4 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 4}>
           <div>
-            <h3>Uncharted Madras</h3>
-            <p>Kasimedu at dawn, Linghi Chetty Street's ledgers, Broken Bridge at dusk. Forty-odd places the algorithms overlook, each with a pin you can actually open.</p>
-            <div className="chips"><span className="chip">40+ places</span><span className="chip">Map pins</span><span className="chip">Local notes</span></div>
-            <Link to="/features/uncharted" className="go">Go off-map <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3>Namma Nanbargal <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Travel Tribes</span></h3>
+            <p>Connect with like-minded travelers and unlock community-sourced wisdom. Join interest-based travel circles, exchange insider tips, and coordinate group activities. Collaborate on itineraries and build lasting friendships with fellow explorers.</p>
+            <div className="chips"><span className="chip">Travel Circles</span><span className="chip">Group Activities</span><span className="chip">Itinerary Sync</span></div>
+            <Link to="/features/tribes" className="go">Join a tribe <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
           </div>
           <div className="panel-art"><svg viewBox="0 0 24 24"><path d="M2 12h4.5m11 0H22M12 2v4.5m0 11V22"/><circle cx="12" cy="12" r="5.5"/></svg></div>
         </div>
@@ -187,6 +188,7 @@ const Features = () => {
             <Link to="/features/safety">Safety</Link>
             <Link to="/features/routing">Routing</Link>
             <Link to="/features/itinerary">Planner</Link>
+            <Link to="/features/budget">Budget</Link>
             <Link to="/features/uncharted">Uncharted</Link>
           </div>
           <small>© 2026 Sancharam · Chennai</small>
