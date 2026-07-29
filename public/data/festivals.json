@@ -1,0 +1,137 @@
+[
+  {
+    "id": 1,
+    "name": "Thai Pongal & Mattu Pongal",
+    "tamil_name": "தைப்பொங்கல் மற்றும் மாட்டுப் பொங்கல்",
+    "month": 1,
+    "district": "statewide",
+    "description": "Tamil harvest festival celebrating the Sun God with freshly boiled sweet Pongal, sugarcane, turmeric plants, and colourful kolam decorations in front of homes.",
+    "travel_tip": "Visit rural villages near Madurai or Thanjavur to experience traditional earthen pot cooking over open woodfires."
+  },
+  {
+    "id": 2,
+    "name": "Thaipusam",
+    "tamil_name": "தைப்பூசம்",
+    "month": 1,
+    "district": "statewide",
+    "description": "Grand festival honoring Lord Murugan with colorful Kavadi Aattam dances, milk pot processions, and devotional chants across Murugan shrines.",
+    "travel_tip": "Witness the spectacular sea of yellow attire at Palani Murugan Temple or Vadapalani Shrine in Chennai."
+  },
+  {
+    "id": 3,
+    "name": "Alanganallur Jallikattu Festival",
+    "tamil_name": "அலங்காநல்லூர் ஜல்லிக்கட்டு",
+    "month": 1,
+    "district": "Madurai",
+    "description": "Ancient Tamil bull-taming sport held during Pongal week, showcasing rural courage, native Kangayam bulls, and village heritage.",
+    "travel_tip": "Book gallery seats in Alanganallur early in the morning and carry sun hats and bottled water."
+  },
+  {
+    "id": 4,
+    "name": "Margazhi Music & Dance Season",
+    "tamil_name": "மார்கழி இசை விழா",
+    "month": 1,
+    "district": "Chennai",
+    "description": "World's largest cultural festival featuring over 2,000 Carnatic vocal concerts, Bharatanatyam recitals, and traditional sabha tiffin canteens.",
+    "travel_tip": "Visit Music Academy and Narada Gana Sabha for morning lectures and evening vocal concerts accompanied by hot Ghee Roast Dosa."
+  },
+  {
+    "id": 5,
+    "name": "Natyanjali Dance Festival",
+    "tamil_name": "நாட்டியாஞ்சலி நடன விழா",
+    "month": 2,
+    "district": "Cuddalore",
+    "description": "Five-day classical dance festival held inside Chidambaram Nataraja Temple celebrating Lord Shiva through captivating Bharatanatyam performances.",
+    "travel_tip": "Stay till midnight during Maha Shivaratri to watch India's top classical dancers perform in the temple courtyard."
+  },
+  {
+    "id": 6,
+    "name": "Mahamaham Festival",
+    "tamil_name": "மகாமகம் பெருவிழா",
+    "month": 2,
+    "district": "Thanjavur",
+    "description": "Sacred tank festival held every 12 years in Kumbakonam, attracting millions of devotees to dip in the holy Mahamaham tank.",
+    "travel_tip": "Sample Kumbakonam degree coffee and explore the surrounding Chola temple circuit."
+  },
+  {
+    "id": 7,
+    "name": "Mamallapuram Indian Dance Festival",
+    "tamil_name": "மாமல்லபுரம் நடன விழா",
+    "month": 2,
+    "district": "Chengalpattu",
+    "description": "Month-long beachfront cultural festival held against the open-air backdrop of 7th-century rock reliefs at Arjuna's Penance.",
+    "travel_tip": "Attend weekend evening shows under the starry sky right after exploring the Shore Temple."
+  },
+  {
+    "id": 8,
+    "name": "Panguni Uthiram",
+    "tamil_name": "பங்குனி உத்திரம்",
+    "month": 3,
+    "district": "statewide",
+    "description": "Celestial wedding anniversary of divine couples celebrated with grand temple chariot processions (Thiru Ther) and flower palanquins.",
+    "travel_tip": "Visit Mylapore Kapaleeshwarar Temple in Chennai to see the giant wooden chariot pulled by thousands of devotees."
+  },
+  {
+    "id": 9,
+    "name": "Chithirai Festival",
+    "tamil_name": "சித்திரை திருவிழா",
+    "month": 4,
+    "district": "Madurai",
+    "description": "15-day extravaganza celebrating the celestial wedding of Goddess Meenakshi & Lord Sundareswarar, followed by Lord Kallazhagar entering the Vaigai River.",
+    "travel_tip": "Head to Vaigai riverbed early morning on the 10th day to witness Lord Kallazhagar's golden horse entry."
+  },
+  {
+    "id": 10,
+    "name": "Thanjavur Chithirai Car Festival",
+    "tamil_name": "தஞ்சாவூர் சித்திரை தேரோட்டம்",
+    "month": 5,
+    "district": "Thanjavur",
+    "description": "Massive wooden temple chariot car festival around the four Car Streets surrounding the 1,000-year-old Brihadeeswarar Temple.",
+    "travel_tip": "Photograph the 40-foot tall carved wooden chariot as it rounds the historic granite temple precincts."
+  },
+  {
+    "id": 11,
+    "name": "Aadi Perukku Water Festival",
+    "tamil_name": "ஆடி பெருக்கு",
+    "month": 8,
+    "district": "statewide",
+    "description": "Monsoon river festival giving thanks to River Kaveri for life-giving water, featuring family picnics, variety rice dishes, and floating lamp offerings.",
+    "travel_tip": "Join local families along Amma Mandapam ghats in Srirangam, Trichy, to taste traditional lemon and tamarind rice."
+  },
+  {
+    "id": 12,
+    "name": "Velankanni Shrine Annual Feast",
+    "tamil_name": "வேளாங்கண்ணி பெருவிழா",
+    "month": 9,
+    "district": "Nagapattinam",
+    "description": "10-day festival honoring Our Lady of Good Health at the famous coastal basilica, drawing millions of pilgrims of all faiths.",
+    "travel_tip": "Attend the evening illuminated car procession along the Coromandel coast beach."
+  },
+  {
+    "id": 13,
+    "name": "Kulasekharapatnam Dasara",
+    "tamil_name": "குலசேகரப்பட்டினம் தசரா",
+    "month": 10,
+    "district": "Thoothukudi",
+    "description": "Vibrant 10-day Dussehra carnival where devotees wear elaborate costumes of Kali, kings, and mythological gods, dancing to loud folk drums.",
+    "travel_tip": "Carry a camera to capture the surreal folk costumes and late-night seaside trance dance rituals."
+  },
+  {
+    "id": 14,
+    "name": "Karthigai Deepam",
+    "tamil_name": "கார்த்திகை தீபம்",
+    "month": 11,
+    "district": "Tiruvannamalai",
+    "description": "Festival of lights where a colossal Mahadeepam beacon flame is lit atop the 2,600-foot holy Annamalai Hill, visible for 30 km.",
+    "travel_tip": "Join the 14-km Girivalam barefoot circumambulation around the sacred hill on the full moon night."
+  },
+  {
+    "id": 15,
+    "name": "Nagore Kanthuri Festival",
+    "tamil_name": "நாகூர் சந்தனக்கூடு விழா",
+    "month": 12,
+    "district": "Nagapattinam",
+    "description": "Grand Sufi festival featuring the ceremonial procession of the sandalwood-encrusted chariot (Santhanakoodu) to the Nagore Dargah.",
+    "travel_tip": "Witness the inclusive communal harmony as people of all religions gather to receive sacred sandalwood paste."
+  }
+]

@@ -1,17 +1,28 @@
 /**
- * Fetches risk zones data from the mock local dataset.
- * In a real application, this would fetch from a database or live API.
+ * Fetches risk zones data from the backend API or local dataset fallback.
  */
 export const fetchRiskZones = async () => {
   try {
-    const response = await fetch('/data/risk_zones.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch('http://localhost:5000/api/risk-zones');
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
     }
-    const data = await response.json();
-    return data;
+  } catch (err) {
+    console.log("Flask backend not available, falling back to local risk_zones.json");
+  }
+
+  try {
+    const response = await fetch('/data/risk_zones.json');
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
   } catch (error) {
     console.error("Could not fetch risk zones:", error);
-    return [];
   }
+
+  return [];
 };
