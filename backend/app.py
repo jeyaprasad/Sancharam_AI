@@ -924,94 +924,88 @@ def chat_bot():
 
 
 @app.route('/api/itinerary', methods=['POST'])
-def generate_itinerary_api():
+def generate_itinerary():
     """
     POST /api/itinerary
-    Generates structured AI itinerary calling OpenAI API (if OPENAI_API_KEY present)
-    or domain fallback generator with local festivals and gems.
+    Generates a structured AI itinerary calling OpenAI API when OPENAI_API_KEY is configured.
+    Returns HTTP 503 error if key is missing or call fails, so frontend fallback can handle it.
     """
     data = request.get_json() or {}
+    user_prompt = data.get('prompt', '')
     destination = data.get('destination', 'Chennai')
-    start_date = data.get('startDate', '2026-08-15')
-    end_date = data.get('endDate', '2026-08-17')
+    start_date = data.get('startDate', '')
+    end_date = data.get('endDate', '')
     travelers = data.get('travelers', 1)
     budget = data.get('budget', 'Moderate')
-    travel_style = data.get('travelStyle', 'Balanced')
-    interests = data.get('specialInterests', 'Culture & Food')
+    travel_style = data.get('travelStyle', 'Cultural')
+    special_interests = data.get('specialInterests', 'Food & Heritage')
 
     openai_key = os.environ.get('OPENAI_API_KEY')
-    if openai_key:
-        try:
-            import openai
-            client = openai.OpenAI(api_key=openai_key)
-            prompt = (
-                f"Create a detailed travel itinerary for {destination} from {start_date} to {end_date}. "
-                f"Travelers: {travelers}, Budget: {budget}, Style: {travel_style}, Interests: {interests}. "
-                "Include authentic local places in Chennai/Tamil Nadu, regional foods, and safety tips."
-            )
-            res = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are Sancharam AI, an expert Tamil Nadu travel planner. Provide a structured, inspiring JSON-style or markdown trip itinerary."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=600,
-                temperature=0.7
-            )
-            raw_reply = res.choices[0].message.content
-            return jsonify({
-                'title': f"{destination} {travel_style} Experience",
-                'summary': f"AI-generated trip from {start_date} to {end_date} for {travelers} traveler(s).",
-                'rawContent': raw_reply,
-                'days': [
-                    {
-                        'day': 1,
-                        'date': start_date,
-                        'theme': f"Heritage & {interests}",
-                        'schedule': [
-                            {'time': '08:30 AM', 'activity': 'Filter Coffee & Breakfast at Rayar Mess', 'location': 'Mylapore', 'notes': 'Famous traditional South Indian breakfast'},
-                            {'time': '10:30 AM', 'activity': 'Explore Kapaleeshwarar Temple & Cultural Precinct', 'location': 'Mylapore', 'notes': 'Classic Dravidian architecture'}
-                        ]
-                    }
-                ],
-                'localTips': [
-                    "Visit temples during early morning hours for cooler weather and traditional rituals.",
-                    "Use Sancharam Sentinel Safety Map for real-time safety scores at night."
-                ]
-            }), 200
-        except Exception as e:
-            print(f"[ITINERARY OPENAI WARN] OpenAI call failed: {e}")
+    if not openai_key:
+        return jsonify({'error': 'OPENAI_API_KEY is not configured in backend/.env'}), 503
 
-    # Domain Fallback Response
-    return jsonify({
-        'title': f"{destination} {travel_style} Corridor Journey",
-        'summary': f"Customized {budget.lower()}-budget itinerary tailored for {travelers} traveler(s) focusing on {interests}.",
-        'days': [
-            {
-                'day': 1,
-                'date': start_date,
-                'theme': 'Heritage & Coastal Culture',
-                'schedule': [
-                    {'time': '08:30 AM', 'activity': 'Traditional Breakfast at Rayar Mess', 'location': 'Mylapore', 'notes': 'Famous Ghee Roast & Filter Coffee'},
-                    {'time': '10:30 AM', 'activity': 'Explore Kapaleeshwarar Temple', 'location': 'Mylapore', 'notes': 'Historic 7th-century Dravidian Gopuram'},
-                    {'time': '04:30 PM', 'activity': 'Sunset Stroll at Marina Beach', 'location': 'Marina', 'notes': 'Enjoy Sundal and sea breeze'}
-                ]
-            },
-            {
-                'day': 2,
-                'date': end_date,
-                'theme': 'Uncharted Heritage & Shore Trails',
-                'schedule': [
-                    {'time': '09:00 AM', 'activity': 'Visit Shore Temple & Pancha Rathas', 'location': 'Mahabalipuram', 'notes': 'UNESCO World Heritage Monuments'},
-                    {'time': '01:00 PM', 'activity': 'Seafood Lunch by the Bay', 'location': 'Covelong Beach', 'notes': 'Fresh local catch with ocean views'}
-                ]
-            }
-        ],
-        'localTips': [
-            "Use Sancharam Sentinel Safety map for real-time night risk scores.",
-            "Carry light cotton clothing and stay hydrated throughout the day."
-        ]
-    }), 200
+    try:
+        import json
+        import openai
+
+        client = openai.OpenAI(api_key=openai_key)
+
+        system_prompt = (
+            "You are Sancharam AI, an expert travel planner specializing exclusively in Chennai and Chengalpattu districts. "
+            "Build a detailed, highly authentic trip itinerary based on user inputs. "
+            "You MUST respond with STRICT JSON ONLY. Do NOT include any markdown code blocks, backticks, or extra commentary. "
+            "Match this exact JSON schema shape:\n"
+            "{\n"
+            '  "destination": "Chennai",\n'
+            '  "days": [\n'
+            "    {\n"
+            '      "day": 1,\n'
+            '      "title": "Day Title",\n'
+            '      "activities": [\n'
+            '        { "time": "09:00 AM", "title": "Activity Name", "description": "Details", "location": "Spot Name" }\n'
+            "      ]\n"
+            "    }\n"
+            "  ],\n"
+            '  "budget_estimate": "INR 5,000 - 8,000",\n'
+            '  "tips": ["Tip 1", "Tip 2"]\n'
+            "}"
+        )
+
+        user_message = (
+            f"User Prompt: {user_prompt}\n"
+            f"Destination: {destination}\n"
+            f"Dates: {start_date} to {end_date}\n"
+            f"Travelers: {travelers}\n"
+            f"Budget Tier: {budget}\n"
+            f"Travel Style: {travel_style}\n"
+            f"Special Interests: {special_interests}"
+        )
+
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            max_tokens=1500,
+            temperature=0.7
+        )
+
+        raw_content = response.choices[0].message.content.strip()
+
+        # Clean markdown code fences if present
+        if raw_content.startswith("```"):
+            raw_content = raw_content.split("\n", 1)[-1]
+        if raw_content.endswith("```"):
+            raw_content = raw_content.rsplit("```", 1)[0]
+        raw_content = raw_content.strip()
+
+        parsed_json = json.loads(raw_content)
+        return jsonify(parsed_json), 200
+
+    except Exception as e:
+        print(f"[ITINERARY OPENAI ERROR] {e}")
+        return jsonify({'error': f"OpenAI generation failed: {str(e)}"}), 503
 
 
 if __name__ == '__main__':
