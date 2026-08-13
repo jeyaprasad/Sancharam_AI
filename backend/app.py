@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
-import pandas as pd
+import csv
 import requests
 
 app = Flask(__name__)
@@ -157,15 +157,18 @@ ACCIDENT_BLACKSPOTS_PATH = os.path.join(DATA_DIR, 'tnsta_accident_blackspots_202
 
 
 def load_dataset(filepath, name):
-    """Loads a CSV dataset safely into a pandas DataFrame with validation logging."""
+    """Loads a CSV dataset safely into a list of dicts with validation logging."""
     if not os.path.exists(filepath):
         print(f"[ERROR] Missing file: '{name}' not found at {filepath}")
         return None
     try:
-        df = pd.read_csv(filepath)
-        print(f"[SUCCESS] Loaded '{name}': {len(df)} rows.")
-        print(f"  Columns: {list(df.columns)}")
-        return df
+        with open(filepath, mode='r', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            data = list(reader)
+        print(f"[SUCCESS] Loaded '{name}': {len(data)} rows.")
+        if data:
+            print(f"  Columns: {list(data[0].keys())}")
+        return data
     except Exception as e:
         print(f"[ERROR] Failed to load dataset '{name}' from {filepath}: {e}")
         return None
@@ -190,28 +193,44 @@ def is_in_chennai_chengalpattu_bbox(lat, lng):
 
 def prepare_crime_records():
     """Formats crime zones DataFrame into standardized records filtered to Chennai & Chengalpattu bounding box."""
-    if CRIME_ZONES_DF is None or CRIME_ZONES_DF.empty:
+    if not CRIME_ZONES_DF:
         return []
-    df = CRIME_ZONES_DF.copy()
-    df['id'] = df['zone_id']
-    df['name'] = df['zone_name']
-    df['description'] = df['primary_concern']
-    df['source'] = 'crime'
-    records = df.to_dict(orient='records')
-    return [r for r in records if is_in_chennai_chengalpattu_bbox(r.get('latitude'), r.get('longitude'))]
+    records = []
+    for r in CRIME_ZONES_DF:
+        new_r = dict(r)
+        new_r['id'] = new_r.get('zone_id')
+        new_r['name'] = new_r.get('zone_name')
+        new_r['description'] = new_r.get('primary_concern')
+        new_r['source'] = 'crime'
+        try:
+            lat = float(new_r['latitude'])
+            lng = float(new_r['longitude'])
+        except (ValueError, TypeError):
+            continue
+        if is_in_chennai_chengalpattu_bbox(lat, lng):
+            records.append(new_r)
+    return records
 
 
 def prepare_accident_records():
     """Formats accident blackspots DataFrame into standardized records filtered to Chennai & Chengalpattu bounding box."""
-    if ACCIDENT_BLACKSPOTS_DF is None or ACCIDENT_BLACKSPOTS_DF.empty:
+    if not ACCIDENT_BLACKSPOTS_DF:
         return []
-    df = ACCIDENT_BLACKSPOTS_DF.copy()
-    df['id'] = df['zone_id']
-    df['name'] = df['zone_name']
-    df['description'] = df['primary_cause']
-    df['source'] = 'accident'
-    records = df.to_dict(orient='records')
-    return [r for r in records if is_in_chennai_chengalpattu_bbox(r.get('latitude'), r.get('longitude'))]
+    records = []
+    for r in ACCIDENT_BLACKSPOTS_DF:
+        new_r = dict(r)
+        new_r['id'] = new_r.get('zone_id')
+        new_r['name'] = new_r.get('zone_name')
+        new_r['description'] = new_r.get('primary_cause')
+        new_r['source'] = 'accident'
+        try:
+            lat = float(new_r['latitude'])
+            lng = float(new_r['longitude'])
+        except (ValueError, TypeError):
+            continue
+        if is_in_chennai_chengalpattu_bbox(lat, lng):
+            records.append(new_r)
+    return records
 
 
 def haversine_distance(lat1, lon1, lat2, lon2):
@@ -400,10 +419,10 @@ def health_check():
         'status': 'ok',
         'timestamp': datetime.now(timezone.utc).isoformat(),
         'datasets': {
-            'crime_zones_loaded': CRIME_ZONES_DF is not None,
-            'crime_zones_rows': len(CRIME_ZONES_DF) if CRIME_ZONES_DF is not None else 0,
-            'accident_blackspots_loaded': ACCIDENT_BLACKSPOTS_DF is not None,
-            'accident_blackspots_rows': len(ACCIDENT_BLACKSPOTS_DF) if ACCIDENT_BLACKSPOTS_DF is not None else 0
+            'crime_zones_loaded': bool(CRIME_ZONES_DF),
+            'crime_zones_rows': len(CRIME_ZONES_DF) if CRIME_ZONES_DF else 0,
+            'accident_blackspots_loaded': bool(ACCIDENT_BLACKSPOTS_DF),
+            'accident_blackspots_rows': len(ACCIDENT_BLACKSPOTS_DF) if ACCIDENT_BLACKSPOTS_DF else 0
         }
     }), 200
 
@@ -505,13 +524,13 @@ def get_nearby_station():
             'error': "Query parameters 'lat' and 'lng' must be valid float numbers."
         }), 400
 
-    if CRIME_ZONES_DF is None or CRIME_ZONES_DF.empty:
+    if not CRIME_ZONES_DF:
         return jsonify(fallback_response), 200
 
     closest_station = None
     min_distance = float('inf')
 
-    for _, row in CRIME_ZONES_DF.iterrows():
+    for row in CRIME_ZONES_DF:
         try:
             st_lat = float(row['latitude'])
             st_lng = float(row['longitude'])
