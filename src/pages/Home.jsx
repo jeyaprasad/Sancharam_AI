@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showTamil, setShowTamil] = useState(false);
 
   const slides = [
     '/assets/images/chennai.jpg',
@@ -20,14 +19,6 @@ const Home = () => {
     }, 6000);
     return () => clearInterval(slideInterval);
   }, [slides.length]);
-
-  // Language Toggle Effect
-  useEffect(() => {
-    const langInterval = setInterval(() => {
-      setShowTamil((prev) => !prev);
-    }, 4000);
-    return () => clearInterval(langInterval);
-  }, []);
 
   return (
     <div className="home-center-container" style={{ minHeight: '100vh', overflowY: 'auto', background: '#0f0f14', color: '#fff' }}>
@@ -90,16 +81,13 @@ const Home = () => {
           </div>
 
           <div className="home-title-wrapper">
-            <h1 className={`home-center-title lang-text ${showTamil ? 'fade-out' : 'fade-in'}`}>
-              Welcome to <br /> Chennai
-            </h1>
-            <h1 className={`home-center-title lang-text tamil-title ${showTamil ? 'fade-in' : 'fade-out'}`}>
+            <h1 className="home-center-title tamil-title" style={{ opacity: 1, position: 'relative' }}>
               சென்னைக்கு <br /> வரவேற்கிறோம்
             </h1>
           </div>
 
-          <p className="home-center-description" style={{ maxWidth: '680px', margin: '0 auto 2rem auto', fontSize: '1.15rem', color: '#e0e0e0', lineHeight: '1.6' }}>
-            Experience the vibrant soul of Tamil Nadu. From ancient Dravidian gopurams in Mylapore to the serene shores of Elliot's Beach, let Sancharam guide your travel odysseys with AI risk intelligence.
+          <p className="home-center-description" style={{ maxWidth: '720px', margin: '1.5rem auto 2rem auto', fontSize: '1.15rem', color: '#e0e0e0', lineHeight: '1.6' }}>
+            Experience the vibrant soul of the Detroit of India. From the majestic columns of the High Court to the serene shores of Elliot's Beach, let Sancharam be your digital guide to unforgettable cultural odysseys.
           </p>
 
           <div className="home-center-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
