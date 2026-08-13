@@ -1,201 +1,389 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+const TABS_DATA = [
+  {
+    id: 0,
+    tabLabel: 'Sentinel 01',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    ),
+    tamilTitle: 'Kaavalar Paathaikal',
+    englishSubtitle: 'Sentinel Trails',
+    description: 'Venture off the beaten path with confidence. Sentinel Trails curates scenic routes through lesser-known neighborhoods, enhanced with real-time safety insights from local authorities and traveler feedback. Discover hidden gems while prioritizing your well-being.',
+    tags: ['Scenic Routes', 'Safety Insights', 'Hidden Gems'],
+    buttonText: 'Explore trails →',
+    link: '/features/safety',
+    artIcon: (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="6" />
+        <circle cx="12" cy="12" r="2" />
+      </svg>
+    )
+  },
+  {
+    id: 1,
+    tabLabel: 'Sacred 02',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
+    ),
+    tamilTitle: 'Aalayam & Anmeegam',
+    englishSubtitle: 'Sacred Spaces',
+    description: 'Experience the spiritual heart of Tamil Nadu. Discover ancient heritage shrines, sacred ritual traditions, temple etiquette guidelines, and peak-hour crowd insights.',
+    tags: ['Heritage Shrines', 'Temple Etiquette', 'Spiritual Walks'],
+    buttonText: 'Discover sacred spots →',
+    link: '/features/uncharted',
+    artIcon: (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    )
+  },
+  {
+    id: 2,
+    tabLabel: 'Heritage 03',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    ),
+    tamilTitle: 'Parambariya Payanam',
+    englishSubtitle: 'Heritage & Timelines',
+    description: 'Step back in time through curated historical journeys. Explore Chola architecture, colonial landmarks, and living culture with adaptive AI daily schedules.',
+    tags: ['Chola Architecture', 'Historical Journeys', 'Fluid Schedules'],
+    buttonText: 'Plan itinerary →',
+    link: '/features/itinerary',
+    artIcon: (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    )
+  },
+  {
+    id: 3,
+    tabLabel: 'Guardian 04',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
+    tamilTitle: 'Kavasam & Kaappu',
+    englishSubtitle: 'Guardian Shield',
+    description: 'Your personal safety companion with live GPS location tracking, real-time risk scores, 1-tap emergency police dispatch, and WhatsApp location sharing.',
+    tags: ['Live Location', 'Emergency SOS', 'Risk Score'],
+    buttonText: 'Activate Guardian →',
+    link: '/features/blockchain',
+    artIcon: (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    )
+  },
+  {
+    id: 4,
+    tabLabel: 'Tribes 05',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ),
+    tamilTitle: 'Namma Nanbargal',
+    englishSubtitle: 'Travel Tribes',
+    description: 'Connect with like-minded travelers and unlock community-sourced wisdom. Exchange cryptographically verified tips, join interest circles, and explore together.',
+    tags: ['Community Tips', 'Verified Hash-Chain', 'Travel Circles'],
+    buttonText: 'Join a tribe →',
+    link: '/features/tribes',
+    artIcon: (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    )
+  }
+];
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const elementsRef = useRef([]);
-  const trackRef = useRef(null);
-
-  useEffect(() => {
-    // Reveal on scroll
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px' }
-    );
-
-    elementsRef.current.forEach((el, index) => {
-      if (el) {
-        el.style.transitionDelay = `${(index % 5) * 70}ms`;
-        observer.observe(el);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const addToRefs = (el) => {
-    if (el && !elementsRef.current.includes(el)) {
-      elementsRef.current.push(el);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault();
-    const newIndex = (activeTab + (e.key === 'ArrowRight' ? 1 : -1) + 5) % 5;
-    setActiveTab(newIndex);
-  };
+  const currentTab = TABS_DATA[activeTab];
 
   return (
-    <div className="features-container">
-      <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features" aria-current="page">Features</Link>
-              <Link to="/features/itinerary">Planner</Link>
-              <Link to="/features/budget">Budget</Link>
-            </nav>
-          </div>
-        </header>
+    <div
+      style={{
+        backgroundColor: '#FAF7F2',
+        minHeight: '100vh',
+        color: '#1A1A1A',
+        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      }}
+    >
+      {/* ── HEADER ── */}
+      <header
+        style={{
+          padding: '1.5rem 3rem',
+          display: 'flex',
+          justify: 'space-between',
+          alignItems: 'center',
+          backgroundColor: '#FAF7F2',
+          borderBottom: '1px solid rgba(0,0,0,0.04)'
+        }}
+      >
+        {/* Logo */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+          <img
+            src="/assets/images/icon.png"
+            alt="Sancharam Logo"
+            style={{ width: '36px', height: '36px', objectFit: 'contain' }}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <span
+            style={{
+              fontFamily: "'Yatra One', 'Playfair Display', serif",
+              fontSize: '1.8rem',
+              fontWeight: '700',
+              color: '#1A1A1A',
+              letterSpacing: '-0.5px'
+            }}
+          >
+            Sancharam
+          </span>
+        </Link>
 
-        <section className="hero wrap">
-          <div className="rv" ref={addToRefs}>
-            <span className="pill" lang="ta"><i></i>நம்ம சென்னை</span>
-            <h1>Built for the city that <em>never sits still</em></h1>
-            <p className="hero-sub">Five interlocking systems that read Chennai in real time — safety data, traffic patterns, adaptive schedules, and the streets no map bothers to name.</p>
-          </div>
-          <div className="hero-side rv" ref={addToRefs}>
-            <div className="stat"><b>21</b><span>Risk zones mapped</span></div>
-            <div className="stat"><b>40+</b><span>Uncharted spots</span></div>
-            <div className="stat"><b>5</b><span>Core systems</span></div>
-          </div>
-        </section>
-      </div>
-
-      <section className="sec wrap">
-        <div className="sec-head rv" ref={addToRefs}>
-          <span className="kicker">Vazhikatti · <span lang="ta">வழிகாட்டி</span></span>
-          <h2>One compass, <em>five directions</em></h2>
-          <p>Each module works standalone, but they share one map, one dataset and one sense of the city. Pick a direction.</p>
-        </div>
-
-        <div className="tabs rv" role="tablist" aria-label="Features" ref={addToRefs}>
-          <button className="tab" role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span className="lbl">Sentinel</span><span className="tab-n">01</span>
-          </button>
-          <button className="tab" role="tab" aria-selected={activeTab === 1} onClick={() => setActiveTab(1)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6 3-6-3Z"/><path d="M9 7v13M15 4v13"/></svg>
-            <span className="lbl">Sacred</span><span className="tab-n">02</span>
-          </button>
-          <button className="tab" role="tab" aria-selected={activeTab === 2} onClick={() => setActiveTab(2)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span className="lbl">Heritage</span><span className="tab-n">03</span>
-          </button>
-          <button className="tab" role="tab" aria-selected={activeTab === 3} onClick={() => setActiveTab(3)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-            <span className="lbl">Guardian</span><span className="tab-n">04</span>
-          </button>
-          <button className="tab" role="tab" aria-selected={activeTab === 4} onClick={() => setActiveTab(4)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M2 12h4m12 0h4M12 2v4m0 12v4"/><circle cx="12" cy="12" r="5"/></svg>
-            <span className="lbl">Tribes</span><span className="tab-n">05</span>
-          </button>
-        </div>
-
-        <div className={`panel ${activeTab === 0 ? 'on' : ''} rv`} role="tabpanel" hidden={activeTab !== 0} ref={addToRefs}>
-          <div>
-            <h3>Kaavalar Paathaikal <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Sentinel Trails</span></h3>
-            <p>Venture off the beaten path with confidence. Sentinel Trails curates scenic routes through lesser-known neighborhoods, enhanced with real-time safety insights from local authorities and traveler feedback. Discover hidden gems while prioritizing your well-being.</p>
-            <div className="chips"><span className="chip">Scenic Routes</span><span className="chip">Safety Insights</span><span className="chip">Hidden Gems</span></div>
-            <Link to="/features/safety" className="go">Explore trails <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
-          </div>
-          <div className="panel-art"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.5"/></svg></div>
-        </div>
-
-        <div className={`panel ${activeTab === 1 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 1}>
-          <div>
-            <h3>Dharma Diary <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Sacred Journeys</span></h3>
-            <p>Immerse yourself in the spiritual essence of Tamil Nadu. Sacred Journeys crafts personalized temple trails based on your religious interests, connecting you with sacred spaces, ancient rituals, and enlightening experiences. Document your journey with built-in travel journaling.</p>
-            <div className="chips"><span className="chip">Temple Trails</span><span className="chip">Travel Journal</span><span className="chip">Culture</span></div>
-            <Link to="/features/routing" className="go">Start a journey <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
-          </div>
-          <div className="panel-art"><svg viewBox="0 0 24 24"><path d="M4 20c4-2 3-8 8-9s6-6 8-8"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="3" r="2"/></svg></div>
-        </div>
-
-        <div className={`panel ${activeTab === 2 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 2}>
-          <div>
-            <h3>Vaasal Concierge <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Heritage Concierge</span></h3>
-            <p>Heritage Concierge is your virtual guide to authentic Tamil experiences. From booking traditional homestays to arranging cultural workshops with local artisans, Heritage Concierge ensures a deeper connection with the region's heritage.</p>
-            <div className="chips"><span className="chip">Homestays</span><span className="chip">Workshops</span><span className="chip">Local Artisans</span></div>
-            <Link to="/features/itinerary" className="go">Meet your guide <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
-          </div>
-          <div className="panel-art"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 5.5V12l4.5 3"/></svg></div>
-        </div>
-
-        <div className={`panel ${activeTab === 3 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 3}>
-          <div>
-            <h3>Kaaval Companion <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Guardian Shield</span></h3>
-            <p>Stay protected round the clock with Guardian Shield, your personal safety companion. Leveraging advanced risk assessment and live location tracking, it provides discreet alerts when entering higher-risk areas and offers swift emergency assistance.</p>
-            <div className="chips"><span className="chip">Live Tracking</span><span className="chip">Risk Alerts</span><span className="chip">SOS Assistance</span></div>
-            <Link to="/features/blockchain" className="go">Enable shield <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
-          </div>
-          <div className="panel-art"><svg viewBox="0 0 24 24"><rect x="3.5" y="9.5" width="17" height="12" rx="2.5"/><path d="M7.5 9.5V6.5a4.5 4.5 0 0 1 9 0v3"/></svg></div>
-        </div>
-
-        <div className={`panel ${activeTab === 4 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 4}>
-          <div>
-            <h3>Namma Nanbargal <span style={{fontSize:'0.65em', opacity: 0.8, display: 'block', marginTop: '6px', fontWeight: '500'}}>Travel Tribes</span></h3>
-            <p>Connect with like-minded travelers and unlock community-sourced wisdom. Join interest-based travel circles, exchange insider tips, and coordinate group activities. Collaborate on itineraries and build lasting friendships with fellow explorers.</p>
-            <div className="chips"><span className="chip">Travel Circles</span><span className="chip">Group Activities</span><span className="chip">Itinerary Sync</span></div>
-            <Link to="/features/tribes" className="go">Join a tribe <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
-          </div>
-          <div className="panel-art"><svg viewBox="0 0 24 24"><path d="M2 12h4.5m11 0H22M12 2v4.5m0 11V22"/><circle cx="12" cy="12" r="5.5"/></svg></div>
-        </div>
-      </section>
-
-      <div className="marquee rv" ref={addToRefs}>
-        <div className="track" ref={trackRef}>
-          <figure className="place"><img src="/assets/images/real/kapaleeshwarar.jpg" alt="Kapaleeshwarar Temple" loading="lazy" /><figcaption className="place-info"><h4>Kapaleeshwarar</h4><p>The spirit of Mylapore</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/elliots.jpg" alt="Elliot's Beach" loading="lazy" /><figcaption className="place-info"><h4>Elliot's Beach</h4><p>Besant Nagar evenings</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/highcourt.jpg" alt="Madras High Court" loading="lazy" /><figcaption className="place-info"><h4>High Court</h4><p>Indo-Saracenic red</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/brokenbridge.jpg" alt="Broken Bridge" loading="lazy" /><figcaption className="place-info"><h4>Broken Bridge</h4><p>Where the Adyar ends</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
-          {/* Duplicated for seamless marquee */}
-          <figure className="place"><img src="/assets/images/real/kapaleeshwarar.jpg" alt="Kapaleeshwarar Temple" loading="lazy" /><figcaption className="place-info"><h4>Kapaleeshwarar</h4><p>The spirit of Mylapore</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/elliots.jpg" alt="Elliot's Beach" loading="lazy" /><figcaption className="place-info"><h4>Elliot's Beach</h4><p>Besant Nagar evenings</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/highcourt.jpg" alt="Madras High Court" loading="lazy" /><figcaption className="place-info"><h4>High Court</h4><p>Indo-Saracenic red</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/brokenbridge.jpg" alt="Broken Bridge" loading="lazy" /><figcaption className="place-info"><h4>Broken Bridge</h4><p>Where the Adyar ends</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/real/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
-        </div>
-      </div>
-
-      <div className="wrap">
-        <section className="cta rv" ref={addToRefs}>
-          <div>
-            <h2>Ready for <em>Madras</em>?</h2>
-            <p>Start with a plan, or just wander — the city rewards both.</p>
-          </div>
-          <Link to="/features/itinerary" className="cta-btn">Start the journey
-            <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+        {/* Navigation */}
+        <nav style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+          <Link
+            to="/"
+            style={{
+              color: '#666',
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontWeight: '500',
+              transition: 'color 0.2s ease'
+            }}
+          >
+            Home
           </Link>
-        </section>
+          <Link
+            to="/features"
+            style={{
+              color: '#1A1A1A',
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontWeight: '600',
+              borderBottom: '2px solid #D9653B',
+              paddingBottom: '4px'
+            }}
+          >
+            Features
+          </Link>
+          <Link
+            to="/features/itinerary"
+            style={{
+              color: '#666',
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontWeight: '500',
+              transition: 'color 0.2s ease'
+            }}
+          >
+            Planner
+          </Link>
+          <Link
+            to="/features/budget"
+            style={{
+              color: '#666',
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontWeight: '500',
+              transition: 'color 0.2s ease'
+            }}
+          >
+            Budget
+          </Link>
+        </nav>
+      </header>
 
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/routing">Routing</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/budget">Budget</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
+      {/* ── MAIN CONTENT WRAPPER ── */}
+      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 2rem 6rem 2rem' }}>
+        {/* Sub-heading text */}
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#666',
+            lineHeight: '1.6',
+            maxWidth: '560px',
+            marginBottom: '3rem'
+          }}
+        >
+          Each module works standalone, but they share one map, one dataset and one sense of the city. Pick a direction.
+        </p>
+
+        {/* ── TABS ROW ── */}
+        <div
+          role="tablist"
+          aria-label="Features Tabs"
+          style={{
+            display: 'flex',
+            gap: '0.75rem',
+            marginBottom: '2.5rem',
+            flexWrap: 'wrap',
+            alignItems: 'center'
+          }}
+        >
+          {TABS_DATA.map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={isSelected}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  padding: '0.65rem 1.25rem',
+                  borderRadius: '50px',
+                  border: 'none',
+                  backgroundColor: isSelected ? '#1A1A1A' : 'transparent',
+                  color: isSelected ? '#FFFFFF' : '#666',
+                  fontSize: '0.9rem',
+                  fontWeight: isSelected ? '600' : '500',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.25s ease',
+                  outline: 'none',
+                  boxShadow: isSelected ? '0 4px 15px rgba(0,0,0,0.15)' : 'none'
+                }}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', opacity: isSelected ? 1 : 0.7 }}>
+                  {tab.icon}
+                </span>
+                <span>{tab.tabLabel}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ── ACTIVE TAB CONTENT CARD ── */}
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '24px',
+            border: '1px solid #EBE6DC',
+            padding: '3.5rem',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.03)',
+            display: 'grid',
+            gridTemplateColumns: '1fr 340px',
+            gap: '3rem',
+            alignItems: 'center'
+          }}
+        >
+          {/* Left Column: Details */}
+          <div>
+            <h1
+              style={{
+                fontFamily: "'Playfair Display', 'Cinzel', 'Georgia', serif",
+                fontSize: '2.6rem',
+                fontWeight: '700',
+                color: '#1A1A1A',
+                margin: '0 0 0.25rem 0',
+                letterSpacing: '-0.5px'
+              }}
+            >
+              {currentTab.tamilTitle}
+            </h1>
+
+            <h2
+              style={{
+                fontSize: '1.15rem',
+                fontWeight: '500',
+                color: '#888',
+                margin: '0 0 1.5rem 0'
+              }}
+            >
+              {currentTab.englishSubtitle}
+            </h2>
+
+            <p
+              style={{
+                fontSize: '1rem',
+                color: '#555',
+                lineHeight: '1.65',
+                marginBottom: '2rem'
+              }}
+            >
+              {currentTab.description}
+            </p>
+
+            {/* Tag Pills */}
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.2rem' }}>
+              {currentTab.tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    backgroundColor: '#EAF2EC',
+                    color: '#2E5A39',
+                    padding: '0.4rem 0.95rem',
+                    borderRadius: '50px',
+                    fontSize: '0.82rem',
+                    fontWeight: '600'
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Action Button */}
+            <Link
+              to={currentTab.link}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                backgroundColor: '#1A1A1A',
+                color: '#FFFFFF',
+                padding: '0.85rem 1.75rem',
+                borderRadius: '50px',
+                fontWeight: '600',
+                fontSize: '0.92rem',
+                textDecoration: 'none',
+                transition: 'transform 0.2s ease, background-color 0.2s ease',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+              }}
+            >
+              {currentTab.buttonText}
+            </Link>
           </div>
-          <small>© 2026 Sancharam · Chennai</small>
-        </footer>
-      </div>
+
+          {/* Right Column: Visual Artwork Placeholder Box */}
+          <div
+            style={{
+              backgroundColor: '#F3EFE6',
+              borderRadius: '20px',
+              height: '100%',
+              minHeight: '290px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: 'inset 0 0 20px rgba(0,0,0,0.02)'
+            }}
+          >
+            {currentTab.artIcon}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap');
+
+.gn-navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    z-index: 9999;
+}
+
+.gn-navbar * {
+    box-sizing: border-box;
+}
+
+.gn-logo {
+    font-family: 'Bebas Neue', display, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.14em;
+    color: #ffffff;
+    text-decoration: none;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.gn-logo span {
+    color: #FFD700;
+}
+
+.gn-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.gn-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+    padding: 21px 0; /* 60px total height => 21px top/bottom + 18px text ~ 60px */
+}
+
+.gn-link:hover,
+.gn-link.active {
+    color: #FFD700;
+}
+
+.gn-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #FFD700;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.gn-link:hover::after,
+.gn-link.active::after {
+    transform: scaleX(1);
+}
+
+@media(max-width: 768px) {
+    .gn-navbar { padding: 0 20px; }
+    .gn-links { gap: 16px; }
+    .gn-link { font-size: 11px; padding: 22px 0; }
+}
+
+body { animation: globalFadeIn 0.4s ease-out; }
+@keyframes globalFadeIn { from { opacity: 0; } to { opacity: 1; } }

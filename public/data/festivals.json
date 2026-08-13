@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Thai Pongal & Mattu Pongal",
+    "tamil_name": "தைப்பொங்கல் மற்றும் மாட்டுப் பொங்கல்",
+    "month": 1,
+    "district": "Chennai / Chengalpattu",
+    "description": "Tamil harvest festival celebrating the Sun God with freshly boiled sweet Pongal, sugarcane, turmeric plants, and colourful kolam decorations across Mylapore and Chengalpattu hamlets.",
+    "travel_tip": "Visit Mylapore Mada Streets or Chengalpattu heritage villages to experience traditional earthen pot cooking over woodfires."
+  },
+  {
+    "id": 2,
+    "name": "Thaipusam at Vadapalani & Thiruporur",
+    "tamil_name": "தைப்பூசம்",
+    "month": 1,
+    "district": "Chennai / Chengalpattu",
+    "description": "Grand festival honoring Lord Murugan with colorful Kavadi Aattam dances, milk pot processions, and devotional chants across Vadapalani and Thiruporur Shrines.",
+    "travel_tip": "Witness the sea of yellow-clad devotees carrying flower kavadis at Vadapalani Murugan Temple."
+  },
+  {
+    "id": 3,
+    "name": "Margazhi Music & Dance Season",
+    "tamil_name": "மார்கழி இசை விழா",
+    "month": 1,
+    "district": "Chennai",
+    "description": "World's largest cultural festival featuring over 2,000 Carnatic vocal concerts, Bharatanatyam recitals, and traditional sabha tiffin canteens in Chennai.",
+    "travel_tip": "Visit Music Academy and Narada Gana Sabha for morning lectures and evening vocal concerts accompanied by hot Ghee Roast Dosa."
+  },
+  {
+    "id": 4,
+    "name": "Mylapore Festival & Kolam Competition",
+    "tamil_name": "மயிலாப்பூர் திருவிழா",
+    "month": 1,
+    "district": "Chennai",
+    "description": "Four-day street festival around Kapaleeshwarar Temple featuring street theatre, traditional crafts, folk music, and 100+ intricate rice powder kolam competitions.",
+    "travel_tip": "Walk North Mada Street at 6 AM to see women draw elaborate geometric kolams spanning entire street blocks."
+  },
+  {
+    "id": 5,
+    "name": "Mamallapuram Indian Dance Festival",
+    "tamil_name": "மாமல்லபுரம் நடன விழா",
+    "month": 2,
+    "district": "Chengalpattu",
+    "description": "Month-long beachfront cultural festival held against the open-air backdrop of 7th-century rock reliefs at Arjuna's Penance in Mahabalipuram.",
+    "travel_tip": "Attend weekend evening shows under the starry sky right after exploring the Shore Temple."
+  },
+  {
+    "id": 6,
+    "name": "Thiruporur Murugan Temple Ther Vizha",
+    "tamil_name": "திருப்போரூர் தேர் திருவிழா",
+    "month": 2,
+    "district": "Chengalpattu",
+    "description": "Annual temple chariot procession carrying Lord Kandaswamy through the historic temple streets of Thiruporur in Chengalpattu district.",
+    "travel_tip": "Join local villagers pulling the decorated wooden chariot along OSRM coastal road."
+  },
+  {
+    "id": 7,
+    "name": "Panguni Uthiram Ther Vizha at Mylapore",
+    "tamil_name": "பங்குனி உத்திரம் தேரோட்டம்",
+    "month": 3,
+    "district": "Chennai",
+    "description": "Celestial wedding anniversary of Lord Kapaleeshwarar & Goddess Karpagambal celebrated with a massive 40-foot wooden temple chariot procession.",
+    "travel_tip": "Visit Mylapore Kapaleeshwarar Temple early in the morning to see the giant wooden chariot pulled by thousands of devotees."
+  },
+  {
+    "id": 8,
+    "name": "Triplicane Parthasarathy Temple Chariot Festival",
+    "tamil_name": "பார்த்தசாரதி கோயில் சித்திரை பிரம்மோற்சவம்",
+    "month": 4,
+    "district": "Chennai",
+    "description": "10-day Brahmotsavam festival featuring the historic silver vehicle (Velli Garuda Sevai) and chariot processions in 8th-century Triplicane.",
+    "travel_tip": "Arrive at 5:30 AM for the morning Garuda Sevai procession around Car Street."
+  },
+  {
+    "id": 9,
+    "name": "Aadi Perukku at Muttukadu & ECR Shores",
+    "tamil_name": "ஆடி பெருக்கு",
+    "month": 8,
+    "district": "Chengalpattu",
+    "description": "Monsoon river & water body festival giving thanks for life-giving water, featuring family picnics, variety rice dishes, and floating lamp offerings along Muttukadu and ECR shores.",
+    "travel_tip": "Join local families along Muttukadu backwaters to taste traditional lemon and tamarind rice."
+  },
+  {
+    "id": 10,
+    "name": "Covelong Point Surf & Music Festival",
+    "tamil_name": "கோவளம் சர்ஃப் விழா",
+    "month": 8,
+    "district": "Chengalpattu",
+    "description": "International surfing competition, beach volleyball, live indie music bands, and food stalls along the Kovalam coastline in Chengalpattu.",
+    "travel_tip": "Watch national surf athletes ride morning waves before attending sunset beach acoustic sets."
+  },
+  {
+    "id": 11,
+    "name": "Vedanthangal Bird Sanctuary Arrival Season",
+    "tamil_name": "வேடந்தாங்கல் பறவைகள் வருகை",
+    "month": 11,
+    "district": "Chengalpattu",
+    "description": "Annual homecoming of 30,000+ migratory birds from Siberia and Australasia to the Barringtonia mangrove tank in Vedanthangal.",
+    "travel_tip": "Bring telephoto cameras at 7:00 AM for soft morning light on pelican nests."
+  },
+  {
+    "id": 12,
+    "name": "San Thome Basilica Christmas & New Year Feast",
+    "tamil_name": "சாந்தோம் கிறிஸ்மஸ் பெருவிழா",
+    "month": 12,
+    "district": "Chennai",
+    "description": "Illuminated festive midnight mass, choir carols, and beachside festivities at the 16th-century Neo-Gothic cathedral built over St. Thomas' tomb.",
+    "travel_tip": "Attend the Christmas Eve midnight carol service for soaring organ acoustic hymns."
+  }
+]

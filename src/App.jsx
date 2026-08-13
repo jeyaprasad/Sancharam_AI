@@ -8,6 +8,7 @@ import UnchartedPage from '@/pages/UnchartedPage';
 import GuardianPage from '@/pages/GuardianPage';
 import TribesPage from '@/pages/TribesPage';
 import BudgetTrackerPage from '@/pages/BudgetTrackerPage';
+import RoutingPage from '@/pages/RoutingPage';
 import { fetchRiskZones } from '@/services/api';
 import useAppStore from '@/store/useAppStore';
 
@@ -31,10 +32,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/features" element={<Features />} />
         <Route path="/features/safety" element={<SafetyPage />} />
-        <Route path="/features/routing" element={<UnchartedPage />} />
+        <Route path="/features/routing" element={<RoutingPage />} />
         <Route path="/features/itinerary" element={<ItineraryPage />} />
         <Route path="/features/budget" element={<BudgetTrackerPage />} />
         <Route path="/features/blockchain" element={<GuardianPage />} />
+        <Route path="/guardian/:tripId" element={<GuardianPage />} />
+        <Route path="/guardian/track/:tripId" element={<GuardianPage />} />
         <Route path="/features/uncharted" element={<UnchartedPage />} />
         <Route path="/features/tribes" element={<TribesPage />} />
       </Routes>
