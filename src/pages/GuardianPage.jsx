@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { API_BASE_URL } from '@/config/apiConfig';
 import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -170,7 +171,7 @@ const GuardianPage = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/risk-score?lat=${lat}&lng=${lng}&hour=${currentHour}`
+          `${API_BASE_URL}/api/risk-score?lat=${lat}&lng=${lng}&hour=${currentHour}`
         );
         if (response.ok) {
           const data = await response.json();

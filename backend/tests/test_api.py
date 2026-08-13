@@ -99,3 +99,24 @@ def test_verify_fresh_tip(client):
     assert verify_res.status_code == 200
     verify_data = verify_res.get_json()
     assert verify_data.get('valid') is True
+
+
+def test_generate_itinerary(client):
+    """8. Test that POST /api/itinerary returns status 200 and a structured trip itinerary."""
+    payload = {
+        'destination': 'Chennai',
+        'startDate': '2026-08-15',
+        'endDate': '2026-08-17',
+        'travelers': 2,
+        'budget': 'Moderate',
+        'travelStyle': 'Cultural',
+        'specialInterests': 'History & Food'
+    }
+    response = client.post('/api/itinerary', json=payload)
+    assert response.status_code == 200
+    data = response.get_json()
+    assert 'title' in data
+    assert 'days' in data
+    assert isinstance(data['days'], list)
+    assert len(data['days']) > 0
+

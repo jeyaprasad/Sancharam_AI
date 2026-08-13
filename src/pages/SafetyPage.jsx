@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '@/config/apiConfig';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import useAppStore from '@/store/useAppStore';
@@ -34,7 +35,7 @@ const SafetyPage = () => {
   useEffect(() => {
     const fetchCommunityTips = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/tips');
+        const res = await fetch(`${API_BASE_URL}/api/tips`);
         if (res.ok) {
           const tipsData = await res.json();
           if (Array.isArray(tipsData)) {
@@ -82,7 +83,7 @@ const SafetyPage = () => {
       }
 
       // Step 2: Fetch Risk Score from Backend API
-      const scoreRes = await fetch(`http://localhost:5000/api/risk-score?lat=${lat}&lng=${lng}&hour=${currentHour}`);
+      const scoreRes = await fetch(`${API_BASE_URL}/api/risk-score?lat=${lat}&lng=${lng}&hour=${currentHour}`);
       if (scoreRes.ok) {
         const scoreData = await scoreRes.json();
         setSearchResult({

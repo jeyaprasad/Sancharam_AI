@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '@/config/apiConfig';
 
 const CATEGORY_COLORS = {
   food: { bg: 'rgba(255, 152, 0, 0.15)', text: '#ff9800', border: 'rgba(255, 152, 0, 0.4)' },
@@ -28,7 +29,7 @@ const TribesPage = () => {
   useEffect(() => {
     const fetchTips = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/tips');
+        const response = await fetch(`${API_BASE_URL}/api/tips`);
         if (response.ok) {
           const data = await response.json();
           setTips(data);
@@ -58,7 +59,7 @@ const TribesPage = () => {
     }));
 
     try {
-      const res = await fetch(`http://localhost:5000/api/tips/verify/${tipId}`);
+      const res = await fetch(`${API_BASE_URL}/api/tips/verify/${tipId}`);
       if (res.ok) {
         const data = await res.json();
         setVerificationStatus((prev) => ({
@@ -124,7 +125,7 @@ const TribesPage = () => {
     setTips((prev) => [newTipPayload, ...prev]);
 
     try {
-      const response = await fetch('http://localhost:5000/api/tips', {
+      const response = await fetch(`${API_BASE_URL}/api/tips`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTipPayload)

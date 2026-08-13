@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '@/config/apiConfig';
 import CurrencyWidget from '@/components/CurrencyWidget';
 import TamilChatbot from '@/components/TamilChatbot';
-import { Link } from 'react-router-dom';
 
 const BUDGET_OPTIONS = ['Budget', 'Moderate', 'Luxury'];
 
@@ -95,7 +96,7 @@ const ItineraryPage = () => {
     try {
       let response;
       try {
-        response = await fetch('http://localhost:5000/api/itinerary', {
+        response = await fetch(`${API_BASE_URL}/api/itinerary`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

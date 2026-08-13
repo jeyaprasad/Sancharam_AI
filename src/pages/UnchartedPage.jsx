@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '@/config/apiConfig';
 import TamilChatbot from '@/components/TamilChatbot';
 import { MapContainer, TileLayer, Marker, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -113,7 +114,7 @@ const UnchartedPage = () => {
   const fetchCommunityTips = async () => {
     setTipsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/tips');
+      const response = await fetch(`${API_BASE_URL}/api/tips`);
       if (response.ok) {
         const data = await response.json();
         setTips(data);
@@ -245,7 +246,7 @@ const UnchartedPage = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/tips', {
+      const res = await fetch(`${API_BASE_URL}/api/tips`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tipPayload)
@@ -274,7 +275,7 @@ const UnchartedPage = () => {
   // Fetch Attestation Details GET /api/tips/verify/<id>
   const handleViewAttestation = async (tipId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/tips/verify/${tipId}`);
+      const res = await fetch(`${API_BASE_URL}/api/tips/verify/${tipId}`);
       if (res.ok) {
         const data = await res.json();
         setSelectedAttestation(data);
@@ -295,7 +296,7 @@ const UnchartedPage = () => {
   // Run Cryptographic Hash Chain Audit
   const handleVerifyChain = async (tipId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/tips/verify/${tipId}`);
+      const res = await fetch(`${API_BASE_URL}/api/tips/verify/${tipId}`);
       if (res.ok) {
         const data = await res.json();
         setChainAuditResult({

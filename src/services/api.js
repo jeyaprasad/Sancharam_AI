@@ -1,9 +1,11 @@
+import { API_BASE_URL } from '@/config/apiConfig';
+
 /**
  * Fetches risk zones data from the backend API or local dataset fallback.
  */
 export const fetchRiskZones = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/risk-zones');
+    const response = await fetch(`${API_BASE_URL}/api/risk-zones`);
     if (response.ok) {
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -29,7 +31,7 @@ export const fetchRiskZones = async () => {
 
 export const analyzeRoute = async (origin, destination, hour) => {
   try {
-    const response = await fetch('http://localhost:5000/api/analyze-route', {
+    const response = await fetch(`${API_BASE_URL}/api/analyze-route`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ origin, destination, hour })
