@@ -131,14 +131,18 @@ const Features = () => {
       {/* ── HEADER ── */}
       <header
         style={{
-          padding: '1.5rem 3rem',
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000,
+          padding: '1.25rem 3rem',
           display: 'flex',
           justify: 'space-between',
           alignItems: 'center',
           gap: '2rem',
           flexWrap: 'wrap',
           backgroundColor: '#FAF7F2',
-          borderBottom: '1px solid rgba(0,0,0,0.04)'
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
+          backdropFilter: 'blur(12px)'
         }}
       >
         {/* Logo */}
@@ -227,7 +231,7 @@ const Features = () => {
       </header>
 
       {/* ── MAIN CONTENT WRAPPER ── */}
-      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 2rem 6rem 2rem' }}>
+      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '2.5rem 2rem 6rem 2rem' }}>
         {/* Sub-heading text */}
         <p
           style={{
