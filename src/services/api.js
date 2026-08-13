@@ -26,3 +26,19 @@ export const fetchRiskZones = async () => {
 
   return [];
 };
+
+export const analyzeRoute = async (origin, destination, hour) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/analyze-route', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ origin, destination, hour })
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (err) {
+    console.warn('Backend analyze-route call failed:', err);
+  }
+  return null;
+};

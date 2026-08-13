@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CurrencyWidget from '@/components/CurrencyWidget';
 import TamilChatbot from '@/components/TamilChatbot';
 import { Link } from 'react-router-dom';
@@ -93,26 +93,44 @@ const ItineraryPage = () => {
     const promptText = `Plan a ${budget} ${travelStyle} trip to ${destination} for ${travelers} traveler(s) from ${startDate} to ${endDate}. Special interests: ${specialInterests}.${festivalPrompt}`;
 
     try {
-      const response = await fetch('/.netlify/functions/itinerary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: promptText,
-          destination,
-          startDate,
-          endDate,
-          travelers,
-          budget,
-          travelStyle,
-          specialInterests
-        })
-      });
+      let response;
+      try {
+        response = await fetch('http://localhost:5000/api/itinerary', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: promptText,
+            destination,
+            startDate,
+            endDate,
+            travelers,
+            budget,
+            travelStyle,
+            specialInterests
+          })
+        });
+      } catch (backendErr) {
+        response = await fetch('/.netlify/functions/itinerary', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: promptText,
+            destination,
+            startDate,
+            endDate,
+            travelers,
+            budget,
+            travelStyle,
+            specialInterests
+          })
+        });
+      }
 
-      if (response.ok) {
+      if (response && response.ok) {
         const data = await response.json();
         setItineraryResult(data);
       } else {
-        throw new Error('Netlify endpoint unavailable');
+        throw new Error('Itinerary API endpoint unavailable');
       }
     } catch (err) {
       console.log('Using local AI itinerary generator fallback:', err);

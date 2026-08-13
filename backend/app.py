@@ -60,6 +60,9 @@ class Tip(db.Model):
     hash = db.Column(db.String(64), nullable=False)
     prev_hash = db.Column(db.String(64), nullable=True)
 
+    def __init__(self, **kwargs):
+        super(Tip, self).__init__(**kwargs)
+
     def to_dict(self):
         iso_time = format_iso_timestamp(self.created_at)
         coords_str = f"{self.latitude}, {self.longitude}" if (self.latitude is not None and self.longitude is not None) else None
@@ -173,8 +176,20 @@ CRIME_ZONES_DF = load_dataset(CRIME_ZONES_PATH, 'chennai_police_crime_zones_2023
 ACCIDENT_BLACKSPOTS_DF = load_dataset(ACCIDENT_BLACKSPOTS_PATH, 'tnsta_accident_blackspots_2023.csv')
 
 
+MIN_BBOX_LAT, MAX_BBOX_LAT = 12.50, 13.30
+MIN_BBOX_LNG, MAX_BBOX_LNG = 79.80, 80.35
+
+def is_in_chennai_chengalpattu_bbox(lat, lng):
+    try:
+        f_lat = float(lat)
+        f_lng = float(lng)
+        return (MIN_BBOX_LAT <= f_lat <= MAX_BBOX_LAT) and (MIN_BBOX_LNG <= f_lng <= MAX_BBOX_LNG)
+    except (ValueError, TypeError):
+        return False
+
+
 def prepare_crime_records():
-    """Formats crime zones DataFrame into standardized records."""
+    """Formats crime zones DataFrame into standardized records filtered to Chennai & Chengalpattu bounding box."""
     if CRIME_ZONES_DF is None or CRIME_ZONES_DF.empty:
         return []
     df = CRIME_ZONES_DF.copy()
@@ -182,11 +197,12 @@ def prepare_crime_records():
     df['name'] = df['zone_name']
     df['description'] = df['primary_concern']
     df['source'] = 'crime'
-    return df.to_dict(orient='records')
+    records = df.to_dict(orient='records')
+    return [r for r in records if is_in_chennai_chengalpattu_bbox(r.get('latitude'), r.get('longitude'))]
 
 
 def prepare_accident_records():
-    """Formats accident blackspots DataFrame into standardized records."""
+    """Formats accident blackspots DataFrame into standardized records filtered to Chennai & Chengalpattu bounding box."""
     if ACCIDENT_BLACKSPOTS_DF is None or ACCIDENT_BLACKSPOTS_DF.empty:
         return []
     df = ACCIDENT_BLACKSPOTS_DF.copy()
@@ -194,7 +210,8 @@ def prepare_accident_records():
     df['name'] = df['zone_name']
     df['description'] = df['primary_cause']
     df['source'] = 'accident'
-    return df.to_dict(orient='records')
+    records = df.to_dict(orient='records')
+    return [r for r in records if is_in_chennai_chengalpattu_bbox(r.get('latitude'), r.get('longitude'))]
 
 
 def haversine_distance(lat1, lon1, lat2, lon2):
@@ -798,7 +815,15 @@ def analyze_route():
             waypoints_raw.append(coords_list[idx])
 
     # 5. Calculate risk score for each of the 8 waypoints
-    current_hour = datetime.now().hour
+    hour_val = data.get('hour')
+    if hour_val is not None:
+        try:
+            current_hour = int(hour_val)
+        except (ValueError, TypeError):
+            current_hour = datetime.now().hour
+    else:
+        current_hour = datetime.now().hour
+
     waypoint_scores = []
     scores_sum = 0.0
 
