@@ -416,8 +416,8 @@ const GuardianPage = () => {
   if (score > 60) ringColor = '#ff4d4d';
   else if (score >= 30) ringColor = '#ffd700';
 
-  const strokeWidth = 12;
-  const radius = 70;
+  const strokeWidth = 10;
+  const radius = 75;
   const circumference = 2 * Math.PI * radius;
   const progressOffset = circumference - (Math.min(100, score) / 100) * circumference;
   const currentLocCenter = [userLocation?.lat ?? 13.0695, userLocation?.lng ?? 80.1966];
@@ -913,21 +913,21 @@ VITE_FIREBASE_APP_ID=your_app_id`}
             }}
           >
             <div style={{ width: '100%', textAlign: 'center' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: 0, fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', marginBottom: '1.25rem' }}>
+                <h3 style={{ fontSize: '1.55rem', color: '#fff', margin: 0, fontFamily: "'Bebas Neue', display, sans-serif", letterSpacing: '1px' }}>
                   ⚡ Live Risk Indicator
                 </h3>
-                <span style={{ fontSize: '0.75rem', color: '#777' }}>
+                <span style={{ fontSize: '0.75rem', color: '#888' }}>
                   Auto-updates 30s {lastRiskFetched && `(${lastRiskFetched})`}
                 </span>
               </div>
 
-              <div style={{ position: 'relative', width: '180px', height: '180px', margin: '1.5rem auto' }}>
-                <svg width="180" height="180" viewBox="0 0 180 180" style={{ transform: 'rotate(-90deg)' }}>
-                  <circle cx="90" cy="90" r={radius} stroke="#222233" strokeWidth={strokeWidth} fill="transparent" />
+              <div style={{ position: 'relative', width: '200px', height: '200px', margin: '1rem auto' }}>
+                <svg width="200" height="200" viewBox="0 0 200 200" style={{ transform: 'rotate(-90deg)' }}>
+                  <circle cx="100" cy="100" r={radius} stroke="#222233" strokeWidth={strokeWidth} fill="transparent" />
                   <circle
-                    cx="90"
-                    cy="90"
+                    cx="100"
+                    cy="100"
                     r={radius}
                     stroke={ringColor}
                     strokeWidth={strokeWidth}
@@ -948,19 +948,20 @@ VITE_FIREBASE_APP_ID=your_app_id`}
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justify: 'center'
+                    justify: 'center',
+                    pointerEvents: 'none'
                   }}
                 >
-                  <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: ringColor, lineHeight: 1 }}>
+                  <span style={{ fontSize: '2.6rem', fontWeight: 'bold', color: ringColor, lineHeight: 1 }}>
                     {score}
                   </span>
-                  <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#aaa', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '6px' }}>
                     {riskData?.risk_level ?? 'Safe'} Risk
                   </span>
                 </div>
               </div>
 
-              <div style={{ fontSize: '0.9rem', color: '#ccc', textAlign: 'center' }}>
+              <div style={{ fontSize: '0.9rem', color: '#ccc', textAlign: 'center', marginTop: '0.5rem' }}>
                 <strong>Nearest Focus:</strong> {riskData?.nearest_zones?.[0] ?? 'Chennai Center'}
               </div>
             </div>
