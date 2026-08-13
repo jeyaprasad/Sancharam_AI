@@ -135,22 +135,34 @@ const Features = () => {
           display: 'flex',
           justify: 'space-between',
           alignItems: 'center',
+          gap: '2rem',
+          flexWrap: 'wrap',
           backgroundColor: '#FAF7F2',
           borderBottom: '1px solid rgba(0,0,0,0.04)'
         }}
       >
         {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
-          <img
-            src="/assets/images/icon.png"
-            alt="Sancharam Logo"
-            style={{ width: '36px', height: '36px', objectFit: 'contain' }}
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', marginRight: '2rem' }}>
+          <div style={{
+            width: '38px',
+            height: '38px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justify: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+            flexShrink: 0
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D9653B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
           <span
             style={{
-              fontFamily: "'Yatra One', 'Playfair Display', serif",
-              fontSize: '1.8rem',
+              fontFamily: "'Fraunces', 'Playfair Display', serif",
+              fontSize: '1.75rem',
               fontWeight: '700',
               color: '#1A1A1A',
               letterSpacing: '-0.5px'
@@ -161,7 +173,7 @@ const Features = () => {
         </Link>
 
         {/* Navigation */}
-        <nav style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+        <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <Link
             to="/"
             style={{

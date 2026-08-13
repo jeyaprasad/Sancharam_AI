@@ -28,5 +28,8 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
-*.sw?
+# Python & DB
+__pycache__/
+*.pyc
+*.db
+.env

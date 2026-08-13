@@ -430,8 +430,27 @@ const GuardianPage = () => {
         <div className="features-hero-bg">
           <header>
             <div className="nav-in">
-              <Link to="/" className="logo-img-link">
-                <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
+              <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+                <div style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%)',
+                  border: '1px solid #FFD700',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justify: 'center',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                  flexShrink: 0
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.4rem', fontWeight: '700', color: '#fff', letterSpacing: '-0.3px' }}>
+                  San<span style={{ color: '#FFD700' }}>charam</span>
+                </span>
               </Link>
               <nav>
                 <Link to="/">Home</Link>
@@ -635,8 +654,27 @@ const GuardianPage = () => {
       <div className="features-hero-bg">
         <header>
           <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+              <div style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%)',
+                border: '1px solid #FFD700',
+                display: 'flex',
+                alignItems: 'center',
+                justify: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                flexShrink: 0
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.4rem', fontWeight: '700', color: '#1A1A1A', letterSpacing: '-0.3px' }}>
+                San<span style={{ color: '#B4451F' }}>charam</span>
+              </span>
             </Link>
             <nav>
               <Link to="/">Home</Link>
