@@ -32,22 +32,7 @@ const Home = () => {
   return (
     <div className="home-center-container" style={{ minHeight: '100vh', overflowY: 'auto', background: '#0f0f14', color: '#fff' }}>
       {/* ── TOP NAV HEADER ── */}
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          zIndex: 1000,
-          background: 'rgba(15, 15, 20, 0.85)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          padding: '0.9rem 2.5rem',
-          display: 'flex',
-          justify: 'space-between',
-          alignItems: 'center'
-        }}
-      >
+      <header className="home-nav-header">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
           <div
             style={{
@@ -79,6 +64,7 @@ const Home = () => {
           <Link to="/features/safety" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Safety</Link>
           <Link to="/features/itinerary" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Planner</Link>
           <Link to="/features/blockchain" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Guardian</Link>
+          <Link to="/features/uncharted" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Uncharted</Link>
         </nav>
       </header>
 
@@ -98,7 +84,7 @@ const Home = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="home-center-content">
+        <div className="home-center-content" style={{ paddingTop: '80px' }}>
           <div className="home-center-badge">
             <span lang="ta">நம்ம சென்னை</span>
           </div>
@@ -113,16 +99,22 @@ const Home = () => {
           </div>
 
           <p className="home-center-description" style={{ maxWidth: '680px', margin: '0 auto 2rem auto', fontSize: '1.15rem', color: '#e0e0e0', lineHeight: '1.6' }}>
-            Experience the vibrant soul of Tamil Nadu. From ancient Dravidian gopurams in Mylapore to the scenic ECR shores of Mahabalipuram, let Sancharam guide your travel odysseys with AI risk intelligence.
+            Experience the vibrant soul of Tamil Nadu. From ancient Dravidian gopurams in Mylapore to the serene shores of Elliot's Beach, let Sancharam guide your travel odysseys with AI risk intelligence.
           </p>
 
-          <div className="home-center-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link to="/features" className="home-center-cta-btn" style={{ padding: '0.9rem 2rem', background: '#FFD700', color: '#000', borderRadius: '50px', fontWeight: 'bold', textDecoration: 'none' }}>
-              Explore Features 🚀
+          <div className="home-center-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/features" className="home-center-cta-btn" style={{ padding: '0.9rem 2.2rem', background: '#FFD700', color: '#000', borderRadius: '50px', fontWeight: 'bold', textDecoration: 'none', letterSpacing: '1px' }}>
+              START EXPLORING 🚀
             </Link>
-            <Link to="/features/routing" style={{ padding: '0.9rem 2rem', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50px', fontWeight: 'bold', textDecoration: 'none' }}>
+            <Link to="/features/routing" style={{ padding: '0.9rem 2rem', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '50px', fontWeight: 'bold', textDecoration: 'none' }}>
               Smart Routing 🛣️
             </Link>
+          </div>
+
+          <div style={{ marginTop: '1.5rem' }}>
+            <span style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid #FFD700', color: '#FFD700', padding: '6px 18px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+              வாழ்க தமிழ் வளர்க தமிழ்
+            </span>
           </div>
 
           {/* Scroll Down Indicator */}
