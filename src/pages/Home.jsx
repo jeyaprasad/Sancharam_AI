@@ -22,43 +22,6 @@ const Home = () => {
 
   return (
     <div className="home-center-container" style={{ minHeight: '100vh', overflowY: 'auto', background: '#0f0f14', color: '#fff' }}>
-      {/* ── TOP NAV HEADER ── */}
-      <header className="home-nav-header">
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-          <div
-            style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%)',
-              border: '1px solid #FFD700',
-              display: 'flex',
-              alignItems: 'center',
-              justify: 'center',
-              boxShadow: '0 2px 10px rgba(255, 215, 0, 0.2)'
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          </div>
-          <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.7rem', fontWeight: '700', color: '#fff', letterSpacing: '-0.5px' }}>
-            San<span style={{ color: '#FFD700' }}>charam</span>
-          </span>
-        </Link>
-
-        <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          <Link to="/" style={{ color: '#FFD700', textDecoration: 'none', fontWeight: '600', fontSize: '0.92rem' }}>Home</Link>
-          <Link to="/features" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Features</Link>
-          <Link to="/features/routing" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Routing</Link>
-          <Link to="/features/safety" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Safety</Link>
-          <Link to="/features/itinerary" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Planner</Link>
-          <Link to="/features/blockchain" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Guardian</Link>
-          <Link to="/features/uncharted" style={{ color: '#ccc', textDecoration: 'none', fontWeight: '500', fontSize: '0.92rem' }}>Uncharted</Link>
-        </nav>
-      </header>
-
       {/* ── 1. HERO SLIDESHOW SECTION ── */}
       <div className="home-center-hero" style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}>
         {/* Background Slideshow */}
