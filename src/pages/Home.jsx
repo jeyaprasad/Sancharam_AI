@@ -6,10 +6,10 @@ const Home = () => {
 
   const slides = [
     '/assets/images/chennai.jpg',
-    '/assets/images/beaches.jpg',
+    '/assets/images/tranquebar_fort.jpg',
     '/assets/images/lighthouse.jpg',
     '/assets/images/shoretemple.png',
-    '/assets/images/church.jpg'
+    '/assets/images/victoriahall.jpg'
   ];
 
   // Slideshow Effect
