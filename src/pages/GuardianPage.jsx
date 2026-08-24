@@ -17,6 +17,7 @@ import {
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import Footer from '@/components/Footer';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -650,8 +651,8 @@ const GuardianPage = () => {
         <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
           <div className="rv in">
             <span className="pill" lang="ta"><i></i>பாதுகாவலன்</span>
-            <h1>Guardian <em>Shield</em></h1>
-            <p className="hero-sub" style={{ fontSize: '1.3rem', color: 'var(--accent, #FFD700)', marginTop: '0.5rem' }}>
+            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left' }}>பாதுகாவலன்</h1>
+            <p className="hero-sub" style={{ fontSize: '1.3rem', color: 'var(--accent, #FFD700)', marginTop: '0.5rem', fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', whiteSpace: 'nowrap', display: 'inline-block' }}>
               பாதுகாவலன் · Live Location Watcher & Emergency Response
             </p>
           </div>
@@ -1074,19 +1075,7 @@ VITE_FIREBASE_APP_ID=your_app_id`}
         </div>
       </div>
 
-      <div className="wrap">
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
-            <Link to="/features/blockchain">Guardian</Link>
-            <Link to="/features/tribes">Tribes</Link>
-          </div>
-          <small>© 2026 Sancharam · Chennai</small>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 };

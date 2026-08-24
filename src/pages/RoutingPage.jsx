@@ -10,6 +10,7 @@ import { analyzeRoute } from '@/services/api';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import Footer from '@/components/Footer';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -568,20 +569,7 @@ const RoutingPage = () => {
       </div>
 
       {/* ── FOOTER ── */}
-      <div className="wrap">
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/routing">Routing</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
-            <Link to="/features/blockchain">Guardian</Link>
-            <Link to="/features/tribes">Tribes</Link>
-          </div>
-          <small>© 2026 Sancharam · Chennai</small>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 };

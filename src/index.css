@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@400;600&family=Poppins:wght@300;400;600&family=Caveat:wght@600;700&family=Tiro+Tamil&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@400;600;900&family=Catamaran:wght@900&family=Poppins:wght@300;400;600&family=Caveat:wght@600;700&family=Tiro+Tamil&display=swap');
 
 :root {
   --paper: #FBFAF7;
@@ -184,7 +184,7 @@ h4 {
 }
 
 .tamil-title {
-  font-family: 'Noto Sans Tamil', 'Tiro Tamil', sans-serif;
+  font-family: 'Tiro Tamil', serif;
   font-size: clamp(3rem, 8vw, 5.5rem);
   font-weight: 600;
   line-height: 1.25;
@@ -258,7 +258,7 @@ h4 {
   bottom: clamp(24px, 5vw, 40px);
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Noto Sans Tamil', 'Tiro Tamil', sans-serif;
+  font-family: 'Tiro Tamil', serif;
   font-size: 15px;
   font-weight: 600;
   color: #ffd700;
@@ -286,9 +286,9 @@ h4 {
 
 .features-hero-bg {
   background-color: var(--paper);
-  background-image: url('/assets/images/background.png');
+  background-image: url('/assets/images/features-bg.jpg');
   background-size: cover;
-  background-position: center bottom;
+  background-position: center center;
   background-repeat: no-repeat;
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -332,7 +332,7 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
   letter-spacing:.1em;text-transform:uppercase;color:var(--rust);background:var(--rust-soft);
   border:1px solid rgba(180,69,31,.16);padding:6px 14px;border-radius:99px;margin-bottom:26px}
 .pill i{width:6px;height:6px;border-radius:50%;background:var(--rust);display:block}
-:lang(ta){font-family:'Noto Sans Tamil','Inter',sans-serif;text-transform:none;
+:lang(ta){font-family:'Tiro Tamil','Fraunces',serif;text-transform:none;
   letter-spacing:.02em;font-size:13px;line-height:1.5}
 .hero h1{font-size:clamp(2.9rem,6.4vw,5.2rem);max-width:14ch;text-shadow:0 0 40px var(--paper),0 0 20px var(--paper)}
 .hero h1 em{font-style:italic;color:var(--rust);font-weight:400}
@@ -449,9 +449,10 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
 }
 
 .tab[aria-selected="true"] {
-  background: var(--ink);
-  color: var(--paper);
-  font-weight: 600
+  background: #000;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 0 3px var(--wash), 0 0 0 5px #C0392B;
 }
 
 .tab svg {

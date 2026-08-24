@@ -9,6 +9,7 @@ import 'leaflet/dist/leaflet.css';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import Footer from '@/components/Footer';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -353,8 +354,8 @@ const UnchartedPage = () => {
         <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
           <div className="rv in" style={{ marginLeft: '-120px' }}>
             <span className="pill" lang="ta"><i></i>அறியப்படாத இடங்கள்</span>
-            <h1>Uncharted<br/><em>Chennai</em></h1>
-            <p className="hero-sub" style={{ fontSize: '1.4rem', color: 'var(--rust)', marginTop: '0.5rem', fontFamily: "'Caveat', cursive", whiteSpace: 'nowrap' }}>
+            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left' }}>அறியப்படாதவை</h1>
+            <p className="hero-sub" style={{ fontSize: '1.3rem', color: 'var(--accent, #FFD700)', marginTop: '0.5rem', fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', whiteSpace: 'nowrap', display: 'inline-block' }}>
               அறியப்படாத இடங்கள் · 20+ Hidden Gems & Verified Community Tips
             </p>
           </div>
@@ -1027,19 +1028,7 @@ const UnchartedPage = () => {
       )}
 
       {/* FOOTER */}
-      <div className="wrap">
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
-            <Link to="/features/blockchain">Guardian</Link>
-            <Link to="/features/tribes">Tribes</Link>
-          </div>
-          <small>© 2026 Sancharam · Chennai</small>
-        </footer>
-      </div>
+      <Footer />
 
       {/* Floating TamilChatbot Assistant */}
       <TamilChatbot floating={true} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CurrencyWidget from '@/components/CurrencyWidget';
+import Footer from '@/components/Footer';
 
 const CATEGORY_STYLES = {
   Food: { bg: 'rgba(255, 152, 0, 0.15)', text: '#ff9800', border: 'rgba(255, 152, 0, 0.4)', icon: '🍱', color: '#ff9800' },
@@ -764,19 +765,7 @@ const BudgetTrackerPage = () => {
         }
       `}</style>
 
-      <div className="wrap">
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
-            <Link to="/features/blockchain">Guardian</Link>
-            <Link to="/features/tribes">Tribes</Link>
-          </div>
-          <small>© 2026 Sancharam · Chennai</small>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 };

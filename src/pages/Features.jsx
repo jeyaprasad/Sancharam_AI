@@ -99,101 +99,103 @@ const Features = () => {
 
         <div className="tabs rv" role="tablist" aria-label="Features" ref={addToRefs}>
           <button className="tab" role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span className="lbl">Kaavalar Paathaikal</span><span className="tab-n">01</span>
+            <span className="lbl" style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '16px'}}>Kavasam</span><span className="tab-n">01</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 1} onClick={() => setActiveTab(1)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6 3-6-3Z"/><path d="M9 7v13M15 4v13"/></svg>
-            <span className="lbl">Dharma Diary</span><span className="tab-n">02</span>
+            <span className="lbl" style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '16px'}}>Unarvu</span><span className="tab-n">02</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 2} onClick={() => setActiveTab(2)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span className="lbl">Vaasal Concierge</span><span className="tab-n">03</span>
+            <span className="lbl" style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '16px'}}>Neram</span><span className="tab-n">03</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 3} onClick={() => setActiveTab(3)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-            <span className="lbl">Kaaval Companion</span><span className="tab-n">04</span>
+            <span className="lbl" style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '16px'}}>Kaaval</span><span className="tab-n">04</span>
           </button>
           <button className="tab" role="tab" aria-selected={activeTab === 4} onClick={() => setActiveTab(4)} onKeyDown={handleKeyDown}>
-            <svg viewBox="0 0 24 24"><path d="M2 12h4m12 0h4M12 2v4m0 12v4"/><circle cx="12" cy="12" r="5"/></svg>
-            <span className="lbl">Namma Nanbargal</span><span className="tab-n">05</span>
+            <span className="lbl" style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '16px'}}>Oor</span><span className="tab-n">05</span>
           </button>
         </div>
 
         <div className={`panel ${activeTab === 0 ? 'on' : ''} rv`} role="tabpanel" hidden={activeTab !== 0} ref={addToRefs}>
           <div>
-            <h3 style={{marginBottom: '4px'}}>Kaavalar Paathaikal</h3>
-            <span style={{display: 'inline-block', fontSize: '0.85em', color: 'var(--rust)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Sentinel Trails</span>
-            <p>Venture off the beaten path with confidence. Sentinel Trails curates scenic routes through lesser-known neighborhoods, enhanced with real-time safety insights from local authorities and traveler feedback. Discover hidden gems while prioritizing your well-being.</p>
-            <Link to="/features/safety" className="go">Explore trails <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3 lang="ta" style={{fontFamily: "'Tiro Tamil', serif", fontSize: '42px', fontWeight: 'bold', color: '#2c2c2c', marginBottom: '4px', lineHeight: 1.2}}>கவசம்</h3>
+            <p style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '18px', fontStyle: 'italic', color: '#8B6914', marginBottom: '16px', marginTop: 0}}>Kavasam</p>
+            <span style={{display: 'inline-block', fontSize: '11px', color: '#C0392B', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Safe Route Intelligence</span>
+            <p style={{marginBottom: '32px'}}>Routes scored against Chennai crime and accident data. Know the risk before you walk the road.</p>
+            <Link to="/features/safety" className="go" style={{backgroundColor: '#000', color: '#fff', padding: '12px 28px', borderRadius: '99px', display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', fontWeight: '500', fontSize: '15px'}}>Check my route &rarr;</Link>
           </div>
           <div className="panel-art">
-            <img src="/assets/images/ai/sentinel.jpg" alt="Kaavalar Paathaikal" loading="lazy" />
+            <img src="/assets/images/features/kaavasam.jpg" alt="Kavasam" loading="lazy" />
           </div>
         </div>
 
         <div className={`panel ${activeTab === 1 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 1}>
           <div>
-            <h3 style={{marginBottom: '4px'}}>Dharma Diary</h3>
-            <span style={{display: 'inline-block', fontSize: '0.85em', color: 'var(--rust)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Sacred Journeys</span>
-            <p>Immerse yourself in the spiritual essence of Tamil Nadu. Sacred Journeys crafts personalized temple trails based on your religious interests, connecting you with sacred spaces, ancient rituals, and enlightening experiences. Document your journey with built-in travel journaling.</p>
-            <Link to="/features/routing" className="go">Start a journey <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3 lang="ta" style={{fontFamily: "'Tiro Tamil', serif", fontSize: '42px', fontWeight: 'bold', color: '#2c2c2c', marginBottom: '4px', lineHeight: 1.2}}>உணர்வு</h3>
+            <p style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '18px', fontStyle: 'italic', color: '#8B6914', marginBottom: '16px', marginTop: 0}}>Unarvu</p>
+            <span style={{display: 'inline-block', fontSize: '11px', color: '#C0392B', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Mood Trip Planner</span>
+            <p style={{marginBottom: '32px'}}>Pick Calm, Curious, Hungry or Adventurous — get a full Chennai day plan built around your feeling.</p>
+            <Link to="/features/routing" className="go" style={{backgroundColor: '#000', color: '#fff', padding: '12px 28px', borderRadius: '99px', display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', fontWeight: '500', fontSize: '15px'}}>Pick my mood &rarr;</Link>
           </div>
           <div className="panel-art">
-            <img src="/assets/images/ai/dharma.jpg" alt="Dharma Diary" loading="lazy" />
+            <img src="/assets/images/features/unarvu.jpg" alt="Unarvu" loading="lazy" />
           </div>
         </div>
 
         <div className={`panel ${activeTab === 2 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 2}>
           <div>
-            <h3 style={{marginBottom: '4px'}}>Vaasal Concierge</h3>
-            <span style={{display: 'inline-block', fontSize: '0.85em', color: 'var(--rust)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Heritage Guide & Planner</span>
-            <p>Heritage Concierge is your virtual guide to authentic Tamil experiences. From booking traditional homestays to arranging cultural workshops with local artisans, Heritage Concierge ensures a deeper connection with the region's heritage.</p>
-            <Link to="/features/itinerary" className="go">Meet your guide <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3 lang="ta" style={{fontFamily: "'Tiro Tamil', serif", fontSize: '42px', fontWeight: 'bold', color: '#2c2c2c', marginBottom: '4px', lineHeight: 1.2}}>நேரம்</h3>
+            <p style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '18px', fontStyle: 'italic', color: '#8B6914', marginBottom: '16px', marginTop: 0}}>Neram</p>
+            <span style={{display: 'inline-block', fontSize: '11px', color: '#C0392B', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Time-Aware Discovery</span>
+            <p style={{marginBottom: '32px'}}>Marina at 5 AM and 5 PM are different places. See what Chennai offers right now.</p>
+            <Link to="/features/itinerary" className="go" style={{backgroundColor: '#000', color: '#fff', padding: '12px 28px', borderRadius: '99px', display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', fontWeight: '500', fontSize: '15px'}}>Show me now &rarr;</Link>
           </div>
           <div className="panel-art">
-            <img src="/assets/images/ai/vaasal.jpg" alt="Vaasal Concierge" loading="lazy" />
+            <img src="/assets/images/features/neram.jpg" alt="Neram" loading="lazy" />
           </div>
         </div>
 
         <div className={`panel ${activeTab === 3 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 3}>
           <div>
-            <h3 style={{marginBottom: '4px'}}>Kaaval Companion</h3>
-            <span style={{display: 'inline-block', fontSize: '0.85em', color: 'var(--rust)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Guardian Shield & Police Protection</span>
-            <p>Stay protected round the clock with Guardian Shield, your personal safety companion. Leveraging advanced risk assessment and live location tracking, it provides discreet alerts when entering higher-risk areas and offers swift emergency assistance.</p>
-            <Link to="/features/blockchain" className="go">Enable shield <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3 lang="ta" style={{fontFamily: "'Tiro Tamil', serif", fontSize: '42px', fontWeight: 'bold', color: '#2c2c2c', marginBottom: '4px', lineHeight: 1.2}}>காவல்</h3>
+            <p style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '18px', fontStyle: 'italic', color: '#8B6914', marginBottom: '16px', marginTop: 0}}>Kaaval</p>
+            <span style={{display: 'inline-block', fontSize: '11px', color: '#C0392B', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Solo Safety Mode</span>
+            <p style={{marginBottom: '32px'}}>Register emergency contacts, activate SOS, get night-mode warnings after 9 PM.</p>
+            <Link to="/features/blockchain" className="go" style={{backgroundColor: '#000', color: '#fff', padding: '12px 28px', borderRadius: '99px', display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', fontWeight: '500', fontSize: '15px'}}>Enable Kaaval &rarr;</Link>
           </div>
           <div className="panel-art">
-            <img src="/assets/images/ai/kaaval.jpg" alt="Kaaval Companion" loading="lazy" />
+            <img src="/assets/images/features/kaaval.jpg" alt="Kaaval" loading="lazy" />
           </div>
         </div>
 
         <div className={`panel ${activeTab === 4 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 4}>
           <div>
-            <h3 style={{marginBottom: '4px'}}>Namma Nanbargal</h3>
-            <span style={{display: 'inline-block', fontSize: '0.85em', color: 'var(--rust)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Travel Tribes & Groups</span>
-            <p>Connect with like-minded travelers and unlock community-sourced wisdom. Join interest-based travel circles, exchange insider tips, and coordinate group activities. Collaborate on itineraries and build lasting friendships with fellow explorers.</p>
-            <Link to="/features/uncharted" className="go">Join a tribe <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+            <h3 lang="ta" style={{fontFamily: "'Tiro Tamil', serif", fontSize: '42px', fontWeight: 'bold', color: '#2c2c2c', marginBottom: '4px', lineHeight: 1.2}}>ஊர்</h3>
+            <p style={{fontFamily: "'Fraunces', 'Playfair Display', serif", fontSize: '18px', fontStyle: 'italic', color: '#8B6914', marginBottom: '16px', marginTop: 0}}>Oor</p>
+            <span style={{display: 'inline-block', fontSize: '11px', color: '#C0392B', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px'}}>Hyper-Local Discovery</span>
+            <p style={{marginBottom: '32px'}}>6 Chennai zones. Hidden spots TripAdvisor will never show you. See through local eyes.</p>
+            <Link to="/features/uncharted" className="go" style={{backgroundColor: '#000', color: '#fff', padding: '12px 28px', borderRadius: '99px', display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', fontWeight: '500', fontSize: '15px'}}>Explore Oor &rarr;</Link>
           </div>
           <div className="panel-art">
-            <img src="/assets/images/ai/tribes.jpg" alt="Namma Nanbargal" loading="lazy" />
+            <img src="/assets/images/features/oor.jpg" alt="Oor" loading="lazy" />
           </div>
         </div>
       </section>
 
       <div className="marquee rv" ref={addToRefs}>
         <div className="track" ref={trackRef}>
-          <figure className="place"><img src="/assets/images/ai/dharma.jpg" alt="Kapaleeshwarar Temple" loading="lazy" /><figcaption className="place-info"><h4>Kapaleeshwarar</h4><p>The spirit of Mylapore</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/tribes.jpg" alt="Elliot's Beach" loading="lazy" /><figcaption className="place-info"><h4>Elliot's Beach</h4><p>Besant Nagar evenings</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_highcourt.jpg" alt="Madras High Court" loading="lazy" /><figcaption className="place-info"><h4>High Court</h4><p>Indo-Saracenic red</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/parthasarathy.jpg" alt="Parthasarathy Temple" loading="lazy" /><figcaption className="place-info"><h4>Parthasarathy</h4><p>The soul of Triplicane</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/napier_bridge.jpg" alt="Napier Bridge" loading="lazy" /><figcaption className="place-info"><h4>Napier Bridge</h4><p>Iconic island connector</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/valluvarkottam.jpg" alt="Valluvar Kottam" loading="lazy" /><figcaption className="place-info"><h4>Valluvar Kottam</h4><p>Chariot of verses</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
           {/* Duplicated for seamless marquee */}
-          <figure className="place"><img src="/assets/images/ai/dharma.jpg" alt="Kapaleeshwarar Temple" loading="lazy" /><figcaption className="place-info"><h4>Kapaleeshwarar</h4><p>The spirit of Mylapore</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/tribes.jpg" alt="Elliot's Beach" loading="lazy" /><figcaption className="place-info"><h4>Elliot's Beach</h4><p>Besant Nagar evenings</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_highcourt.jpg" alt="Madras High Court" loading="lazy" /><figcaption className="place-info"><h4>High Court</h4><p>Indo-Saracenic red</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/ai/marquee_royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/parthasarathy.jpg" alt="Parthasarathy Temple" loading="lazy" /><figcaption className="place-info"><h4>Parthasarathy</h4><p>The soul of Triplicane</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/napier_bridge.jpg" alt="Napier Bridge" loading="lazy" /><figcaption className="place-info"><h4>Napier Bridge</h4><p>Iconic island connector</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/valluvarkottam.jpg" alt="Valluvar Kottam" loading="lazy" /><figcaption className="place-info"><h4>Valluvar Kottam</h4><p>Chariot of verses</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/features/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
         </div>
       </div>
 
