@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '@/components/Navbar';
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -46,19 +47,7 @@ const Features = () => {
   return (
     <div className="features-container">
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features" aria-current="page">Features</Link>
-              <Link to="/features/itinerary">Planner</Link>
-              <Link to="/features/budget">Budget</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
         <section className="hero wrap">
           <div className="rv" ref={addToRefs}>

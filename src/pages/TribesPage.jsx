@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 const CATEGORY_COLORS = {
   food: { bg: 'rgba(255, 152, 0, 0.15)', text: '#ff9800', border: 'rgba(255, 152, 0, 0.4)' },
@@ -153,19 +154,7 @@ const TribesPage = () => {
   return (
     <div className="features-container">
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/tribes" aria-current="page">Tribes</Link>
-              <Link to="/features/uncharted">Uncharted</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
         <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
           <div className="rv in">

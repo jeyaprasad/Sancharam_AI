@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import useAppStore from '@/store/useAppStore';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import Footer from '@/components/Footer';
-import { Globe, AlertTriangle, ShieldAlert, Search, Shield, Folder, BarChart3, Pointer, Lightbulb, Mail, Phone, MapPin } from 'lucide-react';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
+import Navbar from '@/components/Navbar';
 
 const SafetyPage = () => {
   const riskZones = useAppStore((state) => state.riskZones);
@@ -146,19 +141,7 @@ const SafetyPage = () => {
 
       {/* ── EXISTING HERO BANNER ── */}
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/safety" aria-current="page">Safety</Link>
-              <Link to="/features/itinerary">Planner</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
         <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
           <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
@@ -210,7 +193,7 @@ const SafetyPage = () => {
           <div
             style={{
               background: 'linear-gradient(145deg, #1c1c28, #14141c)',
-              border: '1px solid #33334d',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '16px',
               padding: '1.5rem',
               display: 'flex',
@@ -362,7 +345,7 @@ const SafetyPage = () => {
                     Risk Assessment Complete
                   </span>
                   <h3 style={{ color: '#111', fontSize: '1.4rem', margin: '6px 0', fontWeight: 'bold' }}>
-                    📍 {searchResult.name}
+                    <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {searchResult.name}
                   </h3>
                   <small style={{ color: '#555', fontSize: '0.85rem' }}>
                     Nearest: {searchResult.nearestZones?.join(', ') || 'N/A'}
@@ -622,7 +605,7 @@ const SafetyPage = () => {
             </div>
 
             {/* Description / Reason */}
-            <div style={{ background: '#1a1a26', border: '1px solid #2e2e42', borderRadius: '10px', padding: '1rem', marginBottom: '1.75rem' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid #2e2e42', borderRadius: '10px', padding: '1rem', marginBottom: '1.75rem' }}>
               <label style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}>
                 Primary Cause / Concern:
               </label>
@@ -632,7 +615,7 @@ const SafetyPage = () => {
             </div>
 
             {/* Recharts Hourly Risk Bar Chart */}
-            <div style={{ background: '#1a1a26', border: '1px solid #2e2e42', borderRadius: '10px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid #2e2e42', borderRadius: '10px', padding: '1.25rem', marginBottom: '1.5rem' }}>
               <h4 style={{ color: '#FFD700', fontSize: '0.9rem', margin: '0 0 1rem 0', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 <BarChart3 size={16} style={{ marginRight: '6px', verticalAlign: 'text-bottom' }} /> Time-of-Day Risk Peaking Chart
               </h4>

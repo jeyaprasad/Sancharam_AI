@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyWidget from '@/components/CurrencyWidget';
 import TamilChatbot from '@/components/TamilChatbot';
-import { Link } from 'react-router-dom';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 const BUDGET_OPTIONS = ['Budget', 'Moderate', 'Luxury'];
 
@@ -154,27 +155,40 @@ const ItineraryPage = () => {
   return (
     <div className="features-container">
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/itinerary" aria-current="page">Planner</Link>
-              <Link to="/features/budget">Budget</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
-        <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
-          <div className="rv in">
-            <span className="pill" lang="ta"><i></i>பயணத் திட்டம்</span>
-            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left' }}>பயணத் திட்டம்</h1>
-            <p className="hero-sub" style={{ fontSize: '1.3rem', color: 'var(--accent, #FFD700)', marginTop: '0.5rem', fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', whiteSpace: 'nowrap', display: 'inline-block' }}>
-              பயணத் திட்டம் · AI Personalized Travel Odyssey
-            </p>
+        <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+          <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span className="pill" lang="ta" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F', fontWeight: 'bold' }}><i></i>பயணத் திட்டம்</span>
+            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: '#111', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>பயணத் திட்டம்</h1>
+            <div style={{
+              marginTop: '1.5rem',
+              background: 'linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,15,0.85))',
+              backdropFilter: 'blur(16px)',
+              padding: '1.5rem 2rem',
+              borderRadius: '16px',
+              border: '1px solid rgba(255, 215, 0, 0.3)',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0.8rem'
+            }}>
+              <p style={{ fontSize: '1.4rem', color: '#FFD700', margin: 0, fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
+                பயணத் திட்டம் · AI Personalized Travel Odyssey
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', borderTop: '1px solid rgba(255, 215, 0, 0.2)', paddingTop: '1rem', width: '100%' }}>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <Calendar size={18} color="#FFD700" /> AI Scheduling
+                </span>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <Map size={18} color="#FFD700" /> Smart Recommendations
+                </span>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <Wallet size={18} color="#FFD700" /> Budget Optimization
+                </span>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -187,15 +201,15 @@ const ItineraryPage = () => {
             <form
               onSubmit={handleGenerate}
               style={{
-                background: '#12121a',
+                background: 'linear-gradient(145deg, #1c1c28, #14141c)',
                 padding: '2rem',
-                borderRadius: '14px',
-                border: '1px solid #2a2a3a',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                 marginBottom: '3rem'
               }}
             >
-              <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.5rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
+              <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.5rem' }}>
                 Create Your Trip Itinerary
               </h2>
               <p style={{ color: '#aaa', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
@@ -216,8 +230,8 @@ const ItineraryPage = () => {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      background: '#1a1a26',
-                      border: '1px solid #33334d',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '8px',
                       color: '#fff',
                       fontSize: '1rem',
@@ -240,8 +254,8 @@ const ItineraryPage = () => {
                       style={{
                         width: '100%',
                         padding: '0.85rem 1rem',
-                        background: '#1a1a26',
-                        border: '1px solid #33334d',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '8px',
                         color: '#fff',
                         fontSize: '0.95rem',
@@ -261,8 +275,8 @@ const ItineraryPage = () => {
                       style={{
                         width: '100%',
                         padding: '0.85rem 1rem',
-                        background: '#1a1a26',
-                        border: '1px solid #33334d',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '8px',
                         color: '#fff',
                         fontSize: '0.95rem',
@@ -278,7 +292,7 @@ const ItineraryPage = () => {
                     <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
                       Travelers
                     </label>
-                    <div style={{ display: 'flex', alignItems: 'center', background: '#1a1a26', border: '1px solid #33334d', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', overflow: 'hidden' }}>
                       <button
                         type="button"
                         onClick={() => setTravelers((t) => Math.max(1, t - 1))}
@@ -310,8 +324,8 @@ const ItineraryPage = () => {
                         width: '100%',
                         height: '44px',
                         padding: '0 1rem',
-                        background: '#1a1a26',
-                        border: '1px solid #33334d',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '8px',
                         color: '#fff',
                         fontSize: '0.95rem',
@@ -373,8 +387,8 @@ const ItineraryPage = () => {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      background: '#1a1a26',
-                      border: '1px solid #33334d',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '8px',
                       color: '#fff',
                       fontSize: '0.95rem',
@@ -431,8 +445,8 @@ const ItineraryPage = () => {
                   boxShadow: '0 8px 30px rgba(255, 215, 0, 0.15)'
                 }}
               >
-                <h3 style={{ fontSize: '1.6rem', color: '#FFD700', marginBottom: '0.4rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                  🎉 Festivals During Your Trip ({matchingFestivals.length})
+                <h3 style={{ fontSize: '1.6rem', color: '#FFD700', marginBottom: '0.4rem' }}>
+                  <PartyPopper size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Festivals During Your Trip ({matchingFestivals.length})
                 </h3>
                 <p style={{ color: '#aaa', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
                   These vibrant Tamil Nadu festivals take place during your selected travel dates and are included in your AI itinerary!
@@ -443,8 +457,8 @@ const ItineraryPage = () => {
                     <div
                       key={fest.id}
                       style={{
-                        background: '#14141d',
-                        border: '1px solid #33334d',
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '12px',
                         padding: '1.2rem',
                         display: 'flex',
@@ -458,7 +472,7 @@ const ItineraryPage = () => {
                             {fest.name}
                           </h4>
                           <span style={{ background: 'rgba(255, 215, 0, 0.15)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)', padding: '2px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 'bold' }}>
-                            📍 {fest.district}
+                            <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {fest.district}
                           </span>
                         </div>
 
@@ -471,7 +485,7 @@ const ItineraryPage = () => {
                         </p>
                       </div>
 
-                      <div style={{ background: '#1a1a28', padding: '8px 12px', borderRadius: '8px', borderLeft: '3px solid #2ec4b6', fontSize: '0.82rem', color: '#2ec4b6', lineHeight: '1.4' }}>
+                      <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '8px 12px', borderRadius: '8px', borderLeft: '3px solid #2ec4b6', fontSize: '0.82rem', color: '#2ec4b6', lineHeight: '1.4' }}>
                         💡 <strong>Travel Tip:</strong> {fest.travel_tip}
                       </div>
                     </div>
@@ -485,8 +499,8 @@ const ItineraryPage = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
                 {/* DAY CARDS */}
                 <div>
-                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                    🗓️ Day-by-Day Schedule
+                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem' }}>
+                    <Calendar size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Day-by-Day Schedule
                   </h3>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -496,8 +510,8 @@ const ItineraryPage = () => {
                         <div
                           key={day.dayNumber}
                           style={{
-                            background: '#14141d',
-                            border: '1px solid #282838',
+                            background: 'rgba(255, 255, 255, 0.03)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
                             borderRadius: '12px',
                             overflow: 'hidden'
                           }}
@@ -506,7 +520,7 @@ const ItineraryPage = () => {
                             onClick={() => toggleDay(day.dayNumber)}
                             style={{
                               padding: '1.25rem 1.5rem',
-                              background: '#1a1a28',
+                              background: 'rgba(255, 255, 255, 0.06)',
                               cursor: 'pointer',
                               display: 'flex',
                               justifyContent: 'space-between',
@@ -536,7 +550,7 @@ const ItineraryPage = () => {
                                     <h5 style={{ color: '#fff', margin: '0 0 4px 0', fontSize: '1rem' }}>{act.activity}</h5>
                                     <p style={{ color: '#aaa', margin: '0 0 6px 0', fontSize: '0.9rem', lineHeight: '1.5' }}>{act.description}</p>
                                     <span style={{ fontSize: '0.75rem', color: '#2ec4b6', background: 'rgba(46,196,182,0.1)', padding: '2px 8px', borderRadius: '4px' }}>
-                                      📍 {act.location}
+                                      <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {act.location}
                                     </span>
                                   </div>
                                 </div>
@@ -551,8 +565,8 @@ const ItineraryPage = () => {
 
                 {/* RECOMMENDED HOTELS GRID */}
                 <div>
-                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                    🏨 Recommended Stays
+                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem' }}>
+                    <Hotel size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Recommended Stays
                   </h3>
 
                   <div
@@ -566,8 +580,8 @@ const ItineraryPage = () => {
                       <div
                         key={idx}
                         style={{
-                          background: '#14141d',
-                          border: '1px solid #282838',
+                          background: 'rgba(255, 255, 255, 0.03)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
                           borderRadius: '12px',
                           padding: '1.25rem',
                           display: 'flex',
@@ -581,7 +595,7 @@ const ItineraryPage = () => {
                             <span style={{ background: '#222', color: '#ccc', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem' }}>{hotel.tag}</span>
                           </div>
                           <h4 style={{ color: '#fff', fontSize: '1.1rem', margin: '0 0 4px 0' }}>{hotel.name}</h4>
-                          <p style={{ color: '#aaa', fontSize: '0.85rem', margin: '0 0 10px 0' }}>📍 {hotel.location}</p>
+                          <p style={{ color: '#aaa', fontSize: '0.85rem', margin: '0 0 10px 0' }}><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {hotel.location}</p>
                         </div>
                         <div style={{ paddingTop: '0.75rem', borderTop: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '1.1rem' }}>₹{hotel.pricePerNight} <small style={{ color: '#888', fontWeight: 'normal', fontSize: '0.75rem' }}>/ night</small></span>

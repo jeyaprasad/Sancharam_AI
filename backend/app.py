@@ -326,10 +326,15 @@ def calculate_risk_score(lat, lng, hour):
 def geocode_place(place_name):
     """
     Geocodes a place name string using OpenStreetMap Nominatim API with fallback for common landmarks.
+    Automatically scopes the query to Chennai if no specific city is provided.
     """
+    query = str(place_name).strip()
+    if 'chennai' not in query.lower() and 'madurai' not in query.lower() and 'thanjavur' not in query.lower():
+        query = f"{query}, Chennai"
+
     url = "https://nominatim.openstreetmap.org/search"
     params = {
-        'q': f"{place_name}, Tamil Nadu, India",
+        'q': f"{query}, Tamil Nadu, India",
         'format': 'json',
         'limit': 1
     }

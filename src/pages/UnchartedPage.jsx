@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
 import TamilChatbot from '@/components/TamilChatbot';
 import { MapContainer, TileLayer, Marker, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -10,6 +10,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -25,14 +26,14 @@ const CATEGORIES = [
   { id: 'village', label: '🏡 Villages' },
   { id: 'waterfall', label: '🌊 Waterfalls' },
   { id: 'market', label: '🛍️ Markets' },
-  { id: 'festival', label: '🎉 Festivals' }
+  { id: 'festival', label: '<PartyPopper size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Festivals' }
 ];
 
 const TIP_CATEGORIES = [
   { id: 'food', label: '🍜 Food Spot', color: '#f59e0b' },
   { id: 'quiet spot', label: '🌿 Quiet Spot', color: '#10b981' },
   { id: 'photo spot', label: '📸 Photo Spot', color: '#3b82f6' },
-  { id: 'avoid-after-dark', label: '🚨 Avoid After Dark', color: '#ef4444' }
+  { id: 'avoid-after-dark', label: '<AlertTriangle size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> Avoid After Dark', color: '#ef4444' }
 ];
 
 // Client-side Haversine distance in meters
@@ -190,7 +191,7 @@ const UnchartedPage = () => {
             if (distMeters > 50) {
               setDwellSeconds(0);
               setDwellComplete(false);
-              setDwellWarning('⚠️ You moved beyond the 50m radius. Presence dwell timer reset!');
+              setDwellWarning('<ShieldAlert size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> You moved beyond the 50m radius. Presence dwell timer reset!');
               anchorCoordsRef.current = { lat: currentLat, lng: currentLng };
             }
           }
@@ -303,7 +304,7 @@ const UnchartedPage = () => {
           success: data.valid,
           blocksVerified: 5,
           message: data.valid
-            ? '✅ Cryptographic Hash Chain Intact — All blocks verified against genesis hash!'
+            ? '<CheckCircle size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#10b981"}} /> Cryptographic Hash Chain Intact — All blocks verified against genesis hash!'
             : '❌ Hash Mismatch Detected — Chain compromised.'
         });
       }
@@ -311,7 +312,7 @@ const UnchartedPage = () => {
       setChainAuditResult({
         success: true,
         blocksVerified: 5,
-        message: '✅ Cryptographic Hash Chain Intact — All 5 preceding tip blocks verified against genesis hash!'
+        message: '<CheckCircle size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#10b981"}} /> Cryptographic Hash Chain Intact — All 5 preceding tip blocks verified against genesis hash!'
       });
     }
   };
@@ -337,19 +338,7 @@ const UnchartedPage = () => {
     <div className="features-container">
       {/* ── HERO BANNER ── */}
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/uncharted" aria-current="page">Uncharted</Link>
-              <Link to="/features/itinerary">Planner</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
         <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
           <div className="rv in" style={{ marginLeft: '-120px' }}>
@@ -480,7 +469,7 @@ const UnchartedPage = () => {
                     <div>
                       <div className="gem-card-header">
                         <span className="gem-card-tag">{gem.category}</span>
-                        <span className="gem-card-loc">📍 {gem.district}</span>
+                        <span className="gem-card-loc"><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {gem.district}</span>
                       </div>
 
                       <h3>{gem.name}</h3>
@@ -526,7 +515,7 @@ const UnchartedPage = () => {
 
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                 {/* View Mode Toggle (Map vs List) */}
-                <div style={{ display: 'flex', background: '#1a1a28', padding: '4px', borderRadius: '30px', border: '1px solid #33334d' }}>
+                <div style={{ display: 'flex', background: 'rgba(255, 255, 255, 0.06)', padding: '4px', borderRadius: '30px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                   <button
                     type="button"
                     onClick={() => setTipsViewMode('map')}
@@ -557,7 +546,7 @@ const UnchartedPage = () => {
                       cursor: 'pointer'
                     }}
                   >
-                    📋 List View
+                    <ClipboardList size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> List View
                   </button>
                 </div>
 
@@ -711,7 +700,7 @@ const UnchartedPage = () => {
                       </div>
 
                       {/* Location & Content */}
-                      <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 0.5rem 0' }}>📍 {tip.location}</h3>
+                      <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 0.5rem 0' }}><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {tip.location}</h3>
                       <p style={{ color: '#ccc', fontSize: '0.92rem', lineHeight: '1.55', marginBottom: '1.25rem' }}>
                         "{tip.content}"
                       </p>
@@ -719,7 +708,7 @@ const UnchartedPage = () => {
 
                     <div>
                       {/* Contributor & Verification Footer */}
-                      <div style={{ background: '#1a1a28', padding: '0.85rem 1rem', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                      <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '0.85rem 1rem', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <span style={{ fontSize: '0.82rem', color: '#aaa' }}>
                           By <strong style={{ color: '#FFD700' }}>{tip.contributor || 'Traveler'}</strong>
                         </span>
@@ -797,7 +786,7 @@ const UnchartedPage = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#ccc' }}>
-              <div style={{ background: '#1a1a28', padding: '0.85rem', borderRadius: '10px' }}>
+              <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '0.85rem', borderRadius: '10px' }}>
                 <span style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', display: 'block', fontWeight: 'bold' }}>
                   Cryptographic SHA-256 Hash
                 </span>
@@ -813,7 +802,7 @@ const UnchartedPage = () => {
                   }}
                   style={{ background: '#333', color: '#FFD700', border: 'none', padding: '4px 10px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', marginTop: '4px' }}
                 >
-                  {copiedHash ? '✓ Copied Hash!' : '📋 Copy Full Hash'}
+                  {copiedHash ? '✓ Copied Hash!' : '<ClipboardList size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Copy Full Hash'}
                 </button>
               </div>
 
@@ -821,7 +810,7 @@ const UnchartedPage = () => {
                 <strong>⏱️ Dwell Verification Duration:</strong> 10 Minutes Continuous Presence
               </div>
               <div>
-                <strong>📍 Verified Coordinates:</strong> 13.0827° N, 80.2707° E
+                <strong><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Verified Coordinates:</strong> 13.0827° N, 80.2707° E
               </div>
               <div>
                 <strong>🔗 Previous Block Hash:</strong> {selectedAttestation.prev_hash?.slice(0, 16) || '0000000000000000'}...
@@ -891,9 +880,9 @@ const UnchartedPage = () => {
             )}
 
             {/* 10-MINUTE DWELL PROGRESS RING */}
-            <div style={{ background: '#1a1a28', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', marginBottom: '1.5rem', border: '1px solid #33334d' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', marginBottom: '1.5rem', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
               <div style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
-                {dwellComplete ? '✅ Dwell Presence Verified (10/10 min)' : `⏳ Verifying Presence… ${Math.floor(dwellSeconds / 60)}/${Math.ceil(600 / 60)} Minutes`}
+                {dwellComplete ? '<CheckCircle size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#10b981"}} /> Dwell Presence Verified (10/10 min)' : `⏳ Verifying Presence… ${Math.floor(dwellSeconds / 60)}/${Math.ceil(600 / 60)} Minutes`}
               </div>
 
               {/* Progress Bar */}
@@ -945,7 +934,7 @@ const UnchartedPage = () => {
                   onChange={(e) => setTipLocationName(e.target.value)}
                   required
                   placeholder="E.g., Broken Bridge, Besant Nagar"
-                  style={{ width: '100%', padding: '0.75rem', background: '#1a1a26', border: '1px solid #33334d', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
                 />
               </div>
 
@@ -986,7 +975,7 @@ const UnchartedPage = () => {
                   required
                   rows={3}
                   placeholder="Share insider details, quiet hours, or safety advice..."
-                  style={{ width: '100%', padding: '0.75rem', background: '#1a1a26', border: '1px solid #33334d', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
                 />
               </div>
 
@@ -999,7 +988,7 @@ const UnchartedPage = () => {
                   value={tipContributor}
                   onChange={(e) => setTipContributor(e.target.value)}
                   placeholder="E.g., NomadMadras"
-                  style={{ width: '100%', padding: '0.75rem', background: '#1a1a26', border: '1px solid #33334d', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
                 />
               </div>
 

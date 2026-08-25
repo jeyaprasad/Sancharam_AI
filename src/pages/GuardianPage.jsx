@@ -18,6 +18,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -429,18 +430,7 @@ const GuardianPage = () => {
     return (
       <div className="features-container" style={{ background: '#0e0e17', minHeight: '100vh', color: '#fff' }}>
         <div className="features-hero-bg">
-          <header>
-            <div className="nav-in">
-              <Link to="/" className="logo-img-link">
-                <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-              </Link>
-              <nav>
-                <Link to="/">Home</Link>
-                <Link to="/features">Features</Link>
-                <Link to="/features/blockchain" aria-current="page">Guardian Tracker</Link>
-              </nav>
-            </div>
-          </header>
+          <Navbar />
 
           <section className="hero wrap" style={{ paddingTop: '100px', minHeight: '240px' }}>
             <div className="rv in">
@@ -634,19 +624,7 @@ const GuardianPage = () => {
 
       {/* ── HERO BANNER ── */}
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/blockchain" aria-current="page">Guardian</Link>
-              <Link to="/features/safety">Safety</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
         <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
           <div className="rv in">

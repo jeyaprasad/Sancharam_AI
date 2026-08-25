@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, CircleMarker, Polyline, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import useAppStore from '@/store/useAppStore';
-import { analyzeRoute } from '@/services/api';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
 
 // Fix default Leaflet icon paths in Vite
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -153,28 +149,40 @@ const RoutingPage = () => {
     <div className="features-container">
       {/* ── HERO HEADER BANNER ── */}
       <div className="features-hero-bg">
-        <header>
-          <div className="nav-in">
-            <Link to="/" className="logo-img-link">
-              <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
-            </Link>
-            <nav>
-              <Link to="/">Home</Link>
-              <Link to="/features">Features</Link>
-              <Link to="/features/safety">Safety</Link>
-              <Link to="/features/routing" aria-current="page">Routing</Link>
-              <Link to="/features/itinerary">Planner</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
 
-        <section className="hero wrap" style={{ paddingTop: '110px', minHeight: '260px' }}>
-          <div className="rv in">
-            <span className="pill" lang="ta"><i></i>பயணப் பாதை</span>
-            <h1>Smart Corridor <em>Routing</em></h1>
-            <p className="hero-sub" style={{ fontSize: '1.2rem', color: 'var(--accent, #FFD700)', marginTop: '0.4rem' }}>
-              பயணப் பாதை · Geocoded OSRM Road Geometry & Time-of-Day Risk Analyzer
-            </p>
+        <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+          <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span className="pill" lang="ta" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F', fontWeight: 'bold' }}><i></i>பயணப் பாதை</span>
+            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: '#111', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>வழித்தடம்</h1>
+            <div style={{
+              marginTop: '1.5rem',
+              background: 'linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,15,0.85))',
+              backdropFilter: 'blur(16px)',
+              padding: '1.5rem 2rem',
+              borderRadius: '16px',
+              border: '1px solid rgba(255, 215, 0, 0.3)',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0.8rem'
+            }}>
+              <p style={{ fontSize: '1.4rem', color: '#FFD700', margin: 0, fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
+                பயணப் பாதை · Geocoded OSRM Road Geometry Analyzer
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', borderTop: '1px solid rgba(255, 215, 0, 0.2)', paddingTop: '1rem', width: '100%' }}>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <Route size={18} color="#FFD700" /> Smart Routing
+                </span>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <Clock size={18} color="#FFD700" /> Time-of-Day Risk
+                </span>
+                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <MapPin size={18} color="#FFD700" /> Waypoint Analysis
+                </span>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -184,12 +192,12 @@ const RoutingPage = () => {
         <form
           onSubmit={handleSubmit}
           style={{
-            background: '#12121a',
-            border: '1px solid #2a2a3a',
+            background: 'linear-gradient(145deg, #1c1c28, #14141c)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '16px',
             padding: '1.25rem 1.75rem',
             marginBottom: '1.5rem',
-            boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             display: 'flex',
             alignItems: 'center',
             gap: '1rem',
@@ -198,7 +206,7 @@ const RoutingPage = () => {
         >
           {/* From Input */}
           <div style={{ flex: '1 1 240px' }}>
-            <label style={{ display: 'block', color: '#FFD700', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
+            <label style={{ display: 'block', color: '#a1a1aa', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
               From (Origin)
             </label>
             <input
@@ -210,10 +218,7 @@ const RoutingPage = () => {
               style={{
                 width: '100%',
                 padding: '0.75rem 1rem',
-                background: '#1a1a26',
-                border: '1px solid #33334d',
-                borderRadius: '8px',
-                color: '#fff',
+                background: '#14141c', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff',
                 fontSize: '0.95rem',
                 outline: 'none'
               }}
@@ -230,24 +235,22 @@ const RoutingPage = () => {
               width: '42px',
               height: '42px',
               borderRadius: '50%',
-              background: '#1a1a26',
-              border: '1px solid #FFD700',
-              color: '#FFD700',
+              background: '#222235', border: '1px solid #444466', color: '#fff',
               fontSize: '1.2rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              justify: 'center',
+              justifyContent: 'center',
               transition: 'transform 0.2s ease',
               flexShrink: 0
             }}
           >
-            ⇅
+            <ArrowRightLeft size={18} />
           </button>
 
           {/* To Input */}
           <div style={{ flex: '1 1 240px' }}>
-            <label style={{ display: 'block', color: '#FFD700', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
+            <label style={{ display: 'block', color: '#a1a1aa', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
               To (Destination)
             </label>
             <input
@@ -259,10 +262,7 @@ const RoutingPage = () => {
               style={{
                 width: '100%',
                 padding: '0.75rem 1rem',
-                background: '#1a1a26',
-                border: '1px solid #33334d',
-                borderRadius: '8px',
-                color: '#fff',
+                background: '#14141c', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff',
                 fontSize: '0.95rem',
                 outline: 'none'
               }}
@@ -276,26 +276,25 @@ const RoutingPage = () => {
             style={{
               marginTop: '1.2rem',
               padding: '0.75rem 1.75rem',
-              background: loading ? '#555' : 'var(--accent, #FFD700)',
-              color: '#000',
+              background: loading ? '#33334d' : '#FFD700', color: loading ? '#888' : '#000',
               fontWeight: 'bold',
               fontSize: '0.9rem',
               border: 'none',
               borderRadius: '50px',
               cursor: loading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)',
+              boxShadow: loading ? 'none' : '0 4px 15px rgba(255,215,0,0.3)',
               whiteSpace: 'nowrap',
               height: '42px'
             }}
           >
-            {loading ? 'Routing...' : 'Analyze Route 🚀'}
+            {loading ? 'Routing...' : <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'}}>Analyze Route <Route size={16} /></span>}
           </button>
         </form>
 
         {/* ── 2. FULL-WIDTH MAP (~70% HEIGHT) WITH GOOGLE MAPS STYLE FLOATING SUMMARY CARD ── */}
         <div style={{ position: 'relative', width: '100%', marginBottom: '1rem' }}>
           {/* Leaflet Map */}
-          <div style={{ height: '620px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid #2a2a3a' }}>
+          <div style={{ height: '620px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(0, 0, 0, 0.1)', boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}>
             <MapContainer center={mapCenter} zoom={12} style={{ height: '100%', width: '100%' }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -357,7 +356,7 @@ const RoutingPage = () => {
               {routeData?.origin?.lat && routeData?.origin?.lng && (
                 <Marker position={[routeData.origin.lat, routeData.origin.lng]}>
                   <Popup>
-                    <strong>📍 Origin: {routeData.origin.name}</strong>
+                    <strong><MapPin size={14} style={{display:'inline', marginBottom:'-2px'}}/> Origin: {routeData.origin.name}</strong>
                   </Popup>
                 </Marker>
               )}
@@ -366,7 +365,7 @@ const RoutingPage = () => {
               {routeData?.destination?.lat && routeData?.destination?.lng && (
                 <Marker position={[routeData.destination.lat, routeData.destination.lng]}>
                   <Popup>
-                    <strong>🏁 Destination: {routeData.destination.name}</strong>
+                    <strong><Target size={14} style={{display:'inline', marginBottom:'-2px'}}/> Destination: {routeData.destination.name}</strong>
                   </Popup>
                 </Marker>
               )}
@@ -404,8 +403,8 @@ const RoutingPage = () => {
                 top: '16px',
                 left: '16px',
                 zIndex: 1000,
-                background: '#12121a',
-                border: '1px solid #2a2a3a',
+                background: 'rgba(28, 28, 40, 0.85)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '14px',
                 padding: '1rem 1.25rem',
                 boxShadow: '0 8px 30px rgba(0,0,0,0.85)',
@@ -414,7 +413,7 @@ const RoutingPage = () => {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                <span style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold' }}>
+                <span style={{ color: '#888', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold' }}>
                   Route Summary
                 </span>
                 <span
@@ -428,28 +427,28 @@ const RoutingPage = () => {
                     fontWeight: 'bold'
                   }}
                 >
-                  {isHighRisk ? '🚨 High Risk' : routeData.risk_level === 'Medium' ? '⚠️ Medium' : '✅ Safe'}
+                  {isHighRisk ? <><AlertTriangle size={12}/> High Risk</> : routeData.risk_level === 'Medium' ? <><ShieldAlert size={12}/> Medium</> : <><ShieldCheck size={12}/> Safe</>}
                 </span>
               </div>
 
               <div style={{ fontSize: '1.6rem', fontWeight: 'bold', color: '#fff', margin: '2px 0 6px 0' }}>
-                {distanceKm} km <span style={{ fontSize: '1.1rem', color: '#aaa', fontWeight: 'normal' }}>({durationMins} mins)</span>
+                {distanceKm} km <span style={{ fontSize: '1.1rem', color: '#888', fontWeight: 'normal' }}>({durationMins} mins)</span>
               </div>
 
-              <div style={{ fontSize: '0.85rem', color: '#ccc' }}>
+              <div style={{ fontSize: '0.85rem', color: '#a1a1aa' }}>
                 Corridor Risk Score: <strong style={{ color: isHighRisk ? '#ef4444' : '#10b981' }}>{routeData.average_corridor_score} / 100</strong>
               </div>
 
               {/* Show Safer Route Toggle Button */}
               {saferRouteCoords && (
-                <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid #2a2a3a' }}>
+                <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid #33334d' }}>
                   <button
                     type="button"
                     onClick={() => setShowSaferRoute(!showSaferRoute)}
                     style={{
                       width: '100%',
                       padding: '0.5rem 0.85rem',
-                      background: showSaferRoute ? '#10b981' : '#1a1a26',
+                      background: showSaferRoute ? '#10b981' : '#222235',
                       color: showSaferRoute ? '#000' : '#10b981',
                       border: '1px solid #10b981',
                       borderRadius: '20px',
@@ -459,11 +458,11 @@ const RoutingPage = () => {
                       transition: 'all 0.2s ease',
                       display: 'flex',
                       alignItems: 'center',
-                      justify: 'center',
+                      justifyContent: 'center',
                       gap: '6px'
                     }}
                   >
-                    <span>{showSaferRoute ? '🟢 Hiding Safer Route' : '🟢 Show Safer Route'}</span>
+                    <span style={{display:'flex', alignItems:'center', gap:'4px'}}>{showSaferRoute ? <><X size={14}/> Hiding Safer Route</> : <><Check size={14}/> Show Safer Route</>}</span>
                     <span style={{ fontSize: '0.72rem', opacity: 0.8 }}>({saferScore || 24} Risk)</span>
                   </button>
                 </div>
@@ -475,12 +474,12 @@ const RoutingPage = () => {
         {/* ── 3. SLIM HORIZONTAL TIME-OF-DAY SLIDER (BELOW MAP) ── */}
         <div
           style={{
-            background: '#12121a',
-            border: '1px solid #2a2a3a',
+            background: 'linear-gradient(145deg, #1c1c28, #14141c)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '12px',
             padding: '1rem 1.5rem',
             marginBottom: '2.5rem',
-            boxShadow: '0 6px 20px rgba(0,0,0,0.4)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             display: 'flex',
             alignItems: 'center',
             gap: '1.5rem',
@@ -488,8 +487,8 @@ const RoutingPage = () => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: '200px' }}>
-            <span style={{ color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              ⏰ Time-of-Day Risk:
+            <span style={{ color: '#a1a1aa', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
+<Clock size={16} /> Time-of-Day Risk:
             </span>
             <span style={{ background: 'var(--accent, #FFD700)', color: '#000', padding: '2px 10px', borderRadius: '12px', fontSize: '0.82rem', fontWeight: 'bold' }}>
               {formatHourLabel(selectedHour)}
@@ -525,22 +524,18 @@ const RoutingPage = () => {
         {routeData?.waypoint_scores && (
           <div>
             <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '1rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-              📌 8-Waypoint Corridor Assessment
+              <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> 8-Waypoint Corridor Assessment
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1rem' }}>
               {routeData.waypoint_scores.map((wp) => (
                 <div
                   key={wp.waypoint_index}
                   style={{
-                    background: '#14141c',
-                    border: '1px solid #2a2a36',
-                    borderRadius: '12px',
-                    padding: '0.9rem 1.1rem',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+                    background: '#14141c', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', padding: '0.9rem 1.1rem', boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                    <span style={{ color: '#FFD700', fontSize: '0.82rem', fontWeight: 'bold' }}>
+                    <span style={{ color: '#fff', fontSize: '0.85rem', fontWeight: 'bold' }}>
                       Waypoint #{wp.waypoint_index}
                     </span>
                     <span
@@ -557,9 +552,9 @@ const RoutingPage = () => {
                       {wp.risk_level} ({wp.score})
                     </span>
                   </div>
-                  <div style={{ color: '#aaa', fontSize: '0.78rem', lineHeight: '1.4' }}>
-                    📍 Lat: {wp.lat.toFixed(4)}, Lng: {wp.lng.toFixed(4)}<br />
-                    <small style={{ color: '#777' }}>Nearest: {wp.nearest_zones?.join(', ')}</small>
+                  <div style={{ color: '#a1a1aa', fontSize: '0.78rem', lineHeight: '1.4' }}>
+<Navigation size={12} style={{display:'inline', marginBottom:'-2px'}}/> Lat: {wp.lat.toFixed(4)}, Lng: {wp.lng.toFixed(4)}<br />
+                    <small style={{ color: '#888' }}>Nearest: {wp.nearest_zones?.join(', ')}</small>
                   </div>
                 </div>
               ))}
