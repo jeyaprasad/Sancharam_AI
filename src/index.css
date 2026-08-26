@@ -321,16 +321,26 @@ header{position:fixed;inset:0 0 auto 0;height:72px;z-index:9999;
 }
 nav{display:flex;gap:clamp(20px,4vw,40px);align-items:center}
 nav a {
-  font-family: 'Catamaran', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
-  transition: color .25s;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
   position: relative;
-  padding: 8px 0;
+  padding: 8px 12px;
+  text-decoration: none;
 }
+nav a:hover, nav a[aria-current="page"] {
+  color: #fff;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rust);
   transform:scaleX(0);transform-origin:left;transition:transform .35s var(--e)}
 nav a:hover{color:var(--ink)}

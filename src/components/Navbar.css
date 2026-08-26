@@ -1,11 +1,12 @@
 .main-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 72px;
+  position: absolute; /* Not fixed, so it scrolls with the hero, or absolute over the hero */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
   z-index: 9999;
-  background: rgba(251, 250, 247, 0.9);
-  backdrop-filter: blur(18px) saturate(160%);
-  border-bottom: 1px solid var(--line, #eaeaea);
+  background: transparent;
+  border-bottom: none;
 }
 
 .nav-dropdown {
@@ -66,4 +67,15 @@
   color: var(--rust, #b4451f);
   font-weight: 600;
   background: rgba(180, 69, 31, 0.05);
+}
+
+.nav-in {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
 }
