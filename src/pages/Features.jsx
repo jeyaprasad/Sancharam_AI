@@ -175,11 +175,11 @@ const Features = () => {
 
         {/* 🔹 CTA 🔹 */}
         <section className="cta rv" ref={addToRefs}>
-          <div>
+          <div className="cta-content-wrapper">
             <h2>Ready for <em>Madras</em>?</h2>
-            <p>Start with a plan, or just wander I"AA  the city rewards both.</p>
+            <p>Start with a curated plan, or just wander the uncharted paths—the city rewards both.</p>
           </div>
-          <Link to="/features/itinerary" className="cta-btn">Start the journey
+          <Link to="/features/itinerary" className="cta-btn">Start your journey
             <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
           </Link>
         </section>
@@ -192,7 +192,7 @@ const Features = () => {
             <Link to="/features/itinerary">Planner</Link>
             <Link to="/features/uncharted">Uncharted</Link>
           </div>
-          <small>"O? 2026 Sancharam " - Chennai</small>
+          <small>&copy; 2026 Sancharam - Chennai</small>
         </footer>
       </div>
     </div>

@@ -501,54 +501,89 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
   font-weight: 300
 }
 
+
 /* CTA */
 .cta {
-  background: var(--ink);
-  color: var(--paper);
-  border-radius: 24px;
-  padding: clamp(48px, 6.5vw, 80px) clamp(24px, 5vw, 60px);
+  position: relative;
+  border-radius: 32px;
+  padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 60px);
   margin-bottom: 84px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  text-align: center;
   gap: 34px;
-  flex-wrap: wrap
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/index/beaches.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: saturate(1.2);
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(20, 20, 25, 0.95), rgba(180, 69, 31, 0.85));
+  z-index: 1;
+}
+
+.cta > .cta-content-wrapper, .cta > a {
+  position: relative;
+  z-index: 2;
 }
 
 .cta h2 {
-  font-size: clamp(2rem, 4.4vw, 3.4rem)
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #fff;
+  line-height: 1.1;
 }
 
 .cta h2 em {
   font-style: italic;
-  color: #E9A98C;
-  font-weight: 400
+  font-family: 'Fraunces', Georgia, serif;
+  color: #FFD700;
+  font-weight: 500;
 }
 
 .cta p {
-  margin-top: 12px;
-  color: rgba(251, 250, 247, .62);
-  font-weight: 300;
-  max-width: 34ch
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  font-size: 1.15rem;
+  max-width: 46ch;
+  margin: 16px auto 0;
+  line-height: 1.6;
 }
 
 .cta-btn {
-  background: var(--rust);
-  color: #fff;
-  padding: 16px 34px;
+  background: #fff;
+  color: var(--rust);
+  padding: 18px 40px;
   border-radius: 99px;
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  white-space: nowrap;
-  transition: transform .3s var(--e), box-shadow .3s var(--e)
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  border: none;
+  text-decoration: none;
 }
 
 .cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(180, 69, 31, .4)
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+  background: var(--rust);
+  color: #fff;
 }
 
 .cta-btn svg {
@@ -556,53 +591,19 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
   height: 15px;
   stroke: currentColor;
   fill: none;
-  stroke-width: 2.2
+  stroke-width: 2.2;
 }
 
 /* FOOTER */
 footer {
   border-top: 1px solid var(--line);
-  padding: 32px 0 44px;
+  padding: 30px 0 40px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 20px;
-  flex-wrap: wrap
 }
-
-.f-links {
-  display: flex;
-  gap: 22px;
-  flex-wrap: wrap
-}
-
-.f-links a {
-  font-size: 13px;
-  color: var(--muted);
-  transition: color .25s
-}
-
-.f-links a:hover {
-  color: var(--rust)
-}
-
-footer small {
-  color: #A9A294;
-  font-size: 12.5px
-}
-
-/* REVEAL */
-.rv {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .7s var(--e), transform .7s var(--e)
-}
-
-.rv.in {
-  opacity: 1;
-  transform: none
-}
-
 @media(max-width:900px) {
   .hero {
     grid-template-columns: 1fr;
