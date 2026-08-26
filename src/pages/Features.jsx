@@ -18,7 +18,7 @@ const Features = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add('in');
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
@@ -29,6 +29,7 @@ const Features = () => {
 
   return (
     <div className="features-container">
+      <Navbar />
       {/* 🔹 HERO BANNER 🔹 */}
       <div className="features-hero-bg">
         <div className="bento-hero-overlay"></div>
