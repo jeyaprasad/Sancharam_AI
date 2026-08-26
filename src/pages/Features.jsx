@@ -60,11 +60,10 @@ const Features = () => {
         </div>
       </div>
 
-      <div className="wrap">
-        {/* 🔹 BENTO GRID 🔹 */}
-        <section className="bento-grid rv" ref={addToRefs}>
+      {/* 🔹 BENTO GRID (Horizontal Scroll) 🔹 */}
+      <section className="bento-grid rv" ref={addToRefs}>
           
-          <Link to="/features/safety" className="bento-card bento-large">
+          <Link to="/features/safety" className="bento-card">
             <div className="bento-card-bg">
               <img src="/assets/images/index/temples.jpg" alt="Unarvu" loading="lazy" />
               <div className="bento-card-gradient"></div>
@@ -106,28 +105,36 @@ const Features = () => {
             </div>
           </Link>
 
-          <Link to="/features/uncharted" className="bento-card bento-wide">
+          <Link to="/features/uncharted" className="bento-card">
             <div className="bento-card-bg">
               <img src="/assets/images/features/oor.jpg" alt="Oor" loading="lazy" />
               <div className="bento-card-gradient"></div>
             </div>
             <div className="bento-card-content">
-              <div className="bento-card-content-split">
-                <div>
-                  <span className="bento-tag">Hyper-Local Discovery</span>
-                  <h3 lang="ta">ஊர்</h3>
-                  <p className="bento-title-en">Oor</p>
-                </div>
-                <div>
-                  <p className="bento-desc">6 Chennai zones. Hidden spots TripAdvisor will never show you. See through local eyes and uncover the city's best kept secrets.</p>
-                  <span className="bento-action">Discover Secrets &rarr;</span>
-                </div>
-              </div>
+              <span className="bento-tag">Hyper-Local Discovery</span>
+              <h3 lang="ta">ஊர்</h3>
+              <p className="bento-title-en">Oor</p>
+              <p className="bento-desc">6 Chennai zones. Hidden spots TripAdvisor will never show you. See through local eyes and uncover the city's best kept secrets.</p>
+              <span className="bento-action">Discover Secrets &rarr;</span>
             </div>
           </Link>
-          
+
+          <Link to="/features/budget" className="bento-card">
+            <div className="bento-card-bg">
+              <img src="/assets/images/index/aerial-view.jpg" alt="Payana Nidhi" loading="lazy" />
+              <div className="bento-card-gradient"></div>
+            </div>
+            <div className="bento-card-content">
+              <span className="bento-tag">Smart Budgeting</span>
+              <h3 lang="ta">பயண நிதி</h3>
+              <p className="bento-title-en">Payana Nidhi</p>
+              <p className="bento-desc">Track expenses in INR, categorize automatically, and unlock gamified budget achievements.</p>
+              <span className="bento-action">Track Budget &rarr;</span>
+            </div>
+          </Link>
         </section>
 
+      <div className="wrap">
         {/* 🔹 MARQUEE 🔹 */}
         <div className="marquee rv" ref={addToRefs}>
           <div className="track">
