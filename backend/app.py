@@ -1,4 +1,4 @@
-import hashlib
+﻿import hashlib
 import math
 import os
 from datetime import datetime, timezone
@@ -414,7 +414,7 @@ def generate_tamil_nadu_travel_reply(msg):
     elif any(w in msg_lower for w in ['kodai', 'kodaikanal', 'hill', 'mountain', 'vattakanal']):
         return "Kodaikanal (கொடைக்கானல்) - Explore quiet Poombarai Village (பூம்பாறை), Dolphin's Nose cliff in Vattakanal (வட்டக்கானல்), and pine forests."
     else:
-        return f"Hello! Welcome to Tamil Nadu. Sancharam AI can guide your route safety, heritage spots in Thanjavur (தஞ்சாவூர்), Madurai (மதுரை), or Tranquebar (தரங்கம்பாடி). Ask me any question in English or Tamil!"
+        return f"Hello! Welcome to Tamil Nadu. Sancharam AI can guide your route safety, heritage spots in Chennai (சென்னை), Mahabalipuram (மாமல்லபுரம்), or Kanchipuram (காஞ்சிபுரம்). Ask me any question in English or Tamil!"
 
 
 @app.route('/api/health', methods=['GET'])
@@ -946,3 +946,4 @@ def chat_bot():
 if __name__ == '__main__':
     print("Starting Sancharam Flask Backend on port 5000...")
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
+

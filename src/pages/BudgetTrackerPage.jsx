@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
+import {Map, Wallet, TrendingDown, MapPin, Utensils, Bus, ShoppingBag, Trash2, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
 import CurrencyWidget from '@/components/CurrencyWidget';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const CATEGORY_STYLES = {
-  Food: { bg: 'rgba(255, 152, 0, 0.15)', text: '#ff9800', border: 'rgba(255, 152, 0, 0.4)', icon: '🍽️', color: '#ff9800' },
-  Transport: { bg: 'rgba(33, 150, 243, 0.15)', text: '#2196f3', border: 'rgba(33, 150, 243, 0.4)', icon: '🚌', color: '#2196f3' },
-  Stay: { bg: 'rgba(156, 39, 176, 0.15)', text: '#ab47bc', border: 'rgba(156, 39, 176, 0.4)', icon: '<Hotel size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} />', color: '#ab47bc' },
-  Experiences: { bg: 'rgba(255, 215, 0, 0.15)', text: '#FFD700', border: 'rgba(255, 215, 0, 0.4)', icon: '🎟️', color: '#FFD700' },
-  Shopping: { bg: 'rgba(233, 30, 99, 0.15)', text: '#e91e63', border: 'rgba(233, 30, 99, 0.4)', icon: '🛍️', color: '#e91e63' },
-  Emergency: { bg: 'rgba(255, 77, 77, 0.15)', text: '#ff4d4d', border: 'rgba(255, 77, 77, 0.4)', icon: '<AlertTriangle size={18} style={{marginRight: "4px", verticalAlign: "middle"}} />', color: '#ff4d4d' }
+  Food: { bg: 'rgba(255, 152, 0, 0.15)', text: '#ff9800', border: 'rgba(255, 152, 0, 0.4)', icon: <Utensils size={18} />, color: '#ff9800' },
+  Transport: { bg: 'rgba(33, 150, 243, 0.15)', text: '#2196f3', border: 'rgba(33, 150, 243, 0.4)', icon: <Bus size={18} />, color: '#2196f3' },
+  Stay: { bg: 'rgba(156, 39, 176, 0.15)', text: '#ab47bc', border: 'rgba(156, 39, 176, 0.4)', icon: <Hotel size={18} />, color: '#ab47bc' },
+  Experiences: { bg: 'rgba(255, 215, 0, 0.15)', text: '#FFD700', border: 'rgba(255, 215, 0, 0.4)', icon: <PartyPopper size={18} />, color: 'var(--rust)' },
+  Shopping: { bg: 'rgba(233, 30, 99, 0.15)', text: '#e91e63', border: 'rgba(233, 30, 99, 0.4)', icon: <ShoppingBag size={18} />, color: '#e91e63' },
+  Emergency: { bg: 'rgba(255, 77, 77, 0.15)', text: '#ff4d4d', border: 'rgba(255, 77, 77, 0.4)', icon: <AlertTriangle size={18} />, color: '#ff4d4d' }
 };
 
 // ── BADGES DEFINITION ──
@@ -81,7 +81,8 @@ const BADGES = [
 
 const BudgetTrackerPage = () => {
   // Expenses State
-  const [expenses, setExpenses] = useState([]);
+  const [activeTab, setActiveTab] = useState('expenses');
+    const [expenses, setExpenses] = useState([]);
 
   // Editable Daily Budget State (Saved to localStorage)
   const [dailyBudget, setDailyBudget] = useState(() => {
@@ -251,7 +252,7 @@ const BudgetTrackerPage = () => {
             transform: 'translateX(-50%)',
             background: 'linear-gradient(135deg, #1e1e2d, #14141f)',
             border: '2px solid #FFD700',
-            color: '#FFD700',
+            color: 'var(--rust)',
             padding: '0.9rem 2rem',
             borderRadius: '50px',
             fontSize: '1.05rem',
@@ -271,7 +272,7 @@ const BudgetTrackerPage = () => {
         <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
           <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
             <span className="pill" lang="ta" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F', fontWeight: 'bold' }}><i></i>பயண நிதி</span>
-            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: '#111', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>பயண நிதி</h1>
+            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: 'var(--rust)', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>பயண நிதி</h1>
             <div style={{
               marginTop: '1.5rem',
               background: 'linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,15,0.85))',
@@ -285,7 +286,7 @@ const BudgetTrackerPage = () => {
               alignItems: 'flex-start',
               gap: '0.8rem'
             }}>
-              <p style={{ fontSize: '1.4rem', color: '#FFD700', margin: 0, fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
+              <p style={{ fontSize: '1.4rem', color: 'var(--rust)', margin: 0, fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
                 பயண நிதி · Currency Converter & INR Expense Manager
               </p>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', borderTop: '1px solid rgba(255, 215, 0, 0.2)', paddingTop: '1rem', width: '100%' }}>
@@ -307,7 +308,7 @@ const BudgetTrackerPage = () => {
       <div className="wrap" style={{ padding: '3rem 2rem 5rem 2rem' }}>
         {/* ── TOP SECTION 1: BADGES GRID (ALL 6 BADGES) ── */}
         <div style={{ marginBottom: '3.5rem' }}>
-          <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: '1.8rem', color: 'var(--ink)', marginBottom: '1rem' }}>
             <Award size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Travel Badges & Achievements
           </h2>
           <div
@@ -323,8 +324,8 @@ const BudgetTrackerPage = () => {
                 <div
                   key={badge.id}
                   style={{
-                    background: isEarned ? 'linear-gradient(135deg, #1e1e2d, #141422)' : '#12121a',
-                    border: isEarned ? '1px solid #FFD700' : '1px solid #282838',
+                    background: isEarned ? '#ffffff' : 'var(--wash)',
+                    border: isEarned ? '1px solid var(--rust)' : '1px solid var(--line)',
                     borderRadius: '14px',
                     padding: '1.1rem 1rem',
                     textAlign: 'center',
@@ -338,10 +339,10 @@ const BudgetTrackerPage = () => {
                   <div style={{ fontSize: '2.2rem', marginBottom: '6px' }}>
                     {isEarned ? badge.emoji : '🔒'}
                   </div>
-                  <div style={{ color: isEarned ? '#FFD700' : '#888', fontWeight: 'bold', fontSize: '0.95rem', marginBottom: '4px' }}>
+                  <div style={{ color: isEarned ? 'var(--rust)' : 'var(--muted)', fontWeight: 'bold', fontSize: '0.95rem', marginBottom: '4px' }}>
                     {badge.name}
                   </div>
-                  <div style={{ color: '#aaa', fontSize: '0.75rem', lineHeight: '1.3' }}>
+                  <div style={{ color: 'var(--muted)', fontSize: '0.75rem', lineHeight: '1.3' }}>
                     {badge.description}
                   </div>
                   {isEarned && (
@@ -355,38 +356,69 @@ const BudgetTrackerPage = () => {
           </div>
         </div>
 
-        {/* ── TOP SECTION 2: CURRENCY WIDGET COMPONENT ── */}
-        <div style={{ marginBottom: '3.5rem' }}>
-          <CurrencyWidget />
-        </div>
-
         {/* ── MAIN CONTENT GRID: EXPENSE FORM & EXPENSES LIST ── */}
         <div className="budget-grid">
           {/* ── LEFT COLUMN: EXPENSE ENTRY FORM ── */}
           <div className="form-column">
+            <div style={{ display: 'flex', background: 'var(--wash)', border: '1px solid var(--line)', borderRadius: '50px', padding: '4px', marginBottom: '1.5rem', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
+              <button
+                type="button"
+                onClick={() => setActiveTab('expenses')}
+                style={{
+                  flex: 1, padding: '0.75rem 1rem', borderRadius: '50px', border: 'none',
+                  background: activeTab === 'expenses' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'expenses' ? 'var(--rust)' : 'var(--ink-2)',
+                  fontWeight: 'bold', fontSize: '0.95rem', cursor: 'pointer',
+                  boxShadow: activeTab === 'expenses' ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Expense Log
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('converter')}
+                style={{
+                  flex: 1, padding: '0.75rem 1rem', borderRadius: '50px', border: 'none',
+                  background: activeTab === 'converter' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'converter' ? 'var(--rust)' : 'var(--ink-2)',
+                  fontWeight: 'bold', fontSize: '0.95rem', cursor: 'pointer',
+                  boxShadow: activeTab === 'converter' ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Converter
+              </button>
+            </div>
+
+            {activeTab === 'converter' ? (
+              <div style={{ position: 'sticky', top: '100px' }}>
+                <CurrencyWidget />
+              </div>
+            ) : (
             <form
               onSubmit={handleAddExpense}
               style={{
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: '#ffffff',
                 padding: '2rem',
                 borderRadius: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+                border: '1px solid var(--line)',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
                 position: 'sticky',
                 top: '100px'
               }}
             >
-              <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.4rem' }}>
+              <h2 style={{ fontSize: '1.8rem', color: 'var(--ink)', marginBottom: '0.4rem' }}>
                 <CreditCard size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Log New Expense
               </h2>
-              <p style={{ color: '#aaa', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                 Track your trip spending in Indian Rupees (₹ INR). Saved automatically.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                 {/* 1. Amount in INR */}
                 <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
+                  <label style={{ display: 'block', color: 'var(--rust)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
                     Amount (₹ INR) *
                   </label>
                   <input
@@ -400,10 +432,10 @@ const BudgetTrackerPage = () => {
                     style={{
                       width: '100%',
                       padding: '0.8rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: 'var(--wash)',
+                      border: '1px solid var(--line)',
                       borderRadius: '8px',
-                      color: '#fff',
+                      color: 'var(--ink)',
                       fontSize: '1rem',
                       outline: 'none'
                     }}
@@ -412,7 +444,7 @@ const BudgetTrackerPage = () => {
 
                 {/* 2. Category Dropdown */}
                 <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
+                  <label style={{ display: 'block', color: 'var(--rust)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
                     Category *
                   </label>
                   <select
@@ -422,27 +454,27 @@ const BudgetTrackerPage = () => {
                       width: '100%',
                       height: '44px',
                       padding: '0 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: 'var(--wash)',
+                      border: '1px solid var(--line)',
                       borderRadius: '8px',
-                      color: '#fff',
+                      color: 'var(--ink)',
                       fontSize: '0.95rem',
                       outline: 'none'
                     }}
                   >
-                    <option value="Food">🍱 Food & Dining</option>
-                    <option value="Transport">🚌 Transport & Transit</option>
-                    <option value="Stay"><Hotel size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Stay & Accommodation</option>
-                    <option value="Experiences">🎟️ Experiences & Tickets</option>
-                    <option value="Shopping">🛍️ Shopping & Gifts</option>
-                    <option value="Emergency"><AlertTriangle size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> Emergency & Medical</option>
+                    <option value="Food">Food & Dining</option>
+                    <option value="Transport">Transport & Transit</option>
+                    <option value="Stay">Stay & Accommodation</option>
+                    <option value="Experiences">Experiences & Tickets</option>
+                    <option value="Shopping">Shopping & Gifts</option>
+                    <option value="Emergency">Emergency & Medical</option>
                   </select>
                 </div>
 
                 {/* 3. Short Note (Optional) */}
                 <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                    Note <small style={{ color: '#888', fontWeight: 'normal' }}>(Optional)</small>
+                  <label style={{ display: 'block', color: 'var(--rust)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
+                    Note <small style={{ color: 'var(--muted)', fontWeight: 'normal' }}>(Optional)</small>
                   </label>
                   <input
                     type="text"
@@ -452,10 +484,10 @@ const BudgetTrackerPage = () => {
                     style={{
                       width: '100%',
                       padding: '0.8rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: 'var(--wash)',
+                      border: '1px solid var(--line)',
                       borderRadius: '8px',
-                      color: '#fff',
+                      color: 'var(--ink)',
                       fontSize: '0.95rem',
                       outline: 'none'
                     }}
@@ -464,7 +496,7 @@ const BudgetTrackerPage = () => {
 
                 {/* 4. Date Input */}
                 <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
+                  <label style={{ display: 'block', color: 'var(--rust)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
                     Expense Date *
                   </label>
                   <input
@@ -475,10 +507,10 @@ const BudgetTrackerPage = () => {
                     style={{
                       width: '100%',
                       padding: '0.8rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: 'var(--wash)',
+                      border: '1px solid var(--line)',
                       borderRadius: '8px',
-                      color: '#fff',
+                      color: 'var(--ink)',
                       fontSize: '0.95rem',
                       outline: 'none'
                     }}
@@ -491,7 +523,7 @@ const BudgetTrackerPage = () => {
                   style={{
                     padding: '0.9rem 1.5rem',
                     background: 'var(--accent, #FFD700)',
-                    color: '#000',
+                    color: 'var(--ink)',
                     fontWeight: 'bold',
                     fontSize: '1rem',
                     borderRadius: '50px',
@@ -508,6 +540,7 @@ const BudgetTrackerPage = () => {
                 </button>
               </div>
             </form>
+            )}
           </div>
 
           {/* ── RIGHT COLUMN: SUMMARY METRIC CARDS & EXPENSES LIST ── */}
@@ -524,17 +557,17 @@ const BudgetTrackerPage = () => {
               {/* Card 1: Total Spent */}
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: '#ffffff',
                   border: '1px solid #FFD700',
                   borderRadius: '14px',
                   padding: '1.25rem',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                 }}
               >
-                <span style={{ color: '#aaa', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
+                <span style={{ color: 'var(--muted)', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
                   <IndianRupee size={16} style={{marginRight: "6px", verticalAlign: "middle", color: "#FFD700"}} /> Total Spent
                 </span>
-                <div style={{ color: '#FFD700', fontSize: '1.8rem', fontWeight: 'bold' }}>
+                <div style={{ color: 'var(--rust)', fontSize: '1.8rem', fontWeight: 'bold' }}>
                   ₹{totalSpent.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
                 <small style={{ color: '#777', fontSize: '0.75rem' }}>{expenses.length} logged entries</small>
@@ -543,18 +576,18 @@ const BudgetTrackerPage = () => {
               {/* Card 2: Editable Daily Budget */}
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: '#ffffff',
+                  border: '1px solid var(--line)',
                   borderRadius: '14px',
                   padding: '1.25rem',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                 }}
               >
-                <span style={{ color: '#aaa', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
+                <span style={{ color: 'var(--muted)', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
                   <Target size={16} style={{marginRight: "6px", verticalAlign: "middle", color: "#FFD700"}} /> Daily Budget (₹)
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 'bold' }}>₹</span>
+                  <span style={{ color: 'var(--ink)', fontSize: '1.4rem', fontWeight: 'bold' }}>₹</span>
                   <input
                     type="number"
                     value={dailyBudget}
@@ -565,7 +598,7 @@ const BudgetTrackerPage = () => {
                       background: 'rgba(255, 255, 255, 0.06)',
                       border: '1px solid #444466',
                       borderRadius: '6px',
-                      color: '#fff',
+                      color: 'var(--ink)',
                       fontSize: '1.4rem',
                       fontWeight: 'bold',
                       outline: 'none'
@@ -580,15 +613,15 @@ const BudgetTrackerPage = () => {
               {/* Card 3: Remaining Budget */}
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: '#ffffff',
                   border: isPositiveRemaining ? '1px solid #2ec4b6' : '1px solid #ff4d4d',
                   borderRadius: '14px',
                   padding: '1.25rem',
                   boxShadow: isPositiveRemaining ? '0 4px 15px rgba(46, 196, 182, 0.15)' : '0 4px 15px rgba(255, 77, 77, 0.15)'
                 }}
               >
-                <span style={{ color: '#aaa', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
-                  {isPositiveRemaining ? '<CheckCircle size={16} style={{marginRight: "6px", verticalAlign: "middle", color: "#10b981"}} /> Remaining' : '<ShieldAlert size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> Deficit'}
+                <span style={{ color: 'var(--muted)', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>
+                  {isPositiveRemaining ? <><CheckCircle size={16} style={{marginRight: "6px", verticalAlign: "middle", color: "#10b981"}} /> Remaining</> : <><ShieldAlert size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> Deficit</>}
                 </span>
                 <div style={{ color: isPositiveRemaining ? '#2ec4b6' : '#ff4d4d', fontSize: '1.8rem', fontWeight: 'bold' }}>
                   {isPositiveRemaining ? '' : '-'}₹{Math.abs(remaining).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -603,15 +636,15 @@ const BudgetTrackerPage = () => {
             {activeCategories.length > 0 && (
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: '#ffffff',
+                  border: '1px solid var(--line)',
                   borderRadius: '16px',
                   padding: '1.5rem',
                   marginBottom: '2.5rem',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                 }}
               >
-                <h3 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1.3rem', color: 'var(--ink)', marginBottom: '1rem' }}>
                   <PieChart size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Category Spending Share
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -620,14 +653,14 @@ const BudgetTrackerPage = () => {
                     return (
                       <div key={cat.name}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px', fontSize: '0.9rem' }}>
-                          <span style={{ color: '#fff', fontWeight: 'bold' }}>
+                          <span style={{ color: 'var(--ink)', fontWeight: 'bold' }}>
                             {style.icon} {cat.name}
                           </span>
-                          <span style={{ color: '#aaa' }}>
-                            <strong style={{ color: '#FFD700' }}>₹{cat.total.toLocaleString('en-IN')}</strong> ({cat.percent}%)
+                          <span style={{ color: 'var(--muted)' }}>
+                            <strong style={{ color: 'var(--rust)' }}>₹{cat.total.toLocaleString('en-IN')}</strong> ({cat.percent}%)
                           </span>
                         </div>
-                        <div style={{ height: '8px', background: '#222233', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div style={{ height: '8px', background: 'var(--line)', borderRadius: '4px', overflow: 'hidden' }}>
                           <div
                             style={{
                               height: '100%',
@@ -646,12 +679,12 @@ const BudgetTrackerPage = () => {
             )}
 
             {/* ── 3. EXPENSES CARDS LIST ── */}
-            <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '1.25rem' }}>
+            <h2 style={{ fontSize: '1.8rem', color: 'var(--ink)', marginBottom: '1.25rem' }}>
               <ClipboardList size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#111"}} /> Expense Records ({expenses.length})
             </h2>
 
             {expenses.length === 0 ? (
-              <div style={{ color: '#aaa', textAlign: 'center', padding: '3rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '14px', border: '1px dashed #333' }}>
+              <div style={{ color: 'var(--muted)', textAlign: 'center', padding: '3rem', background: 'var(--wash)', borderRadius: '14px', border: '1px dashed var(--line)' }}>
                 No expenses logged yet. Use the form on the left to add your first expense!
               </div>
             ) : (
@@ -662,14 +695,14 @@ const BudgetTrackerPage = () => {
                     <div
                       key={exp.id}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: '#ffffff',
+                        border: '1px solid var(--line)',
                         borderRadius: '14px',
                         padding: '1.25rem 1.5rem',
                         display: 'flex',
                         justify: 'space-between',
                         alignItems: 'center',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
                         transition: 'transform 0.2s ease, border-color 0.2s ease'
                       }}
                     >
@@ -707,19 +740,19 @@ const BudgetTrackerPage = () => {
                             >
                               {exp.category}
                             </span>
-                            <span style={{ fontSize: '0.8rem', color: '#777' }}>
-                              📅 {exp.date}
+                            <span style={{ fontSize: '0.8rem', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <Calendar size={14} /> {exp.date}
                             </span>
                           </div>
 
-                          <div style={{ color: '#fff', fontSize: '1rem', fontWeight: '500' }}>
+                          <div style={{ color: 'var(--ink)', fontSize: '1rem', fontWeight: '500' }}>
                             {exp.note || `${exp.category} Expense`}
                           </div>
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                        <span style={{ color: '#FFD700', fontSize: '1.3rem', fontWeight: 'bold' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexShrink: 0, marginLeft: 'auto' }}>
+                        <span style={{ color: 'var(--rust)', fontSize: '1.25rem', fontWeight: '900', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', alignSelf: 'center', marginTop: '2px' }}>
                           ₹{parseFloat(exp.amount).toLocaleString('en-IN')}
                         </span>
 
@@ -786,3 +819,19 @@ const BudgetTrackerPage = () => {
 };
 
 export default BudgetTrackerPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

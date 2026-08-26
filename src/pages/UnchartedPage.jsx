@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
+import {MapPin, Calendar, Search, Building2, Waves, Home, Droplets, ShoppingBag, Camera, Utensils, Map, Globe, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
 import TamilChatbot from '@/components/TamilChatbot';
 import { MapContainer, TileLayer, Marker, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -20,20 +20,20 @@ L.Icon.Default.mergeOptions({
 });
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Places' },
-  { id: 'temple', label: '🛕 Temples' },
-  { id: 'beach', label: '🏖️ Beaches' },
-  { id: 'village', label: '🏡 Villages' },
-  { id: 'waterfall', label: '🌊 Waterfalls' },
-  { id: 'market', label: '🛍️ Markets' },
-  { id: 'festival', label: '<PartyPopper size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Festivals' }
+  { id: 'all', label: <><Map size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> All Places</> },
+  { id: 'temple', label: <><Building2 size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Temples</> },
+  { id: 'beach', label: <><Waves size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Beaches</> },
+  { id: 'village', label: <><Home size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Villages</> },
+  { id: 'waterfall', label: <><Droplets size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Waterfalls</> },
+  { id: 'market', label: <><ShoppingBag size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Markets</> },
+  { id: 'festival', label: <><PartyPopper size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}}/> Festivals</> }
 ];
 
 const TIP_CATEGORIES = [
-  { id: 'food', label: '🍜 Food Spot', color: '#f59e0b' },
-  { id: 'quiet spot', label: '🌿 Quiet Spot', color: '#10b981' },
-  { id: 'photo spot', label: '📸 Photo Spot', color: '#3b82f6' },
-  { id: 'avoid-after-dark', label: '<AlertTriangle size={18} style={{marginRight: "4px", verticalAlign: "middle"}} /> Avoid After Dark', color: '#ef4444' }
+  { id: 'food', label: <><Utensils size={16} style={{marginRight: "4px", verticalAlign: "middle"}}/> Food Spot</>, color: '#f59e0b' },
+  { id: 'quiet spot', label: <><Globe size={16} style={{marginRight: "4px", verticalAlign: "middle"}}/> Quiet Spot</>, color: '#10b981' },
+  { id: 'photo spot', label: <><Camera size={16} style={{marginRight: "4px", verticalAlign: "middle"}}/> Photo Spot</>, color: '#3b82f6' },
+  { id: 'avoid-after-dark', label: <><AlertTriangle size={16} style={{marginRight: "4px", verticalAlign: "middle"}}/> Avoid After Dark</>, color: '#ef4444' }
 ];
 
 // Client-side Haversine distance in meters
@@ -56,6 +56,7 @@ const UnchartedPage = () => {
   const [gems, setGems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
   // NEW FEATURE 1: Main Section Tab Switcher
   const [mainTab, setMainTab] = useState('gems'); // 'gems' or 'tips'
@@ -327,26 +328,40 @@ const UnchartedPage = () => {
     return '#FFD700';
   };
 
-  const filteredGems =
-    activeCategory === 'all'
-      ? gems
-      : gems.filter(
-          (g) => (g.category || '').toLowerCase() === activeCategory.toLowerCase()
-        );
+  const filteredGems = gems.filter((g) => {
+    const matchesCategory = activeCategory === 'all' || (g.category || '').toLowerCase() === activeCategory.toLowerCase();
+    const matchesSearch = (g.name || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          (g.district || '').toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <div className="features-container">
+    <div className="features-container" style={{ fontFamily: '"Caveat", "Noto Sans Tamil", cursive' }}>
       {/* ── HERO BANNER ── */}
       <div className="features-hero-bg">
         <Navbar />
 
-        <section className="hero wrap" style={{ paddingTop: '120px', minHeight: '340px' }}>
-          <div className="rv in" style={{ marginLeft: '-120px' }}>
-            <span className="pill" lang="ta"><i></i>அறியப்படாத இடங்கள்</span>
-            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left' }}>அறியப்படாதவை</h1>
-            <p className="hero-sub" style={{ fontSize: '1.3rem', color: 'var(--accent, #FFD700)', marginTop: '0.5rem', fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', whiteSpace: 'nowrap', display: 'inline-block' }}>
-              அறியப்படாத இடங்கள் · 20+ Hidden Gems & Verified Community Tips
-            </p>
+        <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+          <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span className="pill" lang="ta" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F', fontWeight: 'bold' }}><i></i>அறியப்படாத இடங்கள்</span>
+            <h1 style={{ fontFamily: '"Caveat", "Noto Sans Tamil", cursive', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: 'var(--rust)', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>அறியப்படாதவை</h1>
+            <div style={{
+              marginTop: '1.5rem',
+              background: 'linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,15,0.85))',
+              backdropFilter: 'blur(16px)',
+              padding: '1.5rem 2rem',
+              borderRadius: '16px',
+              border: '1px solid rgba(255, 215, 0, 0.3)',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0.8rem'
+            }}>
+              <p style={{ fontSize: '1.4rem', color: 'var(--rust)', margin: 0, fontFamily: '"Caveat", "Noto Sans Tamil", cursive', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
+                அறியப்படாத இடங்கள் · 20+ Hidden Gems & Verified Community Tips
+              </p>
+            </div>
           </div>
         </section>
       </div>
@@ -360,16 +375,17 @@ const UnchartedPage = () => {
             style={{
               padding: '0.85rem 2rem',
               borderRadius: '50px',
-              border: mainTab === 'gems' ? '2px solid #FFD700' : '1px solid #33334d',
-              background: mainTab === 'gems' ? 'var(--accent, #FFD700)' : '#14141d',
-              color: mainTab === 'gems' ? '#000' : '#bbb',
+                        fontFamily: '"Caveat", "Noto Sans Tamil", cursive',
+              border: mainTab === 'gems' ? '2px solid var(--rust)' : '1px solid var(--line)',
+              background: mainTab === 'gems' ? 'var(--rust-soft)' : '#ffffff',
+              color: mainTab === 'gems' ? 'var(--rust)' : 'var(--muted)',
               fontWeight: 'bold',
               fontSize: '1rem',
               cursor: 'pointer',
               boxShadow: mainTab === 'gems' ? '0 4px 15px rgba(255, 215, 0, 0.3)' : 'none'
             }}
           >
-            🏛️ Hidden Gems & Trails ({gems.length})
+            <Map size={18} style={{marginRight: "8px", verticalAlign: "text-bottom"}} /> Hidden Gems & Trails ({gems.length})
           </button>
 
           <button
@@ -378,16 +394,17 @@ const UnchartedPage = () => {
             style={{
               padding: '0.85rem 2rem',
               borderRadius: '50px',
-              border: mainTab === 'tips' ? '2px solid #FFD700' : '1px solid #33334d',
-              background: mainTab === 'tips' ? 'var(--accent, #FFD700)' : '#14141d',
-              color: mainTab === 'tips' ? '#000' : '#bbb',
+                        fontFamily: '"Caveat", "Noto Sans Tamil", cursive',
+              border: mainTab === 'tips' ? '2px solid var(--rust)' : '1px solid var(--line)',
+              background: mainTab === 'tips' ? 'var(--rust-soft)' : '#ffffff',
+              color: mainTab === 'tips' ? 'var(--rust)' : 'var(--muted)',
               fontWeight: 'bold',
               fontSize: '1rem',
               cursor: 'pointer',
               boxShadow: mainTab === 'tips' ? '0 4px 15px rgba(255, 215, 0, 0.3)' : 'none'
             }}
           >
-            💬 Community Tips & Proof-of-Presence ({tips.length})
+            <Globe size={18} style={{marginRight: "8px", verticalAlign: "text-bottom"}} /> Community Tips & Proof-of-Presence ({tips.length})
           </button>
         </div>
 
@@ -396,6 +413,28 @@ const UnchartedPage = () => {
         {/* ════════════════════════════════════════════════════════════════ */}
         {mainTab === 'gems' && (
           <>
+            
+            {/* SEARCH BOX */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '600px' }}>
+                <Search size={20} color="var(--muted)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                <input
+                  type="text"
+                  placeholder="Search hidden gems by name or district..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={{
+                    width: '100%', padding: '1rem 1rem 1rem 48px', borderRadius: '50px',
+                        fontFamily: '"Caveat", "Noto Sans Tamil", cursive',
+                    border: '1px solid var(--line)', background: '#ffffff',
+                    fontSize: '1.05rem', color: 'var(--ink)',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.05)', outline: 'none',
+                    fontFamily: '"Caveat", "Noto Sans Tamil", cursive'
+                  }}
+                />
+              </div>
+            </div>
+
             {/* CATEGORY FILTER BUTTONS */}
             <div className="uncharted-filters">
               {CATEGORIES.map((cat) => {
@@ -415,7 +454,7 @@ const UnchartedPage = () => {
             {/* LEAFLET MAP OF VISIBLE GEMS */}
             <div style={{ marginBottom: '3.5rem' }}>
               <h3 className="gem-map-title">
-                🗺️ Interactive Gem Map ({filteredGems.length} Locations Visible)
+                <Map size={22} style={{marginRight: "8px", verticalAlign: "bottom", color: "var(--rust)"}} /> Interactive Gem Map ({filteredGems.length} Locations Visible)
               </h3>
               <div className="gem-map-container">
                 <MapContainer
@@ -433,12 +472,12 @@ const UnchartedPage = () => {
                     return (
                       <Marker key={gem.id} position={gem.coordinates}>
                         <Popup>
-                          <div style={{ color: '#111', fontFamily: 'sans-serif', maxWidth: '220px' }}>
+                          <div style={{ color: '#111', fontFamily: '"Caveat", "Noto Sans Tamil", cursive', maxWidth: '220px' }}>
                             <h4 style={{ margin: '0 0 4px 0', fontSize: '1.05rem' }}>{gem.name}</h4>
                             <div style={{ fontSize: '0.8rem', color: '#c77d00', fontWeight: 'bold', marginBottom: '4px' }}>
                               {gem.tamil_name} · {gem.district}
                             </div>
-                            <span style={{ background: '#222', color: '#FFD700', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase' }}>
+                            <span style={{ background: '#222', color: 'var(--ink)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase' }}>
                               {gem.category}
                             </span>
                             <p style={{ margin: '6px 0 0 0', fontSize: '0.8rem', color: '#444', lineHeight: '1.3' }}>
@@ -455,11 +494,11 @@ const UnchartedPage = () => {
 
             {/* PLACES CARDS GRID */}
             {loading ? (
-              <div style={{ textAlign: 'center', color: '#aaa', padding: '3rem' }}>
+              <div style={{ textAlign: 'center', color: 'var(--muted)', padding: '3rem' }}>
                 Loading Hidden Gems...
               </div>
             ) : filteredGems.length === 0 ? (
-              <div style={{ textAlign: 'center', color: '#aaa', padding: '3rem' }}>
+              <div style={{ textAlign: 'center', color: 'var(--muted)', padding: '3rem' }}>
                 No places found matching the selected category.
               </div>
             ) : (
@@ -498,24 +537,24 @@ const UnchartedPage = () => {
                 marginBottom: '2rem',
                 flexWrap: 'wrap',
                 gap: '1rem',
-                background: '#14141f',
+                background: '#ffffff',
                 padding: '1.25rem 1.75rem',
                 borderRadius: '16px',
-                border: '1px solid #28283a'
+                border: '1px solid var(--line)'
               }}
             >
               <div>
-                <h3 style={{ color: '#fff', fontSize: '1.4rem', margin: 0, fontFamily: "'Bebas Neue', cursive" }}>
-                  💬 Community Travel Tips & Cryptographic Attestations
+                <h3 style={{ color: 'var(--ink)', fontSize: '1.4rem', margin: 0, fontFamily: '"Caveat", "Noto Sans Tamil", cursive' }}>
+                  <Globe size={24} style={{marginRight: "8px", verticalAlign: "middle", color: "var(--rust)"}} /> Community Travel Tips & Cryptographic Attestations
                 </h3>
-                <p style={{ color: '#aaa', fontSize: '0.88rem', margin: '4px 0 0 0' }}>
+                <p style={{ color: 'var(--muted)', fontSize: '0.88rem', margin: '4px 0 0 0' }}>
                   Explore traveler notes verified by 10-minute location proof-of-presence.
                 </p>
               </div>
 
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                 {/* View Mode Toggle (Map vs List) */}
-                <div style={{ display: 'flex', background: 'rgba(255, 255, 255, 0.06)', padding: '4px', borderRadius: '30px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <div style={{ display: 'flex', background: 'var(--wash)', padding: '4px', borderRadius: '30px', border: '1px solid var(--line)' }}>
                   <button
                     type="button"
                     onClick={() => setTipsViewMode('map')}
@@ -561,6 +600,7 @@ const UnchartedPage = () => {
                     fontSize: '0.9rem',
                     border: 'none',
                     borderRadius: '50px',
+                        fontFamily: '"Caveat", "Noto Sans Tamil", cursive',
                     cursor: 'pointer',
                     boxShadow: '0 4px 15px rgba(46, 196, 182, 0.3)'
                   }}
@@ -590,7 +630,7 @@ const UnchartedPage = () => {
                 <button
                   type="button"
                   onClick={() => setChainAuditResult(null)}
-                  style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', color: 'var(--ink)', cursor: 'pointer' }}
                 >
                   ✕
                 </button>
@@ -599,7 +639,7 @@ const UnchartedPage = () => {
 
             {/* MAP VIEW OF TIPS */}
             {tipsViewMode === 'map' && (
-              <div style={{ height: '480px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid #28283a', marginBottom: '2.5rem' }}>
+              <div style={{ height: '480px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--line)', marginBottom: '2.5rem' }}>
                 <MapContainer center={[13.0695, 80.1966]} zoom={11} style={{ height: '100%', width: '100%' }}>
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   {tips.map((tip) => {
@@ -615,11 +655,11 @@ const UnchartedPage = () => {
                         pathOptions={{ color: catColor, fillColor: catColor, fillOpacity: 0.7, weight: 2 }}
                       >
                         <Popup>
-                          <div style={{ color: '#111', fontFamily: 'sans-serif', maxWidth: '240px' }}>
-                            <span style={{ background: catColor, color: '#fff', padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase' }}>
+                          <div style={{ color: '#111', fontFamily: '"Caveat", "Noto Sans Tamil", cursive', maxWidth: '240px' }}>
+                            <span style={{ background: catColor, color: 'var(--ink)', padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase' }}>
                               {tip.category}
                             </span>
-                            <h4 style={{ margin: '6px 0 4px 0', fontSize: '1rem', color: '#111' }}>{tip.location}</h4>
+                            <h4 style={{ margin: '6px 0 4px 0', fontSize: '1rem', color: '#111' }}>{tip.location_name || tip.location || tip.title}</h4>
                             <p style={{ margin: '0 0 8px 0', fontSize: '0.85rem', color: '#333' }}>{tip.content}</p>
                             <div style={{ fontSize: '0.75rem', color: '#666' }}>
                               By: <strong>{tip.contributor || 'Traveler'}</strong>
@@ -649,14 +689,14 @@ const UnchartedPage = () => {
                   <div
                     key={tip.id}
                     style={{
-                      background: '#14141f',
-                      border: '1px solid #28283a',
+                      background: '#ffffff',
+                      border: '1px solid var(--line)',
                       borderRadius: '14px',
                       padding: '1.75rem',
                       display: 'flex',
                       flexDirection: 'column',
                       justify: 'space-between',
-                      boxShadow: '0 6px 20px rgba(0,0,0,0.4)'
+                      boxShadow: '0 6px 20px rgba(0,0,0,0.06)'
                     }}
                   >
                     <div>
@@ -682,9 +722,9 @@ const UnchartedPage = () => {
                           type="button"
                           onClick={() => handleViewAttestation(tip.id)}
                           style={{
-                            background: isVerified ? 'rgba(46, 196, 182, 0.15)' : 'rgba(255, 255, 255, 0.08)',
-                            color: isVerified ? '#2ec4b6' : '#888',
-                            border: `1px solid ${isVerified ? '#2ec4b6' : '#555'}`,
+                            background: isVerified ? 'rgba(46, 196, 182, 0.15)' : 'var(--wash)',
+                            color: isVerified ? '#2ec4b6' : 'var(--muted)',
+                            border: `1px solid ${isVerified ? '#2ec4b6' : 'var(--line)'}`,
                             padding: '3px 10px',
                             borderRadius: '20px',
                             fontSize: '0.75rem',
@@ -700,19 +740,19 @@ const UnchartedPage = () => {
                       </div>
 
                       {/* Location & Content */}
-                      <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 0.5rem 0' }}><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {tip.location}</h3>
-                      <p style={{ color: '#ccc', fontSize: '0.92rem', lineHeight: '1.55', marginBottom: '1.25rem' }}>
+                      <h3 style={{ color: 'var(--ink)', fontSize: '1.4rem', margin: '0 0 0.5rem 0', fontFamily: '"Caveat", "Noto Sans Tamil", cursive' }}><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {tip.location_name || tip.location || tip.title}</h3>
+                      <p style={{ color: 'var(--muted)', fontSize: '0.92rem', lineHeight: '1.55', marginBottom: '1.25rem' }}>
                         "{tip.content}"
                       </p>
                     </div>
 
                     <div>
                       {/* Contributor & Verification Footer */}
-                      <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '0.85rem 1rem', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <span style={{ fontSize: '0.82rem', color: '#aaa' }}>
-                          By <strong style={{ color: '#FFD700' }}>{tip.contributor || 'Traveler'}</strong>
+                      <div style={{ background: 'var(--wash)', padding: '0.85rem 1rem', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <span style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>
+                          By <strong style={{ color: 'var(--ink)' }}>{tip.contributor || 'Traveler'}</strong>
                         </span>
-                        <span style={{ fontSize: '0.75rem', color: '#777' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>
                           10m Dwell Verified
                         </span>
                       </div>
@@ -724,9 +764,9 @@ const UnchartedPage = () => {
                         style={{
                           width: '100%',
                           padding: '0.7rem',
-                          background: '#33334d',
-                          color: '#FFD700',
-                          border: '1px solid #555577',
+                          background: '#ffffff',
+                          color: 'var(--ink)',
+                          border: '1px solid var(--line)',
                           borderRadius: '8px',
                           fontWeight: 'bold',
                           fontSize: '0.82rem',
@@ -735,7 +775,7 @@ const UnchartedPage = () => {
                           letterSpacing: '1px'
                         }}
                       >
-                        🔗 Verify Hash Chain Integrity
+                        <ShieldCheck size={18} style={{marginRight: "6px", verticalAlign: "text-bottom"}} /> Verify Hash Chain Integrity
                       </button>
                     </div>
                   </div>
@@ -763,7 +803,7 @@ const UnchartedPage = () => {
         >
           <div
             style={{
-              background: '#14141f',
+              background: '#ffffff',
               border: '1px solid #FFD700',
               borderRadius: '20px',
               padding: '2rem',
@@ -773,21 +813,21 @@ const UnchartedPage = () => {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h3 style={{ color: '#FFD700', fontSize: '1.4rem', margin: 0, fontFamily: "'Bebas Neue', cursive" }}>
-                🛡️ Proof-of-Presence Attestation
+              <h3 style={{ color: 'var(--ink)', fontSize: '1.4rem', margin: 0, fontFamily: '"Caveat", "Noto Sans Tamil", cursive' }}>
+                  <CheckCircle size={20} style={{marginRight: "8px", verticalAlign: "text-bottom"}} /> Proof-of-Presence Attestation
               </h3>
               <button
                 type="button"
                 onClick={() => setSelectedAttestation(null)}
-                style={{ background: '#222', border: 'none', color: '#fff', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
+                style={{ background: '#222', border: 'none', color: 'var(--ink)', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
               >
                 ✕
               </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#ccc' }}>
-              <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '0.85rem', borderRadius: '10px' }}>
-                <span style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', display: 'block', fontWeight: 'bold' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: 'var(--muted)' }}>
+              <div style={{ background: 'var(--wash)', padding: '0.85rem', borderRadius: '10px' }}>
+                <span style={{ color: 'var(--muted)', fontSize: '0.75rem', textTransform: 'uppercase', display: 'block', fontWeight: 'bold' }}>
                   Cryptographic SHA-256 Hash
                 </span>
                 <div style={{ color: '#2ec4b6', fontFamily: 'monospace', fontSize: '0.85rem', wordBreak: 'break-all', margin: '4px 0' }}>
@@ -800,7 +840,7 @@ const UnchartedPage = () => {
                     setCopiedHash(true);
                     setTimeout(() => setCopiedHash(false), 2000);
                   }}
-                  style={{ background: '#333', color: '#FFD700', border: 'none', padding: '4px 10px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', marginTop: '4px' }}
+                  style={{ background: '#333', color: 'var(--ink)', border: 'none', padding: '4px 10px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', marginTop: '4px' }}
                 >
                   {copiedHash ? '✓ Copied Hash!' : '<ClipboardList size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Copy Full Hash'}
                 </button>
@@ -845,7 +885,7 @@ const UnchartedPage = () => {
         >
           <div
             style={{
-              background: '#14141f',
+              background: '#ffffff',
               border: '1px solid #2ec4b6',
               borderRadius: '20px',
               padding: '2rem',
@@ -857,8 +897,8 @@ const UnchartedPage = () => {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h3 style={{ color: '#2ec4b6', fontSize: '1.4rem', margin: 0, fontFamily: "'Bebas Neue', cursive" }}>
-                ➕ Submit Verified Community Tip
+              <h3 style={{ color: '#2ec4b6', fontSize: '1.4rem', margin: 0, fontFamily: '"Caveat", "Noto Sans Tamil", cursive' }}>
+                  <Check size={20} style={{marginRight: "8px", verticalAlign: "text-bottom"}} /> Submit Verified Community Tip
               </h3>
               <button
                 type="button"
@@ -866,7 +906,7 @@ const UnchartedPage = () => {
                   setShowAddForm(false);
                   if (dwellTimerRef.current) clearInterval(dwellTimerRef.current);
                 }}
-                style={{ background: '#222', border: 'none', color: '#fff', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
+                style={{ background: '#222', border: 'none', color: 'var(--ink)', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
               >
                 ✕
               </button>
@@ -880,8 +920,8 @@ const UnchartedPage = () => {
             )}
 
             {/* 10-MINUTE DWELL PROGRESS RING */}
-            <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', marginBottom: '1.5rem', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-              <div style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
+            <div style={{ background: 'var(--wash)', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', marginBottom: '1.5rem', border: '1px solid var(--line)' }}>
+              <div style={{ color: 'var(--ink)', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
                 {dwellComplete ? '<CheckCircle size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#10b981"}} /> Dwell Presence Verified (10/10 min)' : `⏳ Verifying Presence… ${Math.floor(dwellSeconds / 60)}/${Math.ceil(600 / 60)} Minutes`}
               </div>
 
@@ -897,7 +937,7 @@ const UnchartedPage = () => {
                 />
               </div>
 
-              <small style={{ color: '#aaa', fontSize: '0.78rem', display: 'block', marginBottom: '0.75rem' }}>
+              <small style={{ color: 'var(--muted)', fontSize: '0.78rem', display: 'block', marginBottom: '0.75rem' }}>
                 Stay within 50 meters of your detected location while the 10-minute proof-of-presence completes.
               </small>
 
@@ -906,7 +946,7 @@ const UnchartedPage = () => {
                 <button
                   type="button"
                   onClick={handleFastForwardDwell}
-                  style={{ background: '#33334d', color: '#FFD700', border: '1px solid #555577', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
+                  style={{ background: '#ffffff', color: 'var(--ink)', border: '1px solid var(--line)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >
                   ⚡ Fast-Forward Dwell (Dev Mode)
                 </button>
@@ -925,7 +965,7 @@ const UnchartedPage = () => {
 
             <form onSubmit={handleCreateTipSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <label style={{ display: 'block', color: 'var(--ink)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
                   Location Name
                 </label>
                 <input
@@ -934,12 +974,12 @@ const UnchartedPage = () => {
                   onChange={(e) => setTipLocationName(e.target.value)}
                   required
                   placeholder="E.g., Broken Bridge, Besant Nagar"
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--ink)' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <label style={{ display: 'block', color: 'var(--ink)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
                   Category Selector Chips
                 </label>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -966,7 +1006,7 @@ const UnchartedPage = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <label style={{ display: 'block', color: 'var(--ink)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
                   Tip Description
                 </label>
                 <textarea
@@ -975,12 +1015,12 @@ const UnchartedPage = () => {
                   required
                   rows={3}
                   placeholder="Share insider details, quiet hours, or safety advice..."
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--ink)' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <label style={{ display: 'block', color: 'var(--ink)', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>
                   Contributor Name / Handle
                 </label>
                 <input
@@ -988,7 +1028,7 @@ const UnchartedPage = () => {
                   value={tipContributor}
                   onChange={(e) => setTipContributor(e.target.value)}
                   placeholder="E.g., NomadMadras"
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', color: '#fff' }}
+                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--ink)' }}
                 />
               </div>
 

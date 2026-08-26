@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 
 const TamilChatbot = ({ floating = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +90,7 @@ const TamilChatbot = ({ floating = false }) => {
         ...prev,
         {
           role: 'assistant',
-          content: 'வணக்கம்! I am here to help. You can explore heritage spots like Thanjavur Brihadeeswarar Temple (பிரகதீஸ்வரர் கோவில்) or taste Madurai Jigarthanda (மதுரை ஜிகர்தண்டா).'
+          content: 'வணக்கம்! I am here to help. You can explore heritage spots like Mylapore Kapaleeshwarar Temple (மயிலாப்பூர் கபாலீஸ்வரர் கோவில்) or taste Marina Beach Sundal (மெரினா பீச் சுண்டல்).'
         }
       ]);
     } finally {
@@ -156,8 +156,8 @@ const TamilChatbot = ({ floating = false }) => {
   const chatContent = (
     <div
       style={{
-        background: '#14141d',
-        border: '1px solid #282838',
+        background: '#ffffff',
+        border: '1px solid var(--line)',
         borderRadius: '16px',
         width: '100%',
         maxWidth: floating ? '380px' : '750px',
@@ -165,7 +165,7 @@ const TamilChatbot = ({ floating = false }) => {
         display: 'flex',
         flexDirection: 'column',
         height: floating ? '480px' : '540px',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.6)',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.08)',
         overflow: 'hidden'
       }}
     >
@@ -173,8 +173,8 @@ const TamilChatbot = ({ floating = false }) => {
       <div
         style={{
           padding: '0.85rem 1.2rem',
-          background: '#1a1a28',
-          borderBottom: '1px solid #282838',
+          background: 'var(--wash)',
+          borderBottom: '1px solid var(--line)',
           display: 'flex',
           justify: 'space-between',
           alignItems: 'center'
@@ -197,7 +197,7 @@ const TamilChatbot = ({ floating = false }) => {
             🛕
           </div>
           <div>
-            <h3 style={{ color: '#fff', fontSize: '1rem', margin: 0, fontWeight: 'bold' }}>
+            <h3 style={{ color: 'var(--ink)', fontSize: '1rem', margin: 0, fontWeight: 'bold' }}>
               Sancharam AI
             </h3>
             <span style={{ color: '#FFD700', fontSize: '0.7rem', fontFamily: "'Yatra One', cursive" }}>
@@ -234,9 +234,9 @@ const TamilChatbot = ({ floating = false }) => {
             type="button"
             onClick={() => setSpeechLang((prev) => (prev === 'ta-IN' ? 'en-IN' : 'ta-IN'))}
             style={{
-              background: '#222235',
+              background: '#ffffff',
               color: '#FFD700',
-              border: '1px solid #444466',
+              border: '1px solid var(--line)',
               padding: '3px 8px',
               borderRadius: '12px',
               fontSize: '0.7rem',
@@ -254,7 +254,7 @@ const TamilChatbot = ({ floating = false }) => {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#aaa',
+                color: 'var(--muted)',
                 fontSize: '1.2rem',
                 cursor: 'pointer',
                 padding: '0 4px'
@@ -295,8 +295,8 @@ const TamilChatbot = ({ floating = false }) => {
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
-                    background: '#222235',
-                    border: '1px solid #444466',
+                    background: '#ffffff',
+                    border: '1px solid var(--line)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -356,7 +356,7 @@ const TamilChatbot = ({ floating = false }) => {
                     height: '30px',
                     borderRadius: '50%',
                     background: '#FFD700',
-                    color: '#000',
+                    color: 'var(--ink)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -379,8 +379,8 @@ const TamilChatbot = ({ floating = false }) => {
                 width: '30px',
                 height: '30px',
                 borderRadius: '50%',
-                background: '#222235',
-                border: '1px solid #444466',
+                background: '#ffffff',
+                border: '1px solid var(--line)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -391,12 +391,12 @@ const TamilChatbot = ({ floating = false }) => {
             </div>
             <div
               style={{
-                background: '#1e1e2d',
-                color: '#aaa',
+                background: '#ffffff',
+                color: 'var(--muted)',
                 padding: '0.65rem 0.85rem',
                 borderRadius: '16px 16px 16px 2px',
                 fontSize: '0.8rem',
-                border: '1px solid #2e2e42',
+                border: '1px solid var(--line)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '5px'
@@ -434,8 +434,8 @@ const TamilChatbot = ({ floating = false }) => {
         onSubmit={handleFormSubmit}
         style={{
           padding: '0.85rem 1rem',
-          background: '#1a1a28',
-          borderTop: '1px solid #282838',
+          background: 'var(--wash)',
+          borderTop: '1px solid var(--line)',
           display: 'flex',
           gap: '0.5rem',
           alignItems: 'center'
@@ -453,10 +453,10 @@ const TamilChatbot = ({ floating = false }) => {
           style={{
             flex: 1,
             padding: '0.75rem 0.95rem',
-            background: '#12121a',
-            border: isListening ? '2px solid #ff4d4d' : '1px solid #33334d',
+            background: '#ffffff',
+            border: isListening ? '2px solid #ff4d4d' : '1px solid var(--line)',
             borderRadius: '50px',
-            color: '#fff',
+            color: 'var(--ink)',
             fontSize: '0.88rem',
             outline: 'none',
             transition: 'border-color 0.25s ease'
@@ -472,9 +472,9 @@ const TamilChatbot = ({ floating = false }) => {
             width: '38px',
             height: '38px',
             borderRadius: '50%',
-            background: isListening ? '#ff4d4d' : '#252538',
-            color: isListening ? '#fff' : '#FFD700',
-            border: isListening ? '2px solid #ff1a1a' : '1px solid #444466',
+            background: isListening ? '#ff4d4d' : '#ffffff',
+            color: isListening ? '#fff' : 'var(--rust)',
+            border: isListening ? '2px solid #ff1a1a' : '1px solid var(--line)',
             fontSize: '1rem',
             display: 'flex',
             alignItems: 'center',
@@ -495,8 +495,8 @@ const TamilChatbot = ({ floating = false }) => {
           disabled={loading || !inputMessage.trim()}
           style={{
             padding: '0.75rem 1.1rem',
-            background: loading || !inputMessage.trim() ? '#444' : 'var(--accent, #FFD700)',
-            color: '#000',
+            background: loading || !inputMessage.trim() ? '#e0e0e0' : 'var(--accent, #FFD700)',
+            color: 'var(--ink)',
             fontWeight: 'bold',
             fontSize: '0.88rem',
             border: 'none',
@@ -548,7 +548,7 @@ const TamilChatbot = ({ floating = false }) => {
             height: '60px',
             borderRadius: '50%',
             background: 'linear-gradient(135deg, #FFD700, #ff9800)',
-            color: '#000',
+            color: 'var(--ink)',
             border: 'none',
             fontSize: '1.6rem',
             cursor: 'pointer',
@@ -571,3 +571,5 @@ const TamilChatbot = ({ floating = false }) => {
 };
 
 export default TamilChatbot;
+
+
