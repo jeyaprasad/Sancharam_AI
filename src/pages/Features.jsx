@@ -35,7 +35,7 @@ const Features = () => {
         <div className="bento-hero-overlay"></div>
         <div className="wrap" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
           <section className="bento-hero rv" ref={addToRefs}>
-            <span className="pill" lang="ta" style={{ margin: '0 auto 24px auto' }}><i></i>r r_rr_?r_r_r_?r_?rc_?</span>
+            <span className="pill" lang="ta" style={{ margin: '0 auto 24px auto' }}><i></i>நம்ம சென்னை</span>
             <h1 className="bento-hero-title">Discover the Soul of <em>Madras</em></h1>
             <p className="bento-hero-subtitle">
               Sancharam goes beyond standard maps. Experience deep heritage, real-time safety, 
@@ -71,7 +71,7 @@ const Features = () => {
             </div>
             <div className="bento-card-content">
               <span className="bento-tag">Context-Aware Heritage</span>
-              <h3 lang="ta">r r _?r</h3>
+              <h3 lang="ta">உணர்வு</h3>
               <p className="bento-title-en">Unarvu</p>
               <p className="bento-desc">Stand before Kapaleeshwarar and immediately understand its Dravidian architecture without reading a textbook.</p>
               <span className="bento-action">Explore Safety &rarr;</span>
@@ -85,7 +85,7 @@ const Features = () => {
             </div>
             <div className="bento-card-content">
               <span className="bento-tag">Time-Aware Discovery</span>
-              <h3 lang="ta">r"_؅rrr_?</h3>
+              <h3 lang="ta">நேரம்</h3>
               <p className="bento-title-en">Neram</p>
               <p className="bento-desc">Marina at 5 AM and 5 PM are different places. See what Chennai offers right now.</p>
               <span className="bento-action">Explore Routing &rarr;</span>
@@ -99,7 +99,7 @@ const Features = () => {
             </div>
             <div className="bento-card-content">
               <span className="bento-tag">Solo Safety Mode</span>
-              <h3 lang="ta">r r_rr_?</h3>
+              <h3 lang="ta">காவல்</h3>
               <p className="bento-title-en">Kaaval</p>
               <p className="bento-desc">Register emergency contacts, activate SOS, and get night-mode warnings.</p>
               <span className="bento-action">Plan Trip &rarr;</span>
@@ -115,7 +115,7 @@ const Features = () => {
               <div className="bento-card-content-split">
                 <div>
                   <span className="bento-tag">Hyper-Local Discovery</span>
-                  <h3 lang="ta">rSr_?</h3>
+                  <h3 lang="ta">ஊர்</h3>
                   <p className="bento-title-en">Oor</p>
                 </div>
                 <div>

@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--paper);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -53,7 +53,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: -.02em;
   line-height: 1.05
@@ -259,7 +259,7 @@ h4 {
   bottom: clamp(24px, 5vw, 40px);
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #ffd700;
@@ -320,7 +320,7 @@ header{position:fixed;inset:0 0 auto 0;height:72px;z-index:9999;
   transform: scale(1.03);
 }
 nav{display:flex;gap:clamp(20px,4vw,40px);align-items:center}
-nav a{font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; font-size:15px;font-weight:500;letter-spacing:0.02em;color:var(--muted);transition:color .25s;position:relative;padding:8px 0}
+nav a{font-family: 'Inter', system-ui, sans-serif; font-size:15px;font-weight:500;letter-spacing:0.02em;color:var(--muted);transition:color .25s;position:relative;padding:8px 0}
 nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rust);
   transform:scaleX(0);transform-origin:left;transition:transform .35s var(--e)}
 nav a:hover{color:var(--ink)}
@@ -333,7 +333,7 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
   letter-spacing:.1em;text-transform:uppercase;color:var(--rust);background:var(--rust-soft);
   border:1px solid rgba(180,69,31,.16);padding:6px 14px;border-radius:99px;margin-bottom:26px}
 .pill i{width:6px;height:6px;border-radius:50%;background:var(--rust);display:block}
-:lang(ta){font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;text-transform:none;
+:lang(ta){font-family: 'Inter', system-ui, sans-serif;text-transform:none;
   letter-spacing:.02em;font-size:13px;line-height:1.5}
 .hero h1{font-size:clamp(2.9rem,6.4vw,5.2rem);max-width:14ch;text-shadow:0 0 40px var(--paper),0 0 20px var(--paper)}
 .hero h1 em{font-style:italic;color:var(--rust);font-weight:400}
@@ -365,7 +365,7 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
 }
 .stat{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:18px;}
 .stat:nth-of-type(3){border-bottom:none;padding-bottom:0;}
-.stat b{font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;font-size:2.8rem;color:var(--rust);line-height:1;text-shadow:0 2px 12px rgba(217, 101, 59, 0.4)}
+.stat b{font-family: 'Inter', system-ui, sans-serif;font-size:2.8rem;color:var(--rust);line-height:1;text-shadow:0 2px 12px rgba(217, 101, 59, 0.4)}
 .stat span{font-size:12px;color:rgba(255,255,255,0.65);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;text-align:right;max-width:120px;line-height:1.3;}
 
 /* SECTION */
@@ -644,16 +644,16 @@ footer small {
     transform: none
   }
 }
-.uncharted-content, .uncharted-content button, .uncharted-content input, .uncharted-content textarea, .uncharted-content p, .uncharted-content h3 { font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; font-size: 1.4rem; letter-spacing: 0.05em; } 
-.uncharted-content h2 { font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; font-size: 2.2rem; } 
-.uncharted-content small { font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; font-size: 1.2rem; }
+.uncharted-content, .uncharted-content button, .uncharted-content input, .uncharted-content textarea, .uncharted-content p, .uncharted-content h3 { font-family: 'Inter', system-ui, sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; } 
+.uncharted-content h2 { font-family: 'Inter', system-ui, sans-serif; font-size: 2.2rem; } 
+.uncharted-content small { font-family: 'Inter', system-ui, sans-serif; font-size: 1.2rem; }
 
 /* UNCHARTED STYLES */
 .uncharted-filters { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; justify-content: center; }
 .uncharted-filter-btn { padding: 0.65rem 1.25rem; border-radius: 50px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
 .uncharted-filter-btn:hover { border-color: var(--moss); color: var(--moss); }
 .uncharted-filter-btn.active { border-color: var(--rust); background: var(--rust-soft); color: var(--rust); font-weight: 600; }
-.gem-map-title { font-size: 1.5rem; color: var(--ink); margin-bottom: 1rem; font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; letter-spacing: -0.01em; }
+.gem-map-title { font-size: 1.5rem; color: var(--ink); margin-bottom: 1rem; font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.01em; }
 .gem-map-container { height: 380px; width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.04); }
 .gem-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
 .gem-card { background: #ffffff; border: 1px solid var(--line); border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -661,7 +661,7 @@ footer small {
 .gem-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
 .gem-card-tag { background: var(--rust-soft); color: var(--rust); border: 1px solid rgba(180, 69, 31, 0.16); padding: 6px 14px; border-radius: 99px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .gem-card-loc { font-size: 0.85rem; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 4px; }
-.gem-card h3 { font-family: 'Great Vibes', 'Noto Sans Tamil', cursive; color: var(--ink); font-size: 1.5rem; line-height: 1.2; margin: 0 0 6px 0; letter-spacing: -0.01em; }
+.gem-card h3 { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); font-size: 1.5rem; line-height: 1.2; margin: 0 0 6px 0; letter-spacing: -0.01em; }
 .gem-card .tamil-name { color: var(--moss); font-size: 1rem; margin-bottom: 1.25rem; font-weight: 500; }
 .gem-card .desc { color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
 .gem-card-meta { background: var(--paper); border: 1px solid var(--line); padding: 1.25rem; border-radius: 12px; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
@@ -698,7 +698,7 @@ footer small {
 }
 
 .bento-hero-title {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(3rem, 6vw, 5.5rem);
   color: var(--rust);
   line-height: 1.1;
@@ -729,7 +729,8 @@ footer small {
 }
 
 .bento-stat b {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
   font-size: 2.5rem;
   color: var(--ink);
   line-height: 1;
@@ -820,14 +821,16 @@ footer small {
 }
 
 .bento-card-content h3 {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Tiro Tamil', serif;
+  font-weight: 600;
   font-size: 2.2rem;
   margin-bottom: 4px;
   color: #fff;
 }
 
 .bento-title-en {
-  font-family: 'Great Vibes', 'Noto Sans Tamil', cursive;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
   font-size: 1.2rem;
   color: rgba(255,255,255,0.7);
   margin-bottom: 16px;
