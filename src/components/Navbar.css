@@ -1,16 +1,28 @@
 .main-header {
   position: fixed;
   inset: 0 0 auto 0;
-  height: 72px;
+  height: 80px;
   z-index: 9999;
-  background: rgba(251, 250, 247, 0.9);
+  background: rgba(251, 250, 247, 0.95);
   backdrop-filter: blur(18px) saturate(160%);
-  border-bottom: 1px solid var(--line, #eaeaea);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+}
+.nav-in {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
 }
 
 .nav-dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .nav-dropdown > .dropdown-menu {

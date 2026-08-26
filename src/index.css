@@ -319,17 +319,29 @@ header{position:fixed;inset:0 0 auto 0;height:72px;z-index:9999;
 .nav-logo-img:hover {
   transform: scale(1.03);
 }
-nav{display:flex;gap:clamp(20px,4vw,40px);align-items:center}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
 nav a {
-  font-family: 'Catamaran', sans-serif;
-  font-size: 14px;
+  font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #000;
-  transition: color .25s;
+  transition: all .25s ease;
   position: relative;
-  padding: 8px 0;
+  padding: 4px 0;
+  text-decoration: none;
+}
+nav a[aria-current="page"] {
+  color: var(--rust);
+  border-bottom: 2px solid var(--rust);
+}
+nav a:hover {
+  color: var(--rust);
 }
 nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rust);
   transform:scaleX(0);transform-origin:left;transition:transform .35s var(--e)}
