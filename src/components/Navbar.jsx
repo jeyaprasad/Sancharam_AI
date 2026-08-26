@@ -9,8 +9,9 @@ const Navbar = () => {
   return (
     <header className="main-header">
       <div className="nav-in">
-        <Link to="/" className="logo-img-link">
-          <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
+        <Link to="/" className="logo-img-link" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '8px' }}>
+          <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" style={{ height: '40px', objectFit: 'contain' }} />
+          <span style={{ fontFamily: "'Emily Street', 'Great Vibes', cursive", fontSize: '32px', color: '#000', textTransform: 'none', letterSpacing: 'normal', transform: 'translateY(4px)' }}>Sancharam</span>
         </Link>
         <nav>
           <Link to="/" aria-current={currentPath === '/' ? 'page' : undefined}>Home</Link>
