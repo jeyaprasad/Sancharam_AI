@@ -1,12 +1,12 @@
 .main-header {
-  position: absolute; /* Not fixed, so it scrolls with the hero, or absolute over the hero */
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 90px;
   z-index: 9999;
-  background: transparent;
-  border-bottom: none;
+  background: rgba(10, 10, 15, 0.98); /* Sleek dark mode black */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-dropdown {
