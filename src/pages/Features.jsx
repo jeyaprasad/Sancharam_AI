@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Landmark, Clock, Shield, MapPin, IndianRupee } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -184,16 +185,7 @@ const Features = () => {
           </Link>
         </section>
 
-        <footer>
-          <Link to="/" className="logo">San<span>charam</span></Link>
-          <div className="f-links">
-            <Link to="/features/safety">Safety</Link>
-            <Link to="/features/routing">Routing</Link>
-            <Link to="/features/itinerary">Planner</Link>
-            <Link to="/features/uncharted">Uncharted</Link>
-          </div>
-          <small>&copy; 2026 Sancharam - Chennai</small>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
