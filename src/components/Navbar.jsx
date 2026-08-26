@@ -9,8 +9,8 @@ const Navbar = () => {
   return (
     <header className="main-header">
       <div className="nav-in">
-        <Link to="/" className="logo-img-link" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '8px' }}>
-          <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" style={{ height: '56px', objectFit: 'contain' }} />
+        <Link to="/" className="logo-img-link">
+          <img src="/assets/images/icon.png" alt="Sancharam Logo" className="nav-logo-img" />
         </Link>
         <nav>
           <Link to="/" aria-current={currentPath === '/' ? 'page' : undefined}>Home</Link>
