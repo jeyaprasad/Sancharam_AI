@@ -1,9 +1,10 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CurrencyWidget from '@/components/CurrencyWidget';
 import TamilChatbot from '@/components/TamilChatbot';
 import {Map, Wallet, MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
-import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const BUDGET_OPTIONS = ['Budget', 'Moderate', 'Luxury'];
 

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import useAppStore from '@/store/useAppStore';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Globe, AlertTriangle, ShieldAlert, Search, Shield, Folder, BarChart3, Pointer, Lightbulb, Mail, Phone, MapPin, CheckCircle, ShieldCheck, Navigation } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const SafetyPage = () => {
   const riskZones = useAppStore((state) => state.riskZones);

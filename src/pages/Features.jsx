@@ -65,23 +65,23 @@ const Features = () => {
       {/* 🔹 TABS & PANELS 🔹 */}
       <div className="tabs wrap">
         <button className={`tab ${activeTab === 0 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)}>
-          <span className="icon"><Landmark size={14} /></span>
+          <span className="icon"><Landmark size={16} /></span>
           <span className="lbl">Unarvu</span>
         </button>
         <button className={`tab ${activeTab === 1 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 1} onClick={() => setActiveTab(1)}>
-          <span className="icon"><Clock size={14} /></span>
+          <span className="icon"><Clock size={16} /></span>
           <span className="lbl">Neram</span>
         </button>
         <button className={`tab ${activeTab === 2 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 2} onClick={() => setActiveTab(2)}>
-          <span className="icon"><Shield size={14} /></span>
+          <span className="icon"><Shield size={16} /></span>
           <span className="lbl">Kaaval</span>
         </button>
         <button className={`tab ${activeTab === 3 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 3} onClick={() => setActiveTab(3)}>
-          <span className="icon"><MapPin size={14} /></span>
+          <span className="icon"><MapPin size={16} /></span>
           <span className="lbl">Oor</span>
         </button>
         <button className={`tab ${activeTab === 4 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 4} onClick={() => setActiveTab(4)}>
-          <span className="icon"><IndianRupee size={14} /></span>
+          <span className="icon"><IndianRupee size={16} /></span>
           <span className="lbl">Payana Nidhi</span>
         </button>
       </div>
