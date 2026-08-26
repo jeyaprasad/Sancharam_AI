@@ -177,14 +177,14 @@ const Features = () => {
           <figure className="place"><img src="/assets/images/features/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/valluvarkottam.jpg" alt="Valluvar Kottam" loading="lazy" /><figcaption className="place-info"><h4>Valluvar Kottam</h4><p>Chariot of verses</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/features/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/index/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
           {/* Duplicated for seamless marquee */}
           <figure className="place"><img src="/assets/images/features/parthasarathy.jpg" alt="Parthasarathy Temple" loading="lazy" /><figcaption className="place-info"><h4>Parthasarathy</h4><p>The soul of Triplicane</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/napier_bridge.jpg" alt="Napier Bridge" loading="lazy" /><figcaption className="place-info"><h4>Napier Bridge</h4><p>Iconic island connector</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/santhome.jpg" alt="San Thome Basilica" loading="lazy" /><figcaption className="place-info"><h4>San Thome</h4><p>White on the shoreline</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/royapuram.jpg" alt="Royapuram Harbour" loading="lazy" /><figcaption className="place-info"><h4>Royapuram</h4><p>Fishing harbour dawn</p></figcaption></figure>
           <figure className="place"><img src="/assets/images/features/valluvarkottam.jpg" alt="Valluvar Kottam" loading="lazy" /><figcaption className="place-info"><h4>Valluvar Kottam</h4><p>Chariot of verses</p></figcaption></figure>
-          <figure className="place"><img src="/assets/images/features/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
+          <figure className="place"><img src="/assets/images/index/tranquebar_fort.jpg" alt="Tranquebar Fort" loading="lazy" /><figcaption className="place-info"><h4>Tranquebar Fort</h4><p>Danish coastal legacy</p></figcaption></figure>
         </div>
       </div>
 
