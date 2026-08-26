@@ -783,18 +783,22 @@ footer {
 /* TABS STYLES RESTORED */
 .tabs {
   position: sticky;
-  top: 72px;
+  top: 90px;
   z-index: 90;
-  background: rgba(251, 250, 247, 0.95);
-  backdrop-filter: blur(12px);
-  padding-top: 16px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 8px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
-  padding-bottom: 14px;
-  margin-bottom: 26px;
-  border-bottom: 1px solid var(--line);
+  border-radius: 99px;
+  margin: 0 auto 50px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(0,0,0,0.02);
   scrollbar-width: none;
+  width: fit-content;
+  max-width: 95%;
 }
 .tabs::-webkit-scrollbar { display: none; }
 
@@ -802,45 +806,37 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 99px;
   white-space: nowrap;
-  font-size: 16px; padding: 14px 24px; gap: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  border: 1px solid transparent;
-  transition: all .3s var(--e);
+  font-size: 15px;
+  font-weight: 600;
+  color: #666;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   background: transparent;
+  position: relative;
 }
 .tab:hover {
   color: var(--ink);
-  background: var(--wash);
+  background: rgba(0, 0, 0, 0.03);
 }
 .tab.on {
-  color: var(--ink);
-  background: var(--card);
-  border-color: var(--line);
-  box-shadow: 0 4px 12px rgba(0,0,0,.03);
-  font-weight: 600;
+  color: #fff;
+  background: var(--ink);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 .tab .icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--line);
   display: grid;
   place-items: center;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--ink);
-  transition: all .3s var(--e);
+  transition: all 0.3s ease;
+  color: #888;
 }
 .tab.on .icon {
-  background: var(--rust);
-  color: #fff;
+  color: #E9A98C; /* elegant soft orange/rust contrast */
+  transform: scale(1.1);
 }
-
 .panels {
   position: relative;
   min-height: 500px;

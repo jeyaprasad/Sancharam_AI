@@ -64,7 +64,7 @@ const Features = () => {
       </div>
 
       {/* 🔹 TABS & PANELS 🔹 */}
-      <div className="tabs wrap">
+      <div className="tabs">
         <button className={`tab ${activeTab === 0 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)}>
           <span className="icon"><Landmark size={16} /></span>
           <span className="lbl">Unarvu</span>
