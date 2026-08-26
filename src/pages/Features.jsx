@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 
 const Features = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const elementsRef = useRef([]);
 
   const addToRefs = (el) => {
@@ -42,7 +43,7 @@ const Features = () => {
               and hyper-local secrets wrapped in a next-generation digital guide.
             </p>
             
-            <div className="bento-stats">
+            <div className="bento-stats" style={{ marginBottom: "80px" }}>
               <div className="bento-stat">
                 <b>6</b>
                 <span>Curated<br/>Zones</span>
@@ -60,79 +61,96 @@ const Features = () => {
         </div>
       </div>
 
-      {/* 🔹 BENTO GRID (Horizontal Scroll) 🔹 */}
-      <section className="bento-grid rv" ref={addToRefs}>
-          
-          <Link to="/features/safety" className="bento-card">
-            <div className="bento-card-bg">
-              <img src="/assets/images/index/temples.jpg" alt="Unarvu" loading="lazy" />
-              <div className="bento-card-gradient"></div>
-            </div>
-            <div className="bento-card-content">
-              <span className="bento-tag">Context-Aware Heritage</span>
-              <h3 lang="ta">உணர்வு</h3>
-              <p className="bento-title-en">Unarvu</p>
-              <p className="bento-desc">Stand before Kapaleeshwarar and immediately understand its Dravidian architecture without reading a textbook.</p>
-              <span className="bento-action">Explore Safety &rarr;</span>
-            </div>
-          </Link>
+      {/* 🔹 TABS & PANELS 🔹 */}
+      <div className="tabs wrap">
+        <button className={`tab ${activeTab === 0 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)}>
+          <span className="icon">U</span>
+          <span className="lbl">Unarvu</span>
+        </button>
+        <button className={`tab ${activeTab === 1 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 1} onClick={() => setActiveTab(1)}>
+          <span className="icon">N</span>
+          <span className="lbl">Neram</span>
+        </button>
+        <button className={`tab ${activeTab === 2 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 2} onClick={() => setActiveTab(2)}>
+          <span className="icon">K</span>
+          <span className="lbl">Kaaval</span>
+        </button>
+        <button className={`tab ${activeTab === 3 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 3} onClick={() => setActiveTab(3)}>
+          <span className="icon">O</span>
+          <span className="lbl">Oor</span>
+        </button>
+        <button className={`tab ${activeTab === 4 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 4} onClick={() => setActiveTab(4)}>
+          <span className="icon">₹</span>
+          <span className="lbl">Payana Nidhi</span>
+        </button>
+      </div>
 
-          <Link to="/features/routing" className="bento-card">
-            <div className="bento-card-bg">
-              <img src="/assets/images/features/neram.jpg" alt="Neram" loading="lazy" />
-              <div className="bento-card-gradient"></div>
-            </div>
-            <div className="bento-card-content">
-              <span className="bento-tag">Time-Aware Discovery</span>
-              <h3 lang="ta">நேரம்</h3>
-              <p className="bento-title-en">Neram</p>
-              <p className="bento-desc">Marina at 5 AM and 5 PM are different places. See what Chennai offers right now.</p>
-              <span className="bento-action">Explore Routing &rarr;</span>
-            </div>
-          </Link>
+      <section className="panels rv wrap" ref={addToRefs}>
+        <div className={`panel ${activeTab === 0 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 0}>
+          <div>
+            <h3 lang="ta">உணர்வு</h3>
+            <p className="panel-en-title">Unarvu</p>
+            <span className="panel-tag">Context-Aware Heritage</span>
+            <p>Stand before Kapaleeshwarar and immediately understand its Dravidian architecture without reading a textbook.</p>
+            <Link to="/features/safety" className="panel-go">Explore Safety &rarr;</Link>
+          </div>
+          <div className="panel-art">
+            <img src="/assets/images/index/temples.jpg" alt="Unarvu" loading="lazy" />
+          </div>
+        </div>
 
-          <Link to="/features/itinerary" className="bento-card">
-            <div className="bento-card-bg">
-              <img src="/assets/images/features/kaaval.jpg" alt="Kaaval" loading="lazy" />
-              <div className="bento-card-gradient"></div>
-            </div>
-            <div className="bento-card-content">
-              <span className="bento-tag">Solo Safety Mode</span>
-              <h3 lang="ta">காவல்</h3>
-              <p className="bento-title-en">Kaaval</p>
-              <p className="bento-desc">Register emergency contacts, activate SOS, and get night-mode warnings.</p>
-              <span className="bento-action">Plan Trip &rarr;</span>
-            </div>
-          </Link>
+        <div className={`panel ${activeTab === 1 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 1}>
+          <div>
+            <h3 lang="ta">நேரம்</h3>
+            <p className="panel-en-title">Neram</p>
+            <span className="panel-tag">Time-Aware Discovery</span>
+            <p>Marina at 5 AM and 5 PM are different places. See what Chennai offers right now.</p>
+            <Link to="/features/routing" className="panel-go">Explore Routing &rarr;</Link>
+          </div>
+          <div className="panel-art">
+            <img src="/assets/images/features/neram.jpg" alt="Neram" loading="lazy" />
+          </div>
+        </div>
 
-          <Link to="/features/uncharted" className="bento-card">
-            <div className="bento-card-bg">
-              <img src="/assets/images/features/oor.jpg" alt="Oor" loading="lazy" />
-              <div className="bento-card-gradient"></div>
-            </div>
-            <div className="bento-card-content">
-              <span className="bento-tag">Hyper-Local Discovery</span>
-              <h3 lang="ta">ஊர்</h3>
-              <p className="bento-title-en">Oor</p>
-              <p className="bento-desc">6 Chennai zones. Hidden spots TripAdvisor will never show you. See through local eyes and uncover the city's best kept secrets.</p>
-              <span className="bento-action">Discover Secrets &rarr;</span>
-            </div>
-          </Link>
+        <div className={`panel ${activeTab === 2 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 2}>
+          <div>
+            <h3 lang="ta">காவல்</h3>
+            <p className="panel-en-title">Kaaval</p>
+            <span className="panel-tag">Solo Safety Mode</span>
+            <p>Register emergency contacts, activate SOS, get night-mode warnings after 9 PM.</p>
+            <Link to="/features/itinerary" className="panel-go">Plan Trip &rarr;</Link>
+          </div>
+          <div className="panel-art">
+            <img src="/assets/images/features/kaaval.jpg" alt="Kaaval" loading="lazy" />
+          </div>
+        </div>
 
-          <Link to="/features/budget" className="bento-card">
-            <div className="bento-card-bg">
-              <img src="/assets/images/index/aerial-view.jpg" alt="Payana Nidhi" loading="lazy" />
-              <div className="bento-card-gradient"></div>
-            </div>
-            <div className="bento-card-content">
-              <span className="bento-tag">Smart Budgeting</span>
-              <h3 lang="ta">பயண நிதி</h3>
-              <p className="bento-title-en">Payana Nidhi</p>
-              <p className="bento-desc">Track expenses in INR, categorize automatically, and unlock gamified budget achievements.</p>
-              <span className="bento-action">Track Budget &rarr;</span>
-            </div>
-          </Link>
-        </section>
+        <div className={`panel ${activeTab === 3 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 3}>
+          <div>
+            <h3 lang="ta">ஊர்</h3>
+            <p className="panel-en-title">Oor</p>
+            <span className="panel-tag">Hyper-Local Discovery</span>
+            <p>6 Chennai zones. Hidden spots TripAdvisor will never show you. See through local eyes.</p>
+            <Link to="/features/uncharted" className="panel-go">Discover Secrets &rarr;</Link>
+          </div>
+          <div className="panel-art">
+            <img src="/assets/images/features/oor.jpg" alt="Oor" loading="lazy" />
+          </div>
+        </div>
+
+        <div className={`panel ${activeTab === 4 ? 'on' : ''}`} role="tabpanel" hidden={activeTab !== 4}>
+          <div>
+            <h3 lang="ta">பயண நிதி</h3>
+            <p className="panel-en-title">Payana Nidhi</p>
+            <span className="panel-tag">Smart Budgeting</span>
+            <p>Track expenses in INR, categorize automatically, and unlock gamified budget achievements.</p>
+            <Link to="/features/budget" className="panel-go">Track Budget &rarr;</Link>
+          </div>
+          <div className="panel-art">
+            <img src="/assets/images/index/aerial-view.jpg" alt="Payana Nidhi" loading="lazy" />
+          </div>
+        </div>
+      </section>
 
       <div className="wrap">
         {/* 🔹 MARQUEE 🔹 */}
