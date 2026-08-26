@@ -184,9 +184,9 @@ const Features = () => {
             <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
           </Link>
         </section>
-
-        <Footer />
       </div>
+      
+      <Footer />
     </div>
   );
 };

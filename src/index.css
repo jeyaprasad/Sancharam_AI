@@ -506,8 +506,9 @@ nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
 .cta {
   position: relative;
   border-radius: 32px;
-  padding: clamp(40px, 5vw, 70px) clamp(24px, 5vw, 60px);
-  margin-bottom: 84px;
+  padding: clamp(30px, 4vw, 50px) clamp(24px, 5vw, 60px);
+  margin: 0 auto 84px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
