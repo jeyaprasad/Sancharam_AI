@@ -16,7 +16,7 @@
   color: var(--mt-ink);
   font-family: 'DM Sans', 'Inter', sans-serif;
   min-height: 100vh;
-  padding-top: 80px; /* space for navbar */
+  
 }
 
 .fraunces { font-family: 'Fraunces', Georgia, serif; }

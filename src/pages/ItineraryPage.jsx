@@ -74,9 +74,7 @@ const ItineraryPage = () => {
   const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="moodtrip-page">
-      <Navbar />
-
+    <div className="features-container">
       {/* Loading Overlay */}
       {loading && (
         <div className="mood-loading-overlay">
@@ -87,47 +85,52 @@ const ItineraryPage = () => {
       )}
 
       {/* HERO SECTION */}
-      <section className="mood-hero wrap">
-        <div className="mood-hero-left">
-          <div className="mood-eyebrow">
-            <span className="dot"></span> Mood-based trip planner &middot; 02
-          </div>
-          <h1 className="mood-h1">உணர்வு</h1>
-          <h1 className="mood-h1 italic rust">MoodTrip</h1>
-          
-          <div className="mood-tagline-box">
-            <div className="mood-label">Unarvu &mdash; Feel first, plan second</div>
-            <p className="mood-tagline-ta">இன்று எப்படி உணர்கிறீர்கள்?</p>
-            <p className="mood-tagline-en">How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
-          </div>
-
-          <div className="mood-stats">
-            <div className="mood-stat"><b>6</b><span>Mood types</span></div>
-            <div className="mood-stat"><b>{timeString}</b><span>Current time</span></div>
-            <div className="mood-stat"><b>34°C</b><span>Heat index</span></div>
-          </div>
-        </div>
-
-        <div className="mood-hero-right">
-          <div className="time-card sticky">
-            <div className="time-card-title">Best time for each mood &mdash; right now</div>
-            <div className="clock-display">{timeString}</div>
-            <p className="time-note">Afternoon heat is peaking. Indoor or shaded activities highly recommended.</p>
+      <div className="features-hero-bg" style={{ minHeight: '600px' }}>
+        <Navbar />
+        <section className="mood-hero wrap" style={{ paddingTop: '140px' }}>
+          <div className="mood-hero-left">
+            <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F' }}>
+              <span className="dot"></span> Mood-based trip planner &middot; 02
+            </div>
+            <h1 className="mood-h1" style={{ color: '#fff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>உணர்வு</h1>
+            <h1 className="mood-h1 italic rust" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>MoodTrip</h1>
             
-            <div className="condition-rows">
-              <div className="cond-row"><span className="dot green"></span> Great for: Museums, Cafes, Malls</div>
-              <div className="cond-row"><span className="dot amber"></span> Warn: Beaches, Walking tours</div>
+            <div className="mood-tagline-box">
+              <div className="mood-label" style={{ color: '#ddd' }}>Unarvu &mdash; Feel first, plan second</div>
+              <p className="mood-tagline-ta" style={{ color: '#fff' }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
+              <p className="mood-tagline-en" style={{ color: '#eee' }}>How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
             </div>
 
-            <div className="mini-mood-grid">
-              <button onClick={() => setSelectedMood('calm')}>😌 Calm</button>
-              <button onClick={() => setSelectedMood('curious')}>🔍 Curious</button>
-              <button onClick={() => setSelectedMood('hungry')}>🍜 Hungry</button>
-              <button onClick={() => setSelectedMood('adventurous')}>⚡ Adventure</button>
+            <div className="mood-stats">
+              <div className="mood-stat"><b style={{ color: '#fff' }}>6</b><span style={{ color: '#ddd' }}>Mood types</span></div>
+              <div className="mood-stat"><b style={{ color: '#fff' }}>{timeString}</b><span style={{ color: '#ddd' }}>Current time</span></div>
+              <div className="mood-stat"><b style={{ color: '#fff' }}>34°C</b><span style={{ color: '#ddd' }}>Heat index</span></div>
             </div>
           </div>
-        </div>
-      </section>
+
+          <div className="mood-hero-right">
+            <div className="time-card sticky">
+              <div className="time-card-title">Best time for each mood &mdash; right now</div>
+              <div className="clock-display">{timeString}</div>
+              <p className="time-note">Afternoon heat is peaking. Indoor or shaded activities highly recommended.</p>
+              
+              <div className="condition-rows">
+                <div className="cond-row"><span className="dot green"></span> Great for: Museums, Cafes, Malls</div>
+                <div className="cond-row"><span className="dot amber"></span> Warn: Beaches, Walking tours</div>
+              </div>
+
+              <div className="mini-mood-grid">
+                <button onClick={() => setSelectedMood('calm')}>😌 Calm</button>
+                <button onClick={() => setSelectedMood('curious')}>🔍 Curious</button>
+                <button onClick={() => setSelectedMood('hungry')}>🍜 Hungry</button>
+                <button onClick={() => setSelectedMood('adventurous')}>⚡ Adventure</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <div className="moodtrip-page-content" style={{ background: '#F4F0E6' }}>
 
       {/* MOOD SELECTOR */}
       <section className="mood-selector wrap" id="mood-selector">
@@ -395,6 +398,7 @@ const ItineraryPage = () => {
       </section>
       
       <Footer />
+    </div>
     </div>
   );
 };
