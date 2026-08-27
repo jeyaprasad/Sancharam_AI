@@ -9,6 +9,7 @@ import GuardianPage from '@/pages/GuardianPage';
 import TribesPage from '@/pages/TribesPage';
 import BudgetTrackerPage from '@/pages/BudgetTrackerPage';
 import RoutingPage from '@/pages/RoutingPage';
+import AboutPage from '@/pages/AboutPage';
 import { fetchRiskZones } from '@/services/api';
 import useAppStore from '@/store/useAppStore';
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/guardian/track/:tripId" element={<GuardianPage />} />
         <Route path="/features/uncharted" element={<UnchartedPage />} />
         <Route path="/features/tribes" element={<TribesPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft, Globe, Shield, Search, Pointer, Lightbulb, Folder, BarChart3} from 'lucide-react';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import Navbar from '@/components/Navbar';
+import useAppStore from '@/store/useAppStore';
 
 const SafetyPage = () => {
   const riskZones = useAppStore((state) => state.riskZones);
@@ -668,10 +671,9 @@ const SafetyPage = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };
 
 export default SafetyPage;
+
