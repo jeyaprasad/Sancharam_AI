@@ -89,12 +89,12 @@ const ItineraryPage = () => {
         <div className="bento-hero-overlay"></div>
         <Navbar />
         <section className="mood-hero wrap" style={{ paddingTop: '140px', position: 'relative', zIndex: 2 }}>
-          <div className="mood-hero-left" style={{ background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
+          <div className="mood-hero-left" style={{ background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '32px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', marginLeft: '-24px' }}>
             <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F' }}>
               <span className="dot"></span> Mood-based trip planner &middot; 02
             </div>
             <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.02em' }}>உணர்வு</h1>
-            <h1 className="mood-h1 italic rust" style={{ fontFamily: '"Fraunces", serif', color: 'var(--mt-rust)' }}>MoodTrip</h1>
+            <h1 className="mood-h1 rust" style={{ fontFamily: '"Fraunces", Georgia, serif', color: 'var(--mt-rust)', fontWeight: 400 }}>MoodTrip</h1>
             
             <div className="mood-tagline-box">
               <div className="mood-label" style={{ color: 'var(--mt-muted)' }}>Unarvu &mdash; Feel first, plan second</div>
@@ -104,7 +104,6 @@ const ItineraryPage = () => {
 
             <div className="mood-stats">
               <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>6</b><span style={{ color: 'var(--mt-muted)' }}>Mood types</span></div>
-              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>{timeString}</b><span style={{ color: 'var(--mt-muted)' }}>Current time</span></div>
               <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>34°C</b><span style={{ color: 'var(--mt-muted)' }}>Heat index</span></div>
             </div>
           </div>
