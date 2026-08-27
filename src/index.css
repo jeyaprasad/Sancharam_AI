@@ -60,8 +60,18 @@ h4 {
 }
 
 ::selection {
-  background: var(--rust);
-  color: #fff
+  background: rgba(180, 69, 31, 0.2);
+  color: inherit;
+}
+::-moz-selection {
+  background: rgba(180, 69, 31, 0.2);
+  color: inherit;
+}
+img::selection {
+  background: transparent;
+}
+img::-moz-selection {
+  background: transparent;
 }
 
 :focus-visible {
