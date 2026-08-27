@@ -89,22 +89,22 @@ const ItineraryPage = () => {
         <Navbar />
         <section className="mood-hero wrap" style={{ paddingTop: '140px' }}>
           <div className="mood-hero-left">
-            <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F' }}>
+            <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F' }}>
               <span className="dot"></span> Mood-based trip planner &middot; 02
             </div>
-            <h1 className="mood-h1" style={{ color: '#fff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>உணர்வு</h1>
-            <h1 className="mood-h1 italic rust" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>MoodTrip</h1>
+            <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.02em' }}>உணர்வு</h1>
+            <h1 className="mood-h1 italic rust" style={{ fontFamily: '"Fraunces", serif', color: 'var(--mt-rust)' }}>MoodTrip</h1>
             
             <div className="mood-tagline-box">
-              <div className="mood-label" style={{ color: '#ddd' }}>Unarvu &mdash; Feel first, plan second</div>
-              <p className="mood-tagline-ta" style={{ color: '#fff' }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
-              <p className="mood-tagline-en" style={{ color: '#eee' }}>How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
+              <div className="mood-label" style={{ color: 'var(--mt-muted)' }}>Unarvu &mdash; Feel first, plan second</div>
+              <p className="mood-tagline-ta" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', color: 'var(--mt-ink)', fontWeight: 700, fontSize: '28px', fontStyle: 'normal' }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
+              <p className="mood-tagline-en" style={{ color: 'var(--mt-ink)' }}>How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
             </div>
 
             <div className="mood-stats">
-              <div className="mood-stat"><b style={{ color: '#fff' }}>6</b><span style={{ color: '#ddd' }}>Mood types</span></div>
-              <div className="mood-stat"><b style={{ color: '#fff' }}>{timeString}</b><span style={{ color: '#ddd' }}>Current time</span></div>
-              <div className="mood-stat"><b style={{ color: '#fff' }}>34°C</b><span style={{ color: '#ddd' }}>Heat index</span></div>
+              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>6</b><span style={{ color: 'var(--mt-muted)' }}>Mood types</span></div>
+              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>{timeString}</b><span style={{ color: 'var(--mt-muted)' }}>Current time</span></div>
+              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>34°C</b><span style={{ color: 'var(--mt-muted)' }}>Heat index</span></div>
             </div>
           </div>
 
