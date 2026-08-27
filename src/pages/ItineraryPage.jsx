@@ -94,7 +94,7 @@ const ItineraryPage = () => {
               <span className="dot"></span> Mood-based trip planner
             </div>
             <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.02em' }}>உணர்வு</h1>
-            <h1 className="mood-h1 rust" style={{ fontFamily: '"Fraunces", Georgia, serif', color: 'var(--mt-rust)', fontWeight: 400 }}>MoodTrip</h1>
+            <h1 className="mood-h1 rust" style={{ fontFamily: "'Emily Street', 'Great Vibes', cursive", color: 'var(--mt-rust)', fontWeight: 400 }}>MoodTrip</h1>
             
             <div className="mood-tagline-box">
               <div className="mood-label" style={{ color: 'var(--mt-muted)' }}>Unarvu &mdash; Feel first, plan second</div>
