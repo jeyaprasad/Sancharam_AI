@@ -342,3 +342,215 @@
 .trip-info h4 { font-size: 18px; margin-bottom: 8px; font-family: 'Fraunces', serif; }
 .trip-tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 .trip-tags .tag { background: var(--mt-cream); padding: 4px 10px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--mt-muted); }
+
+/* THE CINEMATIC BENTO - MOODTRIP HERO REVAMP */
+.planner-card {
+  background: #F4F0E6;
+  border-radius: 16px;
+  border: 1px solid rgba(26,20,16,0.14); /* using 1px instead of 0.5px for better rendering */
+  overflow: hidden;
+  box-shadow: none;
+  width: 100%;
+}
+
+.pc-top-row {
+  padding: 2rem 2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.pc-eyebrow {
+  background: #F5C4B3;
+  color: #712B13;
+  border: 1px solid #F0997B;
+  border-radius: 30px;
+  padding: 4px 12px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+}
+.pc-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #712B13; }
+.pc-title-group { margin-bottom: 12px; }
+.pc-title-ta {
+  font-family: 'Fraunces', serif;
+  color: #1A1410;
+  font-size: 3.6rem;
+  line-height: 0.95;
+  margin: 0;
+  font-weight: 600;
+}
+.pc-title-en {
+  font-family: 'Fraunces', serif;
+  color: #B4451F;
+  font-size: 3.6rem;
+  line-height: 0.95;
+  font-style: italic;
+  margin: 0;
+  font-weight: 400;
+}
+.pc-subtitle {
+  color: #8C7E72;
+  font-size: 12px;
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.stat-pill {
+  background: #1A1410;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: #F5D87A;
+}
+.stat-lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.05em;
+}
+.stat-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.12);
+}
+
+.pc-divider-wrap { margin: 0 2rem; }
+.pc-divider {
+  height: 1px;
+  background: rgba(26,20,16,0.12);
+}
+
+.pc-mood-selector {
+  padding: 1.25rem 2rem 1.5rem;
+}
+.pc-section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8C7E72;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+}
+.pc-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(26,20,16,0.12);
+  margin-left: 16px;
+}
+.pc-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.pc-mood-card {
+  position: relative;
+  background: var(--bg);
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+.pc-mood-card:hover {
+  transform: translateY(-3px);
+}
+.pc-mood-card.active {
+  border-color: var(--accent);
+}
+.pc-check-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--accent);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-mood-emoji {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+.pc-mood-en {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1A1410;
+  margin-bottom: 2px;
+}
+.pc-mood-ta {
+  font-size: 10px;
+  color: #8C7E72;
+}
+@media (max-width: 768px) {
+  .pc-mood-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .pc-top-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.pc-bottom-row {
+  border-top: 1px solid rgba(26,20,16,0.12);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pc-context-message {
+  font-size: 12px;
+  color: #4A3F35;
+  font-family: 'DM Sans', sans-serif;
+}
+.pc-build-btn {
+  background: rgba(26,20,16,0.20);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 10px 20px;
+  border: none;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.pc-build-btn.active {
+  background: #1A1410;
+  cursor: pointer;
+}
+.pc-build-btn.active:hover {
+  background: #B4451F;
+}

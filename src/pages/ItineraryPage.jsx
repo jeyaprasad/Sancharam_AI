@@ -6,12 +6,12 @@ import './ItineraryPage.css';
 import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity } from 'lucide-react';
 
 const MOODS = [
-  { id: 'calm', name: 'Calm', ta: 'அமைதி', emoji: '😌', color: '#2D6A4F', desc: 'Quiet temples, peaceful beaches, serene parks.' },
-  { id: 'curious', name: 'Curious', ta: 'ஆர்வமுள்ள', emoji: '🔍', color: '#0F6E56', desc: 'Museums, heritage walks, local history.' },
-  { id: 'hungry', name: 'Hungry', ta: 'பசி', emoji: '🍜', color: '#B4451F', desc: 'Street food, iconic messes, fine dining.' },
-  { id: 'adventurous', name: 'Adventurous', ta: 'சாகசம்', emoji: '⚡', color: '#7A2D10', desc: 'Surfing, theme parks, bustling markets.' },
-  { id: 'nostalgic', name: 'Nostalgic', ta: 'ஏக்கம்', emoji: '🌅', color: '#534AB7', desc: 'Old Madras charm, vintage cafes, classic spots.' },
-  { id: 'celebratory', name: 'Celebratory', ta: 'கொண்டாட்டம்', emoji: '🎉', color: '#C8960A', desc: 'Shopping, high-energy spots, nightlife.' },
+  { id: 'calm', name: 'Calm', ta: 'அமைதி', emoji: '😌', bg: '#EAF7F0', accent: '#1D9E75', color: '#1D9E75', desc: 'Quiet temples, peaceful beaches, serene parks.' },
+  { id: 'curious', name: 'Curious', ta: 'ஆர்வம்', emoji: '🔍', bg: '#E1F5EE', accent: '#0F6E56', color: '#0F6E56', desc: 'Museums, heritage walks, local history.' },
+  { id: 'hungry', name: 'Hungry', ta: 'பசி', emoji: '🍜', bg: '#FAECE7', accent: '#D85A30', color: '#D85A30', desc: 'Street food, iconic messes, fine dining.' },
+  { id: 'adventurous', name: 'Adventurous', ta: 'துணிவு', emoji: '⚡', bg: '#FAEEDA', accent: '#854F0B', color: '#854F0B', desc: 'Surfing, theme parks, bustling markets.' },
+  { id: 'nostalgic', name: 'Nostalgic', ta: 'நினைவு', emoji: '🌅', bg: '#EEEDFE', accent: '#534AB7', color: '#534AB7', desc: 'Old Madras charm, vintage cafes, classic spots.' },
+  { id: 'celebratory', name: 'Celebratory', ta: 'கொண்டாட்டம்', emoji: '🎉', bg: '#FAEEDA', accent: '#BA7517', color: '#BA7517', desc: 'Shopping, high-energy spots, nightlife.' },
 ];
 
 const TRANSPORT = [
@@ -71,7 +71,35 @@ const ItineraryPage = () => {
 
   // Current Time logic
   const now = new Date();
-  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  
+  const getTimeContext = () => {
+    const hour = now.getHours();
+    let timeSlot = "";
+    let message = "";
+    let outdoorWindow = "Good";
+    
+    if (hour >= 5 && hour <= 10) {
+      timeSlot = "Morning";
+      message = "Perfect cool weather for outdoor exploration. This is your best window.";
+      outdoorWindow = "Ideal";
+    } else if (hour >= 11 && hour <= 16) {
+      timeSlot = "Peak Heat";
+      message = "Afternoon heat is peaking. Indoor or shaded activities highly recommended.";
+      outdoorWindow = "Avoid";
+    } else if (hour >= 17 && hour <= 20) {
+      timeSlot = "Evening";
+      message = "Golden hour. This is your best window for outdoor activities.";
+      outdoorWindow = "Ideal";
+    } else {
+      timeSlot = "Night";
+      message = "Late hours. Prioritizing well-lit areas and safe transport.";
+      outdoorWindow = "Fair";
+    }
+    
+    return { timeSlot, message, outdoorWindow };
+  };
+  const timeContext = getTimeContext();
 
   return (
     <div className="features-container">
@@ -85,87 +113,95 @@ const ItineraryPage = () => {
       )}
 
       {/* HERO SECTION */}
-      <div className="features-hero-bg" style={{ minHeight: '480px' }}>
+      <div className="features-hero-bg" style={{ minHeight: '100vh' }}>
         <div className="bento-hero-overlay"></div>
         <Navbar />
-        <section className="mood-hero wrap" style={{ paddingTop: '110px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-          <div className="mood-hero-left" style={{ maxWidth: '760px', width: '100%', marginRight: '40px', marginLeft: '-40px', background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px 40px 24px 40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
-              <div>
-                <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid rgba(180, 69, 31, 0.3)', padding: '8px 20px', fontSize: '12px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
-                  <span className="dot" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#B4451F' }}></span> Mood-based trip planner
+        <section className="mood-hero wrap" style={{ paddingTop: '100px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1024px', width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+          <div className="planner-card">
+            
+            {/* BAND 1 - TOP ROW */}
+            <div className="pc-top-row">
+              <div className="pc-top-left">
+                <div className="pc-eyebrow">
+                  <span className="dot"></span> Mood-based planner &middot; 02
                 </div>
-                <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.03em', fontSize: 'clamp(4rem, 7vw, 6.5rem)', margin: 0, lineHeight: 1 }}>உணர்வு</h1>
-                <h1 className="mood-h1 rust" style={{ fontFamily: '"Emily Street", "Great Vibes", cursive', color: 'var(--mt-rust)', fontWeight: 400, fontSize: 'clamp(5rem, 8vw, 8.5rem)', margin: 0, marginTop: '-10px', lineHeight: 1 }}>MoodTrip</h1>
+                <div className="pc-title-group">
+                  <h1 className="pc-title-ta">உணர்வு</h1>
+                  <h1 className="pc-title-en">MoodTrip</h1>
+                </div>
+                <p className="pc-subtitle">இன்று எப்படி உணர்கிறீர்கள்? &middot; How do you want to feel today?</p>
               </div>
-              
-              <div className="mood-stats" style={{ display: 'flex', flexDirection: 'column', gap: '32px', borderTop: 'none', borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: '60px', paddingTop: '20px', paddingRight: '20px', marginTop: 0 }}>
-                <div className="mood-stat"><b style={{ color: 'var(--mt-ink)', fontSize: '56px', lineHeight: 1, display: 'block' }}>6</b><span style={{ color: 'var(--mt-muted)', fontSize: '14px', marginTop: '8px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Mood types</span></div>
-                <div className="mood-stat"><b style={{ color: 'var(--mt-ink)', fontSize: '56px', lineHeight: 1, display: 'block' }}>34°C</b><span style={{ color: 'var(--mt-muted)', fontSize: '14px', marginTop: '8px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Heat index</span></div>
+              <div className="pc-top-right">
+                <div className="stat-pill">
+                   <div className="stat-item">
+                     <div className="stat-val clock-display">{timeString}</div>
+                     <div className="stat-lbl">CHENNAI TIME</div>
+                   </div>
+                   <div className="stat-divider"></div>
+                   <div className="stat-item">
+                     <div className="stat-val">37°C</div>
+                     <div className="stat-lbl">HEAT INDEX</div>
+                   </div>
+                   <div className="stat-divider"></div>
+                   <div className="stat-item">
+                     <div className="stat-val">{timeContext.outdoorWindow}</div>
+                     <div className="stat-lbl">OUTDOOR WINDOW</div>
+                   </div>
+                </div>
               </div>
             </div>
             
-            <div className="mood-tagline-box" style={{ maxWidth: '100%', marginTop: '24px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '24px', display: 'flex', gap: '60px', alignItems: 'center' }}>
-              <div style={{ flex: 1 }}>
-                <div className="mood-label" style={{ color: 'var(--mt-muted)', letterSpacing: '0.15em', fontSize: '12px', textTransform: 'uppercase', marginBottom: '12px' }}>UNARVU &mdash; FEEL FIRST, PLAN SECOND</div>
-                <p className="mood-tagline-ta" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', color: 'var(--mt-ink)', fontWeight: 800, fontSize: '38px', fontStyle: 'normal', margin: '0', lineHeight: 1.2 }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
-              </div>
-              <div style={{ flex: 1 }}>
-                <p className="mood-tagline-en" style={{ color: 'var(--mt-ink)', fontSize: '20px', lineHeight: 1.6, margin: 0, opacity: 0.9 }}>
-                  How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built beautifully around your emotional context, time of day, and budget.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mood-hero-right" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <div className="time-card sticky">
-              <div className="time-card-title">Best time for each mood &mdash; right now</div>
-              <div className="clock-display">{timeString.replace(/ AM| PM/i, "")} <span>{timeString.match(/AM|PM/i)?.[0]}</span></div>
-              <p className="time-note">Afternoon heat is peaking. Indoor or shaded activities highly recommended.</p>
-              
-              <div className="condition-rows">
-                <div className="cond-row"><span className="dot green"></span> Great for: Museums, Cafes, Malls</div>
-                <div className="cond-row"><span className="dot amber"></span> Warn: Beaches, Walking tours</div>
-              </div>
-
-              <div className="mini-mood-grid">
-                <button onClick={() => setSelectedMood('calm')}>😌 Calm</button>
-                <button onClick={() => setSelectedMood('curious')}>🔍 Curious</button>
-                <button onClick={() => setSelectedMood('hungry')}>🍜 Hungry</button>
-                <button onClick={() => setSelectedMood('adventurous')}>⚡ Adventure</button>
+            {/* BAND 2 - THIN DIVIDER */}
+            <div className="pc-divider-wrap"><div className="pc-divider"></div></div>
+            
+            {/* BAND 3 - MOOD SELECTOR */}
+            <div className="pc-mood-selector">
+              <div className="pc-section-label">PICK YOUR MOOD</div>
+              <div className="pc-mood-grid">
+                {MOODS.map(m => (
+                  <button 
+                    key={m.id} 
+                    className={`pc-mood-card ${selectedMood === m.id ? 'active' : ''}`}
+                    style={{ '--bg': m.bg, '--accent': m.accent }}
+                    onClick={() => setSelectedMood(m.id)}
+                  >
+                    {selectedMood === m.id && <div className="pc-check-badge"><Check size={10} color="#fff" strokeWidth={4} /></div>}
+                    <div className="pc-mood-emoji">{m.emoji}</div>
+                    <div className="pc-mood-en">{m.name}</div>
+                    <div className="pc-mood-ta">{m.ta}</div>
+                  </button>
+                ))}
               </div>
             </div>
+            
+            {/* BAND 4 - BOTTOM ROW */}
+            <div className="pc-bottom-row">
+               <div className="pc-context-message">
+                 {selectedMood ? (
+                   <>
+                     <span style={{color: '#B4451F', fontWeight: 'bold'}}>{MOODS.find(m => m.id === selectedMood).name}</span> &middot; <span style={{fontStyle: 'italic', color: '#8C7E72'}}>{timeContext.timeSlot}</span> &mdash; {timeContext.message}
+                   </>
+                 ) : (
+                   <span style={{fontStyle: 'italic', color: '#8C7E72'}}>No mood selected &mdash; pick one above.</span>
+                 )}
+               </div>
+               <button 
+                 className={`pc-build-btn ${selectedMood ? 'active' : ''}`}
+                 onClick={() => {
+                   if (selectedMood) {
+                     document.getElementById('planner-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                   }
+                 }}
+               >
+                 Build my trip <ArrowRight size={14} style={{marginLeft: '4px'}} />
+               </button>
+            </div>
+
           </div>
         </section>
       </div>
       
       <div className="moodtrip-page-content" style={{ background: '#F4F0E6' }}>
-
-      {/* MOOD SELECTOR */}
-      <section className="mood-selector wrap" id="mood-selector">
-        <div className="section-eyebrow">Step 1 &mdash; Pick your mood</div>
-        <h2 className="section-h2">How do you want to feel today?</h2>
-        
-        <div className="mood-grid">
-          {MOODS.map(m => (
-            <button 
-              key={m.id} 
-              className={`mood-card ${selectedMood === m.id ? 'active' : ''}`}
-              style={{ '--accent': m.color }}
-              onClick={() => {
-                setSelectedMood(m.id);
-                document.getElementById('planner-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              <div className="mood-emoji">{m.emoji}</div>
-              <div className="mood-name">{m.name}</div>
-              <div className="mood-ta">{m.ta}</div>
-              <div className="mood-desc">{m.desc}</div>
-            </button>
-          ))}
-        </div>
-      </section>
 
       {/* PLANNER FORM */}
       <section className="mood-form-section wrap" id="planner-form">
