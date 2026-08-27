@@ -29,7 +29,8 @@
 .mood-hero {
   display: grid;
   grid-template-columns: 1fr 380px;
-  gap: 60px;
+  justify-content: space-between;
+  gap: 20px;
   padding: 60px 0 80px;
   align-items: center;
 }

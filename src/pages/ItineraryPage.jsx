@@ -85,10 +85,10 @@ const ItineraryPage = () => {
       )}
 
       {/* HERO SECTION */}
-      <div className="features-hero-bg" style={{ minHeight: '600px' }}>
+      <div className="features-hero-bg" style={{ minHeight: '480px' }}>
         <div className="bento-hero-overlay"></div>
         <Navbar />
-        <section className="mood-hero wrap" style={{ paddingTop: '140px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+        <section className="mood-hero wrap" style={{ paddingTop: '110px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
           <div className="mood-hero-left" style={{ background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '24px 32px', borderRadius: '0px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '520px', width: '100%' }}>
             <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F' }}>
               <span className="dot"></span> Mood-based trip planner
@@ -108,7 +108,7 @@ const ItineraryPage = () => {
             </div>
           </div>
 
-          <div className="mood-hero-right">
+          <div className="mood-hero-right" style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <div className="time-card sticky">
               <div className="time-card-title">Best time for each mood &mdash; right now</div>
               <div className="clock-display">{timeString}</div>
