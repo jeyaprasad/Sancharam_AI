@@ -56,10 +56,13 @@
 }
 
 .nav-dropdown .dropdown-menu a {
-  padding: 10px 20px;
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 14px;
-  color: var(--muted, #666);
+  padding: 12px 24px;
+  font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #000;
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
