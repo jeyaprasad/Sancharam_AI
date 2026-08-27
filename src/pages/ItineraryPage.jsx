@@ -90,21 +90,31 @@ const ItineraryPage = () => {
         <Navbar />
         <section className="mood-hero wrap" style={{ paddingTop: '110px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
           <div className="mood-hero-left" style={{ flex: 1, marginRight: '40px', marginLeft: '-40px', background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
-            <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F' }}>
-              <span className="dot"></span> Mood-based trip planner
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+              <div>
+                <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid rgba(180, 69, 31, 0.3)', padding: '8px 20px', fontSize: '12px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
+                  <span className="dot" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#B4451F' }}></span> Mood-based trip planner
+                </div>
+                <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.03em', fontSize: 'clamp(4rem, 7vw, 6.5rem)', margin: 0, lineHeight: 1 }}>உணர்வு</h1>
+                <h1 className="mood-h1 rust" style={{ fontFamily: '"Emily Street", "Great Vibes", cursive', color: 'var(--mt-rust)', fontWeight: 400, fontSize: 'clamp(5rem, 8vw, 8.5rem)', margin: 0, marginTop: '-10px', lineHeight: 1 }}>MoodTrip</h1>
+              </div>
+              
+              <div className="mood-stats" style={{ display: 'flex', flexDirection: 'column', gap: '32px', borderTop: 'none', borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: '60px', paddingTop: '20px', paddingRight: '20px', marginTop: 0 }}>
+                <div className="mood-stat"><b style={{ color: 'var(--mt-ink)', fontSize: '56px', lineHeight: 1, display: 'block' }}>6</b><span style={{ color: 'var(--mt-muted)', fontSize: '14px', marginTop: '8px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Mood types</span></div>
+                <div className="mood-stat"><b style={{ color: 'var(--mt-ink)', fontSize: '56px', lineHeight: 1, display: 'block' }}>34°C</b><span style={{ color: 'var(--mt-muted)', fontSize: '14px', marginTop: '8px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Heat index</span></div>
+              </div>
             </div>
-            <h1 className="mood-h1" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, color: 'var(--mt-ink)', letterSpacing: '-0.02em' }}>உணர்வு</h1>
-            <h1 className="mood-h1 rust" style={{ fontFamily: "'Emily Street', 'Great Vibes', cursive", color: 'var(--mt-rust)', fontWeight: 400 }}>MoodTrip</h1>
             
-            <div className="mood-tagline-box">
-              <div className="mood-label" style={{ color: 'var(--mt-muted)' }}>Unarvu &mdash; Feel first, plan second</div>
-              <p className="mood-tagline-ta" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', color: 'var(--mt-ink)', fontWeight: 700, fontSize: '28px', fontStyle: 'normal' }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
-              <p className="mood-tagline-en" style={{ color: 'var(--mt-ink)' }}>How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
-            </div>
-
-            <div className="mood-stats">
-              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>6</b><span style={{ color: 'var(--mt-muted)' }}>Mood types</span></div>
-              <div className="mood-stat"><b style={{ color: 'var(--mt-ink)' }}>34°C</b><span style={{ color: 'var(--mt-muted)' }}>Heat index</span></div>
+            <div className="mood-tagline-box" style={{ maxWidth: '100%', marginTop: '40px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '40px', display: 'flex', gap: '60px', alignItems: 'center' }}>
+              <div style={{ flex: 1 }}>
+                <div className="mood-label" style={{ color: 'var(--mt-muted)', letterSpacing: '0.15em', fontSize: '12px', textTransform: 'uppercase', marginBottom: '12px' }}>UNARVU &mdash; FEEL FIRST, PLAN SECOND</div>
+                <p className="mood-tagline-ta" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', color: 'var(--mt-ink)', fontWeight: 800, fontSize: '38px', fontStyle: 'normal', margin: '0', lineHeight: 1.2 }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
+              </div>
+              <div style={{ flex: 1 }}>
+                <p className="mood-tagline-en" style={{ color: 'var(--mt-ink)', fontSize: '20px', lineHeight: 1.6, margin: 0, opacity: 0.9 }}>
+                  How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built beautifully around your emotional context, time of day, and budget.
+                </p>
+              </div>
             </div>
           </div>
 
