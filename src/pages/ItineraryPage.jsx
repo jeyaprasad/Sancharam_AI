@@ -89,7 +89,7 @@ const ItineraryPage = () => {
         <div className="bento-hero-overlay"></div>
         <Navbar />
         <section className="mood-hero wrap" style={{ paddingTop: '110px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-          <div className="mood-hero-left" style={{ maxWidth: '760px', width: '100%', marginRight: '40px', marginLeft: '-40px', background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
+          <div className="mood-hero-left" style={{ maxWidth: '760px', width: '100%', marginRight: '40px', marginLeft: '-40px', background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px 40px 24px 40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
               <div>
                 <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid rgba(180, 69, 31, 0.3)', padding: '8px 20px', fontSize: '12px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
@@ -105,7 +105,7 @@ const ItineraryPage = () => {
               </div>
             </div>
             
-            <div className="mood-tagline-box" style={{ maxWidth: '100%', marginTop: '40px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '40px', display: 'flex', gap: '60px', alignItems: 'center' }}>
+            <div className="mood-tagline-box" style={{ maxWidth: '100%', marginTop: '24px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '24px', display: 'flex', gap: '60px', alignItems: 'center' }}>
               <div style={{ flex: 1 }}>
                 <div className="mood-label" style={{ color: 'var(--mt-muted)', letterSpacing: '0.15em', fontSize: '12px', textTransform: 'uppercase', marginBottom: '12px' }}>UNARVU &mdash; FEEL FIRST, PLAN SECOND</div>
                 <p className="mood-tagline-ta" style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', color: 'var(--mt-ink)', fontWeight: 800, fontSize: '38px', fontStyle: 'normal', margin: '0', lineHeight: 1.2 }}>இன்று எப்படி உணர்கிறீர்கள்?</p>
