@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft, Globe, Shield, Search, Pointer, Lightbulb, Folder, BarChart3} from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
+import {MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft, Globe, Shield, Search, Pointer, Lightbulb, Folder, BarChart3, Mail, Phone} from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import useAppStore from '@/store/useAppStore';
 
 const SafetyPage = () => {
@@ -472,7 +475,7 @@ const SafetyPage = () => {
                     }}
                   >
                     <Popup>
-                      <div style={{ color: '#111', fontFamily: 'sans-serif', minWidth: '180px' }}>
+                      <div style={{ color: '#111', fontFamily: '"Great Vibes", "Noto Sans Tamil", cursive', minWidth: '180px' }}>
                         <h4 style={{ margin: '0 0 6px 0', fontSize: '1.1rem', color: '#111' }}>{name}</h4>
                         <p style={{ margin: '0 0 6px 0', fontSize: '0.9rem' }}>
                           <strong>Risk Level:</strong>{' '}
@@ -512,7 +515,7 @@ const SafetyPage = () => {
                   }}
                 >
                   <Popup>
-                    <div style={{ color: '#111', fontFamily: 'sans-serif', minWidth: '200px' }}>
+                    <div style={{ color: '#111', fontFamily: '"Great Vibes", "Noto Sans Tamil", cursive', minWidth: '200px' }}>
                       <span style={{ background: '#ff9800', color: '#000', padding: '2px 6px', borderRadius: '8px', fontSize: '0.7rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', marginBottom: '4px', width: 'max-content' }}>
                         <Lightbulb size={12} style={{ marginRight: '4px' }} /> Community Tip (Avoid After Dark)
                       </span>

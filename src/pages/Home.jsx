@@ -6,11 +6,12 @@ const Home = () => {
   const [showTamil, setShowTamil] = useState(false);
 
   const slides = [
-    '/assets/images/chennai.jpg',
-    '/assets/images/tranquebar_fort.jpg',
-    '/assets/images/lighthouse.jpg',
-    '/assets/images/shoretemple.png',
-    '/assets/images/victoriahall.jpg'
+    '/assets/images/index/aerial-view.jpg',
+    '/assets/images/index/beaches.jpg',
+    '/assets/images/index/chennai.jpg',
+    '/assets/images/index/church.jpg',
+    '/assets/images/index/temples.jpg',
+    '/assets/images/index/tranquebar_fort.jpg'
   ];
 
   // Slideshow Effect

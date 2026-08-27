@@ -24,15 +24,15 @@ const Navbar = () => {
               Features
             </Link>
             <div className="dropdown-menu">
-              <Link to="/features/safety" aria-current={currentPath === '/features/safety' ? 'page' : undefined}>Safety</Link>
-              <Link to="/features/routing" aria-current={currentPath === '/features/routing' ? 'page' : undefined}>Routing</Link>
-              <Link to="/features/itinerary" aria-current={currentPath === '/features/itinerary' ? 'page' : undefined}>Planner</Link>
-              <Link to="/features/budget" aria-current={currentPath === '/features/budget' ? 'page' : undefined}>Budget</Link>
-              <Link to="/features/uncharted" aria-current={currentPath === '/features/uncharted' ? 'page' : undefined}>Uncharted</Link>
+              <Link to="/features/uncharted" aria-current={currentPath === '/features/uncharted' ? 'page' : undefined}>Unarvu (Uncharted)</Link>
+              <Link to="/features/itinerary" aria-current={currentPath === '/features/itinerary' ? 'page' : undefined}>Neram (Planner)</Link>
+              <Link to="/features/safety" aria-current={currentPath === '/features/safety' ? 'page' : undefined}>Kaaval (Safety)</Link>
+              <Link to="/features/routing" aria-current={currentPath === '/features/routing' ? 'page' : undefined}>Oor (Routing)</Link>
+              <Link to="/features/budget" aria-current={currentPath === '/features/budget' ? 'page' : undefined}>Payana Nidhi (Budget)</Link>
             </div>
           </div>
 
-          <Link to="/features/itinerary" aria-current={currentPath === '/features/itinerary' ? 'page' : undefined}>Planner</Link>
+          <Link to="/features/itinerary" aria-current={currentPath === '/features/itinerary' ? 'page' : undefined}>Neram (Planner)</Link>
           <Link to="/about" aria-current={currentPath === '/about' ? 'page' : undefined}>About</Link>
         </nav>
       </div>

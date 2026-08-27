@@ -1,766 +1,446 @@
-﻿import React, { useState, useEffect } from 'react';
-import CurrencyWidget from '@/components/CurrencyWidget';
-import TamilChatbot from '@/components/TamilChatbot';
-import {Map, Wallet, MapPin, Calendar, Hotel, PartyPopper, CreditCard, IndianRupee, Target, CheckCircle, PieChart, ClipboardList, Award, AlertTriangle, ShieldAlert, Route, Clock, Navigation, X, Check, ShieldCheck, ArrowRightLeft} from 'lucide-react';
-import Footer from '@/components/Footer';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import './ItineraryPage.css';
+import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity } from 'lucide-react';
 
-const BUDGET_OPTIONS = ['Budget', 'Moderate', 'Luxury'];
+const MOODS = [
+  { id: 'calm', name: 'Calm', ta: 'அமைதி', emoji: '😌', color: '#2D6A4F', desc: 'Quiet temples, peaceful beaches, serene parks.' },
+  { id: 'curious', name: 'Curious', ta: 'ஆர்வமுள்ள', emoji: '🔍', color: '#0F6E56', desc: 'Museums, heritage walks, local history.' },
+  { id: 'hungry', name: 'Hungry', ta: 'பசி', emoji: '🍜', color: '#B4451F', desc: 'Street food, iconic messes, fine dining.' },
+  { id: 'adventurous', name: 'Adventurous', ta: 'சாகசம்', emoji: '⚡', color: '#7A2D10', desc: 'Surfing, theme parks, bustling markets.' },
+  { id: 'nostalgic', name: 'Nostalgic', ta: 'ஏக்கம்', emoji: '🌅', color: '#534AB7', desc: 'Old Madras charm, vintage cafes, classic spots.' },
+  { id: 'celebratory', name: 'Celebratory', ta: 'கொண்டாட்டம்', emoji: '🎉', color: '#C8960A', desc: 'Shopping, high-energy spots, nightlife.' },
+];
 
-const TRAVEL_STYLES = [
-  'Cultural & Heritage',
-  'Adventure & Nature',
-  'Relaxed & Leisure',
-  'Foodie & Culinary',
-  'Custom Explorer'
+const TRANSPORT = [
+  { id: 'walk', icon: '🚶', label: 'Walk' },
+  { id: 'auto', icon: '🛺', label: 'Auto' },
+  { id: 'bus', icon: '🚌', label: 'MTC bus' },
+  { id: 'metro', icon: '🚇', label: 'Metro' },
+  { id: 'mrts', icon: '🚂', label: 'MRTS' },
+  { id: 'cab', icon: '🚕', label: 'Cab' },
+];
+
+const BUDGETS = [
+  { id: 'budget', label: '₹ Budget' },
+  { id: 'mid', label: '₹₹ Mid' },
+  { id: 'luxury', label: '₹₹₹ Luxury' },
 ];
 
 const ItineraryPage = () => {
-  // Form State
-  const [destination, setDestination] = useState('Chennai, Tamil Nadu');
+  // State
+  const [selectedMood, setSelectedMood] = useState(null);
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
-  const [endDate, setEndDate] = useState(
-    new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0]
-  );
-  const [travelers, setTravelers] = useState(2);
-  const [budget, setBudget] = useState('Moderate');
-  const [travelStyle, setTravelStyle] = useState('Cultural & Heritage');
-  const [specialInterests, setSpecialInterests] = useState(
-    'Kapaleeshwarar Temple, Marina Beach sunset, street food at T. Nagar, heritage walk at Fort St. George'
-  );
-
-  // UI & Response State
+  const [endDate, setEndDate] = useState(new Date(Date.now() + 86400000).toISOString().split('T')[0]);
+  const [travellers, setTravellers] = useState(2);
+  const [budget, setBudget] = useState('mid');
+  const [transport, setTransport] = useState(['metro', 'cab']);
+  const [notes, setNotes] = useState('');
+  
   const [loading, setLoading] = useState(false);
-  const [itineraryResult, setItineraryResult] = useState(null);
-  const [openDays, setOpenDays] = useState({ 1: true, 2: true });
+  const [results, setResults] = useState(null);
+  const [planType, setPlanType] = useState('A'); // A or B
+  const [openDays, setOpenDays] = useState({ 1: true });
 
-  // Festivals State
-  const [festivals, setFestivals] = useState([]);
-  const [matchingFestivals, setMatchingFestivals] = useState([]);
-
-  // Fetch festivals dataset on mount
-  useEffect(() => {
-    const loadFestivals = async () => {
-      try {
-        const res = await fetch('/data/festivals.json');
-        if (res.ok) {
-          const data = await res.json();
-          setFestivals(data);
-        }
-      } catch (err) {
-        console.warn('Could not fetch festivals.json:', err);
-      }
-    };
-    loadFestivals();
-  }, []);
-
-  // Filter festivals matching the travel date range month(s)
-  useEffect(() => {
-    if (!festivals.length || !startDate || !endDate) return;
-
-    const startM = new Date(startDate).getMonth() + 1; // 1-12
-    const endM = new Date(endDate).getMonth() + 1;
-
-    const travelMonths = new Set();
-    if (!isNaN(startM) && !isNaN(endM)) {
-      let curr = startM;
-      while (true) {
-        travelMonths.add(curr);
-        if (curr === endM) break;
-        curr = (curr % 12) + 1;
-      }
-    }
-
-    const matched = festivals.filter((f) => travelMonths.has(f.month));
-    setMatchingFestivals(matched);
-  }, [festivals, startDate, endDate]);
-
-  const toggleDay = (dayNum) => {
-    setOpenDays((prev) => ({ ...prev, [dayNum]: !prev[dayNum] }));
+  const toggleTransport = (id) => {
+    setTransport(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
   };
 
-  const handleGenerate = async (e) => {
+  const handleGenerate = (e) => {
     e.preventDefault();
+    if (!selectedMood) {
+      alert("Please select a mood first!");
+      return;
+    }
     setLoading(true);
-
-    // Build festival injection text if matching festivals found
-    let festivalPrompt = '';
-    if (matchingFestivals.length > 0) {
-      const festivalNamesStr = matchingFestivals
-        .map((f) => `${f.name} (${f.tamil_name}) in ${f.district}`)
-        .join(', ');
-      festivalPrompt = ` Note: The trip coincides with the following Tamil Nadu festival(s): ${festivalNamesStr}. Please explicitly mention attending these festival celebrations in the itinerary.`;
-    }
-
-    const promptText = `Plan a ${budget} ${travelStyle} trip to ${destination} for ${travelers} traveler(s) from ${startDate} to ${endDate}. Special interests: ${specialInterests}.${festivalPrompt}`;
-
-    try {
-      let response;
-      try {
-        response = await fetch('http://localhost:5000/api/itinerary', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: promptText,
-            destination,
-            startDate,
-            endDate,
-            travelers,
-            budget,
-            travelStyle,
-            specialInterests
-          })
-        });
-      } catch (backendErr) {
-        response = await fetch('/.netlify/functions/itinerary', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: promptText,
-            destination,
-            startDate,
-            endDate,
-            travelers,
-            budget,
-            travelStyle,
-            specialInterests
-          })
-        });
-      }
-
-      if (response && response.ok) {
-        const data = await response.json();
-        setItineraryResult(data);
-      } else {
-        throw new Error('Itinerary API endpoint unavailable');
-      }
-    } catch (err) {
-      console.log('Using local AI itinerary generator fallback:', err);
-      // Fallback generator for realistic Chennai trip output
-      const fallbackData = buildFallbackItinerary(
-        destination,
-        startDate,
-        endDate,
-        travelers,
-        budget,
-        travelStyle,
-        specialInterests
-      );
-      setItineraryResult(fallbackData);
-    } finally {
+    // Simulate AI generation
+    setTimeout(() => {
+      setResults(generateMockData(selectedMood, budget, travellers));
       setLoading(false);
-    }
+      setTimeout(() => {
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }, 2500);
   };
+
+  const toggleDay = (dayId) => {
+    setOpenDays(prev => ({ ...prev, [dayId]: !prev[dayId] }));
+  };
+
+  // Current Time logic
+  const now = new Date();
+  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="features-container">
-      <div className="features-hero-bg">
-        <Navbar />
+    <div className="moodtrip-page">
+      <Navbar />
 
-        <section className="hero wrap" style={{ padding: '120px clamp(20px,5vw,48px) 40px clamp(20px,5vw,48px)', minHeight: '360px', display: 'flex', alignItems: 'center', maxWidth: '1440px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
-          <div className="rv in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
-            <span className="pill" lang="ta" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F', fontWeight: 'bold' }}><i></i>பயணத் திட்டம்</span>
-            <h1 style={{ fontFamily: '"Catamaran", "Noto Sans Tamil", sans-serif', fontWeight: 900, letterSpacing: '-0.02em', transform: 'scaleY(1.15)', transformOrigin: 'bottom left', color: 'var(--rust)', fontSize: 'clamp(4rem, 8vw, 7.5rem)', margin: '0.5rem 0 1rem 0', textShadow: '2px 2px 0px rgba(255,255,255,0.8)' }}>பயணத் திட்டம்</h1>
-            <div style={{
-              marginTop: '1.5rem',
-              background: 'linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,15,0.85))',
-              backdropFilter: 'blur(16px)',
-              padding: '1.5rem 2rem',
-              borderRadius: '16px',
-              border: '1px solid rgba(255, 215, 0, 0.3)',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '0.8rem'
-            }}>
-              <p style={{ fontSize: '1.4rem', color: 'var(--rust)', margin: 0, fontFamily: '"Tiro Tamil", "Vijaya", "Latha", serif', letterSpacing: '0.5px', fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'left' }}>
-                பயணத் திட்டம் · AI Personalized Travel Odyssey
-              </p>
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', borderTop: '1px solid rgba(255, 215, 0, 0.2)', paddingTop: '1rem', width: '100%' }}>
-                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-                  <Calendar size={18} color="#FFD700" /> AI Scheduling
-                </span>
-                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-                  <Map size={18} color="#FFD700" /> Smart Recommendations
-                </span>
-                <span style={{ fontSize: '0.95rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-                  <Wallet size={18} color="#FFD700" /> Budget Optimization
-                </span>
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="mood-loading-overlay">
+          <div className="spinner-ring"></div>
+          <h2 className="loading-title">Building your trip...</h2>
+          <p className="loading-sub">Analyzing weather, traffic, and your mood context.</p>
+        </div>
+      )}
+
+      {/* HERO SECTION */}
+      <section className="mood-hero wrap">
+        <div className="mood-hero-left">
+          <div className="mood-eyebrow">
+            <span className="dot"></span> Mood-based trip planner &middot; 02
+          </div>
+          <h1 className="mood-h1">உணர்வு</h1>
+          <h1 className="mood-h1 italic rust">MoodTrip</h1>
+          
+          <div className="mood-tagline-box">
+            <div className="mood-label">Unarvu &mdash; Feel first, plan second</div>
+            <p className="mood-tagline-ta">இன்று எப்படி உணர்கிறீர்கள்?</p>
+            <p className="mood-tagline-en">How do you want to feel today? Pick a mood &mdash; get a complete Chennai day plan built around your emotional context, time of day, and budget.</p>
+          </div>
+
+          <div className="mood-stats">
+            <div className="mood-stat"><b>6</b><span>Mood types</span></div>
+            <div className="mood-stat"><b>{timeString}</b><span>Current time</span></div>
+            <div className="mood-stat"><b>34°C</b><span>Heat index</span></div>
+          </div>
+        </div>
+
+        <div className="mood-hero-right">
+          <div className="time-card sticky">
+            <div className="time-card-title">Best time for each mood &mdash; right now</div>
+            <div className="clock-display">{timeString}</div>
+            <p className="time-note">Afternoon heat is peaking. Indoor or shaded activities highly recommended.</p>
+            
+            <div className="condition-rows">
+              <div className="cond-row"><span className="dot green"></span> Great for: Museums, Cafes, Malls</div>
+              <div className="cond-row"><span className="dot amber"></span> Warn: Beaches, Walking tours</div>
+            </div>
+
+            <div className="mini-mood-grid">
+              <button onClick={() => setSelectedMood('calm')}>😌 Calm</button>
+              <button onClick={() => setSelectedMood('curious')}>🔍 Curious</button>
+              <button onClick={() => setSelectedMood('hungry')}>🍜 Hungry</button>
+              <button onClick={() => setSelectedMood('adventurous')}>⚡ Adventure</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MOOD SELECTOR */}
+      <section className="mood-selector wrap" id="mood-selector">
+        <div className="section-eyebrow">Step 1 &mdash; Pick your mood</div>
+        <h2 className="section-h2">How do you want to feel today?</h2>
+        
+        <div className="mood-grid">
+          {MOODS.map(m => (
+            <button 
+              key={m.id} 
+              className={`mood-card ${selectedMood === m.id ? 'active' : ''}`}
+              style={{ '--accent': m.color }}
+              onClick={() => {
+                setSelectedMood(m.id);
+                document.getElementById('planner-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
+              <div className="mood-emoji">{m.emoji}</div>
+              <div className="mood-name">{m.name}</div>
+              <div className="mood-ta">{m.ta}</div>
+              <div className="mood-desc">{m.desc}</div>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* PLANNER FORM */}
+      <section className="mood-form-section wrap" id="planner-form">
+        <div className="mood-form-container">
+          <div className="section-eyebrow">Step 2 &mdash; Your details</div>
+          <h2 className="section-h2">Tell us more about your journey.</h2>
+          
+          <div className="form-layout">
+            <div className="form-main">
+              <div className="form-card">
+                <div className="form-card-head">
+                  <span className="head-emoji">{selectedMood ? MOODS.find(m=>m.id===selectedMood).emoji : '✨'}</span>
+                  <span>{selectedMood ? `${MOODS.find(m=>m.id===selectedMood).name} trip — fill your details` : 'Select a mood first'}</span>
+                </div>
+                
+                <div className="form-body">
+                  <div className="form-row dates">
+                    <div className="input-group">
+                      <label>Start Date</label>
+                      <input type="date" value={startDate} onChange={e=>setStartDate(e.target.value)} />
+                    </div>
+                    <div className="input-group">
+                      <label>End Date</label>
+                      <input type="date" value={endDate} onChange={e=>setEndDate(e.target.value)} />
+                    </div>
+                  </div>
+
+                  <div className="form-row align-center">
+                    <div className="traveller-counter">
+                      <label>Travellers</label>
+                      <div className="counter-pill">
+                        <button onClick={()=>setTravellers(Math.max(1, travellers-1))}>&minus;</button>
+                        <span>{travellers}</span>
+                        <button onClick={()=>setTravellers(travellers+1)}>+</button>
+                      </div>
+                    </div>
+                    <div className="budget-chips">
+                      <label>Budget</label>
+                      <div className="chips-row">
+                        {BUDGETS.map(b => (
+                          <button 
+                            key={b.id} 
+                            className={`chip ${budget === b.id ? 'active' : ''}`}
+                            onClick={()=>setBudget(b.id)}
+                          >{b.label}</button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="transport-row">
+                    <label>Preferred Transport</label>
+                    <div className="chips-row wrap-chips">
+                      {TRANSPORT.map(t => (
+                        <button 
+                          key={t.id}
+                          className={`chip transport-chip ${transport.includes(t.id) ? 'active' : ''}`}
+                          onClick={()=>toggleTransport(t.id)}
+                        >
+                          {t.icon} {t.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="notes-row">
+                    <label>Additional Notes</label>
+                    <textarea 
+                      rows="3" 
+                      placeholder="e.g. Avoid loud crowds, love filter coffee, no stairs..."
+                      value={notes}
+                      onChange={e=>setNotes(e.target.value)}
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="form-footer">
+                  <div className="footer-note">✦ Smart itinerary engine &middot; heat-aware &middot; Plan A + B</div>
+                  <button className="btn-generate" onClick={handleGenerate}>
+                    Generate my trip <ArrowRight size={18} />
+                  </button>
+                </div>
               </div>
+            </div>
+
+            <div className="form-sidebar">
+              <div className="sidebar-card weather">
+                <h3>🌡️ Chennai heat today</h3>
+                <div className="tip-row"><Sun size={16} /> <span>Heat warning: 34°C feels like 39°C.</span></div>
+                <div className="tip-row"><Sunrise size={16} /> <span>Best outdoor hours: 6–9 AM + after 5:30 PM.</span></div>
+                <div className="tip-row"><Droplets size={16} /> <span>Hydration reminder: Carry water everywhere.</span></div>
+              </div>
+
+              <div className="sidebar-card planb">
+                <h3>🗺️ What's Plan B?</h3>
+                <p>Every Sancharam trip includes backup routes for rain, heavy crowds, or unexpected closures.</p>
+                <div className="example-box">Example: Marina Beach &rarr; DakshinaChitra</div>
+              </div>
+
+              {selectedMood && (
+                <div className="sidebar-card selected-mood" style={{'--accent': MOODS.find(m=>m.id===selectedMood).color}}>
+                  <div className="lg-emoji">{MOODS.find(m=>m.id===selectedMood).emoji}</div>
+                  <h3>{MOODS.find(m=>m.id===selectedMood).ta}</h3>
+                  <p>{MOODS.find(m=>m.id===selectedMood).desc}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RESULTS SECTION */}
+      {results && (
+        <section className="mood-results wrap" id="results-section">
+          <div className="results-top">
+            <div className="res-title">
+              <h1 className="fraunces">Your {MOODS.find(m=>m.id===selectedMood)?.emoji} <i className="rust">{MOODS.find(m=>m.id===selectedMood)?.name}</i> trip</h1>
+              <div className="meta-chips">
+                <span>{results.days} Days</span>
+                <span>{travellers} Travellers</span>
+                <span>{BUDGETS.find(b=>b.id===budget)?.label}</span>
+                <span>{transport.length} Transport types</span>
+              </div>
+            </div>
+            <div className="res-actions">
+              <button className="btn-ink"><Save size={16}/> Save trip</button>
+              <button className="btn-ghost"><Printer size={16}/> Print</button>
+              <button className="btn-ghost" onClick={()=>setResults(null)}><X size={16}/> Clear</button>
+            </div>
+          </div>
+
+          <div className="plan-toggle">
+            <button className={planType === 'A' ? 'active' : ''} onClick={()=>setPlanType('A')}>Plan A &mdash; Ideal</button>
+            <button className={planType === 'B' ? 'active' : ''} onClick={()=>setPlanType('B')}>Plan B &mdash; Backup</button>
+          </div>
+
+          {planType === 'B' && (
+            <div className="plan-b-banner">
+              🔄 Backup plan activated &mdash; same budget, same mood, rerouted for rain, crowds, or closures.
+            </div>
+          )}
+
+          <div className="days-list">
+            {(planType === 'A' ? results.planA : results.planB).map((day, dIdx) => {
+              const isOpen = openDays[dIdx+1];
+              return (
+                <div className={`day-card ${isOpen ? 'open' : ''}`} key={dIdx}>
+                  <div className="day-header" onClick={()=>toggleDay(dIdx+1)}>
+                    <div className="dh-left">
+                      <span className="day-pill">Day {dIdx+1}</span>
+                      <h3 className="fraunces">{day.title}</h3>
+                    </div>
+                    <div className="dh-right">
+                      <span className="day-cost mono">est. {day.cost}</span>
+                      {isOpen ? <ChevronUp /> : <ChevronDown />}
+                    </div>
+                  </div>
+                  
+                  {isOpen && (
+                    <div className="day-body">
+                      <div className="budget-tracker">
+                        <div className="bt-bar"><div className="bt-fill" style={{width: day.budgetPct}}></div></div>
+                        <div className="bt-lbl">Spend progress</div>
+                      </div>
+                      
+                      <div className="activities">
+                        {day.activities.map((act, aIdx) => (
+                          <div className="activity" key={aIdx}>
+                            <div className="act-time mono rust">{act.time}</div>
+                            <div className="act-details">
+                              <h4 className="fraunces">{act.name}</h4>
+                              <p className="muted">{act.desc}</p>
+                              <div className="act-tags">
+                                <span className="tag rust-tint">{act.costTag}</span>
+                                <span className="tag green-tint">{act.transTag}</span>
+                                <span className="tag plain">{act.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="recommended-stays">
+            <h2 className="fraunces">Recommended stays</h2>
+            <div className="hotel-grid">
+              {results.hotels.map((h, i) => (
+                <div className="hotel-card" key={i}>
+                  <div className="hotel-thumb"></div>
+                  <div className="hotel-info">
+                    <h4 className="fraunces">{h.name}</h4>
+                    <p className="muted">{h.address}</p>
+                    <div className="hotel-meta">
+                      <span className="mono rust">{h.price}</span>
+                      <span>{h.rating} ⭐</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
-      </div>
+      )}
 
-      <div className="wrap" style={{ marginTop: '3rem', paddingBottom: '5rem' }}>
-        <div className="itinerary-grid">
-          {/* ── LEFT COLUMN: FORM & RESULTS ── */}
-          <div className="left-column">
-            {/* TRIP PLANNING FORM */}
-            <form
-              onSubmit={handleGenerate}
-              style={{
-                background: 'linear-gradient(145deg, #1c1c28, #14141c)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-                marginBottom: '3rem'
-              }}
-            >
-              <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.5rem' }}>
-                Create Your Trip Itinerary
-              </h2>
-              <p style={{ color: '#aaa', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
-                Fill in your travel preferences and let our AI assemble a tailored schedule.
-              </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {/* Destination */}
-                <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                    Destination
-                  </label>
-                  <input
-                    type="text"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    required
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      borderRadius: '8px',
-                      color: '#fff',
-                      fontSize: '1rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-
-                {/* Dates Row */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div>
-                    <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                      Start Date
-                    </label>
-                    <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '0.85rem 1rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        borderRadius: '8px',
-                        color: '#fff',
-                        fontSize: '0.95rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                      End Date
-                    </label>
-                    <input
-                      type="date"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '0.85rem 1rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        borderRadius: '8px',
-                        color: '#fff',
-                        fontSize: '0.95rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Travelers Stepper & Travel Style */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1rem' }}>
-                  <div>
-                    <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                      Travelers
-                    </label>
-                    <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', overflow: 'hidden' }}>
-                      <button
-                        type="button"
-                        onClick={() => setTravelers((t) => Math.max(1, t - 1))}
-                        style={{ width: '40px', height: '44px', background: 'transparent', border: 'none', color: '#FFD700', fontSize: '1.2rem', cursor: 'pointer', fontWeight: 'bold' }}
-                      >
-                        -
-                      </button>
-                      <span style={{ flex: 1, textAlign: 'center', color: '#fff', fontWeight: 'bold', fontSize: '1rem' }}>
-                        {travelers}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setTravelers((t) => t + 1)}
-                        style={{ width: '40px', height: '44px', background: 'transparent', border: 'none', color: '#FFD700', fontSize: '1.2rem', cursor: 'pointer', fontWeight: 'bold' }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                      Travel Style
-                    </label>
-                    <select
-                      value={travelStyle}
-                      onChange={(e) => setTravelStyle(e.target.value)}
-                      style={{
-                        width: '100%',
-                        height: '44px',
-                        padding: '0 1rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        borderRadius: '8px',
-                        color: '#fff',
-                        fontSize: '0.95rem',
-                        outline: 'none'
-                      }}
-                    >
-                      {TRAVEL_STYLES.map((style) => (
-                        <option key={style} value={style}>
-                          {style}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Budget Chips */}
-                <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.6rem' }}>
-                    Budget Tier
-                  </label>
-                  <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    {BUDGET_OPTIONS.map((opt) => {
-                      const selected = budget === opt;
-                      return (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => setBudget(opt)}
-                          style={{
-                            flex: 1,
-                            padding: '0.65rem 1rem',
-                            borderRadius: '8px',
-                            border: selected ? '2px solid #FFD700' : '1px solid #33334d',
-                            background: selected ? 'rgba(255, 215, 0, 0.15)' : '#1a1a26',
-                            color: selected ? '#FFD700' : '#aaa',
-                            fontWeight: selected ? 'bold' : 'normal',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            fontSize: '0.9rem'
-                          }}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Special Interests */}
-                <div>
-                  <label style={{ display: 'block', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                    Special Interests & Must-See Places
-                  </label>
-                  <textarea
-                    rows="3"
-                    value={specialInterests}
-                    onChange={(e) => setSpecialInterests(e.target.value)}
-                    placeholder="E.g., Temples, street food, beaches, museums..."
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      borderRadius: '8px',
-                      color: '#fff',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                      resize: 'vertical'
-                    }}
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  style={{
-                    marginTop: '0.5rem',
-                    padding: '1rem 2rem',
-                    background: loading ? '#555' : 'var(--accent, #FFD700)',
-                    color: '#000',
-                    fontWeight: 'bold',
-                    fontSize: '1.05rem',
-                    borderRadius: '50px',
-                    border: 'none',
-                    cursor: loading ? 'not-allowed' : 'pointer',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)',
-                    transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem'
-                  }}
-                >
-                  {loading ? (
-                    <>
-                      <div className="spinner" /> Generating Itinerary...
-                    </>
-                  ) : (
-                    'Generate Itinerary ✨'
-                  )}
-                </button>
+      {/* MY TRIPS */}
+      <section className="saved-trips-section wrap">
+        <div className="section-eyebrow">Saved trips</div>
+        <h2 className="section-h2">Your travel history.</h2>
+        <div className="trip-grid">
+          <div className="trip-card">
+            <div className="trip-thumb"><span>🌅</span></div>
+            <div className="trip-info">
+              <h4>Heritage Walk & Coffee</h4>
+              <p className="muted">12 Aug 2026</p>
+              <div className="trip-tags">
+                <span className="tag">Budget</span>
+                <span className="tag">2 Travellers</span>
+                <span className="tag">ஏக்கம்</span>
               </div>
-            </form>
-
-            {/* FESTIVALS DURING YOUR TRIP SECTION */}
-            {matchingFestivals.length > 0 && (
-              <div
-                style={{
-                  background: 'linear-gradient(135deg, #1e1e2d, #14141f)',
-                  border: '1px solid #FFD700',
-                  borderRadius: '16px',
-                  padding: '1.75rem',
-                  marginBottom: '3rem',
-                  boxShadow: '0 8px 30px rgba(255, 215, 0, 0.15)'
-                }}
-              >
-                <h3 style={{ fontSize: '1.6rem', color: '#FFD700', marginBottom: '0.4rem' }}>
-                  <PartyPopper size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Festivals During Your Trip ({matchingFestivals.length})
-                </h3>
-                <p style={{ color: '#aaa', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
-                  These vibrant Tamil Nadu festivals take place during your selected travel dates and are included in your AI itinerary!
-                </p>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
-                  {matchingFestivals.map((fest) => (
-                    <div
-                      key={fest.id}
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        borderRadius: '12px',
-                        padding: '1.2rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justify: 'space-between'
-                      }}
-                    >
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                          <h4 style={{ color: '#fff', fontSize: '1.1rem', margin: 0, fontWeight: 'bold' }}>
-                            {fest.name}
-                          </h4>
-                          <span style={{ background: 'rgba(255, 215, 0, 0.15)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)', padding: '2px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 'bold' }}>
-                            <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {fest.district}
-                          </span>
-                        </div>
-
-                        <div style={{ color: '#FFD700', fontSize: '0.85rem', fontFamily: "'Yatra One', cursive", marginBottom: '10px' }}>
-                          {fest.tamil_name}
-                        </div>
-
-                        <p style={{ color: '#ccc', fontSize: '0.88rem', lineHeight: '1.45', margin: '0 0 12px 0' }}>
-                          {fest.description}
-                        </p>
-                      </div>
-
-                      <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '8px 12px', borderRadius: '8px', borderLeft: '3px solid #2ec4b6', fontSize: '0.82rem', color: '#2ec4b6', lineHeight: '1.4' }}>
-                        💡 <strong>Travel Tip:</strong> {fest.travel_tip}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* ITINERARY RESULTS */}
-            {itineraryResult && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                {/* DAY CARDS */}
-                <div>
-                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem' }}>
-                    <Calendar size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Day-by-Day Schedule
-                  </h3>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    {itineraryResult.days.map((day) => {
-                      const isOpen = !!openDays[day.dayNumber];
-                      return (
-                        <div
-                          key={day.dayNumber}
-                          style={{
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            borderRadius: '12px',
-                            overflow: 'hidden'
-                          }}
-                        >
-                          <div
-                            onClick={() => toggleDay(day.dayNumber)}
-                            style={{
-                              padding: '1.25rem 1.5rem',
-                              background: 'rgba(255, 255, 255, 0.06)',
-                              cursor: 'pointer',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              borderBottom: isOpen ? '1px solid #282838' : 'none'
-                            }}
-                          >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                              <span style={{ background: '#FFD700', color: '#000', padding: '4px 10px', borderRadius: '20px', fontWeight: 'bold', fontSize: '0.85rem' }}>
-                                Day {day.dayNumber}
-                              </span>
-                              <h4 style={{ margin: 0, color: '#fff', fontSize: '1.1rem' }}>{day.title}</h4>
-                            </div>
-                            <span style={{ color: '#FFD700', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                              {isOpen ? '▲' : '▼'}
-                            </span>
-                          </div>
-
-                          {isOpen && (
-                            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                              {day.activities.map((act, idx) => (
-                                <div key={idx} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                                  <span style={{ minWidth: '85px', color: '#FFD700', fontSize: '0.85rem', fontWeight: 'bold', background: 'rgba(255,215,0,0.1)', padding: '4px 8px', borderRadius: '6px', textAlign: 'center' }}>
-                                    {act.time}
-                                  </span>
-                                  <div>
-                                    <h5 style={{ color: '#fff', margin: '0 0 4px 0', fontSize: '1rem' }}>{act.activity}</h5>
-                                    <p style={{ color: '#aaa', margin: '0 0 6px 0', fontSize: '0.9rem', lineHeight: '1.5' }}>{act.description}</p>
-                                    <span style={{ fontSize: '0.75rem', color: '#2ec4b6', background: 'rgba(46,196,182,0.1)', padding: '2px 8px', borderRadius: '4px' }}>
-                                      <MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {act.location}
-                                    </span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* RECOMMENDED HOTELS GRID */}
-                <div>
-                  <h3 style={{ fontSize: '1.8rem', color: '#FFD700', marginBottom: '1.25rem' }}>
-                    <Hotel size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> Recommended Stays
-                  </h3>
-
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                      gap: '1.25rem'
-                    }}
-                  >
-                    {itineraryResult.hotels.map((hotel, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          borderRadius: '12px',
-                          padding: '1.25rem',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        <div>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '0.9rem' }}>★ {hotel.rating}</span>
-                            <span style={{ background: '#222', color: '#ccc', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem' }}>{hotel.tag}</span>
-                          </div>
-                          <h4 style={{ color: '#fff', fontSize: '1.1rem', margin: '0 0 4px 0' }}>{hotel.name}</h4>
-                          <p style={{ color: '#aaa', fontSize: '0.85rem', margin: '0 0 10px 0' }}><MapPin size={22} style={{marginRight: "8px", verticalAlign: "middle", color: "#FFD700"}} /> {hotel.location}</p>
-                        </div>
-                        <div style={{ paddingTop: '0.75rem', borderTop: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '1.1rem' }}>₹{hotel.pricePerNight} <small style={{ color: '#888', fontWeight: 'normal', fontSize: '0.75rem' }}>/ night</small></span>
-                          <span style={{ fontSize: '0.8rem', color: '#aaa' }}>{hotel.type}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
-
-          {/* ── RIGHT COLUMN: CURRENCY WIDGET ── */}
-          <div className="right-column">
-            <CurrencyWidget />
+          <div className="trip-card">
+            <div className="trip-thumb"><span>🍜</span></div>
+            <div className="trip-info">
+              <h4>Mylapore Food Trail</h4>
+              <p className="muted">05 Jul 2026</p>
+              <div className="trip-tags">
+                <span className="tag">Mid</span>
+                <span className="tag">4 Travellers</span>
+                <span className="tag">பசி</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Embedded CSS for responsive 2-column grid and spinner */}
-      <style>{`
-        .itinerary-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          align-items: start;
-        }
-
-        @media (min-width: 768px) {
-          .itinerary-grid {
-            grid-template-columns: 1fr 320px !important;
-          }
-        }
-
-        .spinner {
-          width: 18px;
-          height: 18px;
-          border: 3px solid rgba(0,0,0,0.2);
-          border-top-color: #000;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
-
+      </section>
+      
       <Footer />
-
-      {/* Floating TamilChatbot Assistant */}
-      <TamilChatbot floating={true} />
     </div>
   );
 };
 
-/**
- * Fallback AI Itinerary & Hotel Generator for Chennai & Tamil Nadu Trips
- */
-function buildFallbackItinerary(destination, startDate, endDate, travelers, budget, travelStyle, specialInterests) {
+// Mock generator for UI demonstration
+function generateMockData(moodId, budget, travellers) {
+  const isA = true;
   return {
-    days: [
+    days: 2,
+    planA: [
       {
-        dayNumber: 1,
-        title: 'Arrival & Mylapore Cultural Trail',
+        title: "Morning Temples & Filter Coffee",
+        cost: "₹1,200",
+        budgetPct: "30%",
         activities: [
-          {
-            time: '09:00 AM',
-            activity: 'Check-in & Morning Filter Coffee',
-            description: 'Arrive at your hotel and savor traditional South Indian filter coffee at Rayar’s Mess in Mylapore.',
-            location: 'Mylapore'
-          },
-          {
-            time: '11:00 AM',
-            activity: 'Kapaleeshwarar Temple Heritage Walk',
-            description: 'Explore the 7th-century Dravidian architecture, gopuram sculptures, and sacred tank.',
-            location: 'Kapaleeshwarar Temple, Mylapore'
-          },
-          {
-            time: '04:30 PM',
-            activity: 'Sunset Stroll at Elliot’s Beach',
-            description: 'Relax by the Schmidt Memorial, enjoy fresh sundal, and feel the sea breeze at Besant Nagar.',
-            location: 'Besant Nagar'
-          }
+          { time: "06:30 AM", name: "Kapaleeshwarar Temple", desc: "Experience the morning pooja and serene Dravidian architecture.", costTag: "₹ Free", transTag: "Walk", duration: "1.5 hrs" },
+          { time: "08:00 AM", name: "Rayar's Mess", desc: "Iconic filter coffee and fluffy idlis in a narrow Mylapore lane.", costTag: "₹ 150", transTag: "Walk", duration: "45 mins" },
         ]
       },
       {
-        dayNumber: 2,
-        title: 'Colonial History & Culinary Discoveries',
+        title: "Coastal Sunset Vibes",
+        cost: "₹2,500",
+        budgetPct: "70%",
         activities: [
-          {
-            time: '09:30 AM',
-            activity: 'Fort St. George & Clive Building Museum',
-            description: 'Discover the earliest British fortress in India and historic artifacts at the Fort Museum.',
-            location: 'George Town'
-          },
-          {
-            time: '01:00 PM',
-            activity: 'Traditional Banana Leaf Feast',
-            description: 'Indulge in an authentic Chettinad multi-course thali served on banana leaf at Murugan Idli Shop / Anjappar.',
-            location: 'T. Nagar'
-          },
-          {
-            time: '05:30 PM',
-            activity: 'Shopping at Pondy Bazaar',
-            description: 'Experience the vibrant silk sari shops, bronze handicrafts, and street markets.',
-            location: 'T. Nagar'
-          }
+          { time: "04:30 PM", name: "Besant Nagar Beach", desc: "Stroll along the Elliot's beach promenade as the heat drops.", costTag: "₹ Free", transTag: "Cab", duration: "2 hrs" },
+          { time: "07:00 PM", name: "Murugan Idli Shop", desc: "Dinner with a variety of chutneys and podi dosas.", costTag: "₹ 600", transTag: "Auto", duration: "1 hr" },
         ]
-      },
+      }
+    ],
+    planB: [
       {
-        dayNumber: 3,
-        title: 'Coastal Drive & UNESCO Shore Temples',
+        title: "Indoor Heritage (Rain Backup)",
+        cost: "₹1,800",
+        budgetPct: "40%",
         activities: [
-          {
-            time: '08:30 AM',
-            activity: 'Scenic East Coast Road (ECR) Drive',
-            description: 'Drive along the Bay of Bengal coastline with stops at DakshinaChitra Heritage Village.',
-            location: 'Muttukadu / ECR'
-          },
-          {
-            time: '11:30 AM',
-            activity: 'Mahabalipuram Monolithic Reliefs',
-            description: 'Marvel at Arjuna’s Penance, Krishna’s Butterball, and the 8th-century Shore Temple.',
-            location: 'Mahabalipuram'
-          },
-          {
-            time: '06:00 PM',
-            activity: 'Seafood Dinner & Farewell Sunset',
-            description: 'Enjoy fresh coastal catch by the ocean before departing for Chennai.',
-            location: 'ECR Beachfront'
-          }
+          { time: "09:30 AM", name: "Government Museum", desc: "Explore the bronze gallery indoors away from the heat/rain.", costTag: "₹ 250", transTag: "Cab", duration: "3 hrs" },
+          { time: "01:00 PM", name: "Amethyst Cafe", desc: "Relaxed lunch in a beautiful colonial-style indoor setting.", costTag: "₹ 1200", transTag: "Cab", duration: "1.5 hrs" },
         ]
       }
     ],
     hotels: [
-      {
-        name: 'The Taj Connemara',
-        location: 'Binny Road, Triplicane',
-        pricePerNight: budget === 'Luxury' ? '12,500' : budget === 'Moderate' ? '7,200' : '4,800',
-        rating: '4.8',
-        tag: 'Heritage Luxury',
-        type: 'Colonial Style'
-      },
-      {
-        name: 'Residency Towers Chennai',
-        location: 'Sir Thyagaraya Road, T. Nagar',
-        pricePerNight: budget === 'Luxury' ? '9,800' : budget === 'Moderate' ? '5,400' : '3,600',
-        rating: '4.6',
-        tag: 'City Centre',
-        type: 'Business & Leisure'
-      },
-      {
-        name: 'Radisson Blu Resort Temple Bay',
-        location: 'East Coast Road, Mahabalipuram',
-        pricePerNight: budget === 'Luxury' ? '15,000' : budget === 'Moderate' ? '8,900' : '5,200',
-        rating: '4.7',
-        tag: 'Beachfront Resort',
-        type: 'Coastal Getaway'
-      }
+      { name: "The Leela Palace", address: "Adyar Seaface, Chennai", price: "₹12,000/night", rating: "4.9" },
+      { name: "Savera Hotel", address: "Dr Radhakrishnan Salai", price: "₹4,500/night", rating: "4.2" },
+      { name: "Broad Lands", address: "Triplicane, Chennai", price: "₹1,200/night", rating: "3.8" }
     ]
   };
 }
 
 export default ItineraryPage;
-
-
