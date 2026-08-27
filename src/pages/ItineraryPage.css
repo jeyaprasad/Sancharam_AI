@@ -76,7 +76,9 @@
   -webkit-backdrop-filter: blur(20px);
   color: #fff;
   border-radius: 24px;
-  padding: 40px;
+  padding: 32px;
+  width: 380px;
+  box-sizing: border-box;
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 24px 48px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
 }
