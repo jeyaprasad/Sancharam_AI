@@ -111,7 +111,7 @@ const ItineraryPage = () => {
           <div className="mood-hero-right" style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <div className="time-card sticky">
               <div className="time-card-title">Best time for each mood &mdash; right now</div>
-              <div className="clock-display">{timeString}</div>
+              <div className="clock-display">{timeString.replace(/ AM| PM/i, "")} <span>{timeString.match(/AM|PM/i)?.[0]}</span></div>
               <p className="time-note">Afternoon heat is peaking. Indoor or shaded activities highly recommended.</p>
               
               <div className="condition-rows">

@@ -71,35 +71,77 @@
 
 /* Sticky Right Card */
 .time-card {
-  background: var(--mt-ink);
+  background: linear-gradient(145deg, rgba(26,20,16,0.95), rgba(26,20,16,0.85));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: #fff;
-  border-radius: 18px;
-  padding: 32px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .time-card.sticky { position: sticky; top: 100px; }
-.time-card-title { font-size: 14px; opacity: 0.8; margin-bottom: 16px; }
-.clock-display { font-family: 'Space Mono', monospace; font-size: 48px; color: #fff; line-height: 1; margin-bottom: 16px; }
-.time-note { font-size: 15px; opacity: 0.7; line-height: 1.5; margin-bottom: 24px; }
-.condition-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; }
-.cond-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-.cond-row .dot { width: 8px; height: 8px; border-radius: 50%; }
-.dot.green { background: #2D6A4F; }
-.dot.amber { background: #C8960A; }
+.time-card-title { 
+  font-size: 11px; 
+  text-transform: uppercase; 
+  letter-spacing: 0.15em; 
+  color: rgba(255,255,255,0.6); 
+  margin-bottom: 20px; 
+  font-family: 'Space Mono', monospace;
+}
+.clock-display { 
+  font-family: 'Catamaran', 'Inter', sans-serif; 
+  font-weight: 300;
+  font-size: 64px; 
+  color: #fff; 
+  line-height: 1; 
+  margin-bottom: 20px; 
+  letter-spacing: -0.03em;
+}
+.clock-display span {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--mt-rust);
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+.time-note { 
+  font-size: 15px; 
+  color: rgba(255,255,255,0.8); 
+  line-height: 1.6; 
+  margin-bottom: 32px; 
+}
+.condition-rows { 
+  display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; 
+  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; 
+}
+.cond-row { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.9); }
+.cond-row .dot { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
+.dot.green { background: #4ADE80; color: #4ADE80; }
+.dot.amber { background: #FBBF24; color: #FBBF24; }
 
 .mini-mood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .mini-mood-grid button {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
   color: #fff;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 14px 16px;
+  border-radius: 30px;
   cursor: pointer;
-  font-family: 'Fraunces', serif;
-  font-size: 16px;
-  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
-.mini-mood-grid button:hover { background: rgba(255,255,255,0.1); }
+.mini-mood-grid button:hover { 
+  background: rgba(255,255,255,0.12); 
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.2);
+}
 
 /* SECTIONS COMMON */
 .section-eyebrow {
