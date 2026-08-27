@@ -89,7 +89,7 @@ const ItineraryPage = () => {
         <div className="bento-hero-overlay"></div>
         <Navbar />
         <section className="mood-hero wrap" style={{ paddingTop: '110px', paddingBottom: '40px', position: 'relative', zIndex: 2, maxWidth: '1440px', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-          <div className="mood-hero-left" style={{ background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px', borderRadius: '0px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '750px', width: '100%' }}>
+          <div className="mood-hero-left" style={{ flex: 1, marginRight: '40px', marginLeft: '-40px', background: 'rgba(251, 250, 247, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', padding: '40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
             <div className="mood-eyebrow" style={{ background: 'rgba(255,255,255,0.9)', color: '#B4451F', border: '1px solid #B4451F' }}>
               <span className="dot"></span> Mood-based trip planner
             </div>
