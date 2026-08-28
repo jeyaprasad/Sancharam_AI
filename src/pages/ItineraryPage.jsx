@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './ItineraryPage.css';
-import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity, Feather, Search, Utensils, Zap, Camera, PartyPopper } from 'lucide-react';
+import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity, Feather, Search, Utensils, Zap, Camera, PartyPopper, Sparkles, Thermometer, Map, RefreshCw, Star, Footprints, Car, Bus, Train, TrainFront } from 'lucide-react';
 
 const MOODS = [
   { id: 'calm', name: 'Calm', ta: 'அமைதி', icon: <Feather size={24} strokeWidth={1.5} />, bg: '#EAF7F0', accent: '#1D9E75', color: '#1D9E75', desc: 'Quiet temples, peaceful beaches, serene parks.' },
@@ -15,12 +15,12 @@ const MOODS = [
 ];
 
 const TRANSPORT = [
-  { id: 'walk', icon: '🚶', label: 'Walk' },
-  { id: 'auto', icon: '🛺', label: 'Auto' },
-  { id: 'bus', icon: '🚌', label: 'MTC bus' },
-  { id: 'metro', icon: '🚇', label: 'Metro' },
-  { id: 'mrts', icon: '🚂', label: 'MRTS' },
-  { id: 'cab', icon: '🚕', label: 'Cab' },
+  { id: 'walk', icon: <Footprints size={16} />, label: 'Walk' },
+  { id: 'auto', icon: <Car size={16} />, label: 'Auto' },
+  { id: 'bus', icon: <Bus size={16} />, label: 'MTC bus' },
+  { id: 'metro', icon: <Train size={16} />, label: 'Metro' },
+  { id: 'mrts', icon: <TrainFront size={16} />, label: 'MRTS' },
+  { id: 'cab', icon: <Car size={16} />, label: 'Cab' },
 ];
 
 const BUDGETS = [
@@ -213,7 +213,7 @@ const ItineraryPage = () => {
               <div className="form-main">
                 <div className="form-card">
                   <div className="form-card-head">
-                    <span className="head-emoji">{selectedMood ? MOODS.find(m => m.id === selectedMood).emoji : '✨'}</span>
+                    <span className="head-emoji">{selectedMood ? MOODS.find(m => m.id === selectedMood).emoji : <Sparkles size={24} />}</span>
                     <span>{selectedMood ? `${MOODS.find(m => m.id === selectedMood).name} trip — fill your details` : 'Select a mood first'}</span>
                   </div>
 
@@ -289,14 +289,14 @@ const ItineraryPage = () => {
 
               <div className="form-sidebar">
                 <div className="sidebar-card weather">
-                  <h3>🌡️ Chennai heat today</h3>
+                  <h3 style={{display: 'flex', alignItems: 'center'}}><Thermometer size={20} style={{marginRight: '8px'}}/> Chennai heat today</h3>
                   <div className="tip-row"><Sun size={16} /> <span>Heat warning: 34°C feels like 39°C.</span></div>
                   <div className="tip-row"><Sunrise size={16} /> <span>Best outdoor hours: 6–9 AM + after 5:30 PM.</span></div>
                   <div className="tip-row"><Droplets size={16} /> <span>Hydration reminder: Carry water everywhere.</span></div>
                 </div>
 
                 <div className="sidebar-card planb">
-                  <h3>🗺️ What's Plan B?</h3>
+                  <h3 style={{display: 'flex', alignItems: 'center'}}><Map size={20} style={{marginRight: '8px'}}/> What's Plan B?</h3>
                   <p>Every Sancharam trip includes backup routes for rain, heavy crowds, or unexpected closures.</p>
                   <div className="example-box">Example: Marina Beach &rarr; DakshinaChitra</div>
                 </div>
@@ -340,7 +340,7 @@ const ItineraryPage = () => {
 
             {planType === 'B' && (
               <div className="plan-b-banner">
-                🔄 Backup plan activated &mdash; same budget, same mood, rerouted for rain, crowds, or closures.
+                <RefreshCw size={18} style={{marginRight: '8px'}}/> Backup plan activated &mdash; same budget, same mood, rerouted for rain, crowds, or closures.
               </div>
             )}
 
@@ -401,7 +401,7 @@ const ItineraryPage = () => {
                       <p className="muted">{h.address}</p>
                       <div className="hotel-meta">
                         <span className="mono rust">{h.price}</span>
-                        <span>{h.rating} ⭐</span>
+                        <span style={{display: 'flex', alignItems: 'center', gap: '4px'}}>{h.rating} <Star size={14} fill="currentColor" /></span>
                       </div>
                     </div>
                   </div>
@@ -417,7 +417,7 @@ const ItineraryPage = () => {
           <h2 className="section-h2">Your travel history.</h2>
           <div className="trip-grid">
             <div className="trip-card">
-              <div className="trip-thumb"><span>🌅</span></div>
+              <div className="trip-thumb"><Camera size={24} color="#534AB7" /></div>
               <div className="trip-info">
                 <h4>Heritage Walk & Coffee</h4>
                 <p className="muted">12 Aug 2026</p>
@@ -429,7 +429,7 @@ const ItineraryPage = () => {
               </div>
             </div>
             <div className="trip-card">
-              <div className="trip-thumb"><span>🍜</span></div>
+              <div className="trip-thumb"><Utensils size={24} color="#D85A30" /></div>
               <div className="trip-info">
                 <h4>Mylapore Food Trail</h4>
                 <p className="muted">05 Jul 2026</p>

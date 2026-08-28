@@ -391,10 +391,10 @@
   font-family: 'Emily Street', 'Great Vibes', cursive;
   color: #B4451F;
   font-size: 5rem;
-  line-height: 0.85;
+  line-height: 1.1;
   margin: 0;
   font-weight: 400;
-  margin-top: -10px;
+  margin-top: 0px;
 }
 .pc-subtitle {
   color: #8C7E72;
