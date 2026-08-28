@@ -22,7 +22,7 @@
 .fraunces { font-family: 'Fraunces', Georgia, serif; }
 .mono { font-family: 'Space Mono', monospace; }
 .rust { color: var(--mt-rust); }
-.italic { font-style: italic; }
+.italic {  }
 .muted { color: var(--mt-muted); }
 
 /* HERO */
@@ -60,7 +60,7 @@
 .mood-label {
   font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mt-muted); margin-bottom: 8px;
 }
-.mood-tagline-ta { font-family: 'Fraunces', serif; font-size: 24px; font-style: italic; color: var(--mt-ink); margin-bottom: 12px; }
+.mood-tagline-ta { font-family: 'Fraunces', serif; font-size: 24px;  color: var(--mt-ink); margin-bottom: 12px; }
 .mood-tagline-en { font-size: 16px; line-height: 1.6; color: var(--mt-muted); }
 
 .mood-stats {
@@ -277,7 +277,7 @@
   border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-title { font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; color: var(--mt-ink); margin-bottom: 12px; }
+.loading-title { font-family: 'Fraunces', serif;  font-size: 32px; color: var(--mt-ink); margin-bottom: 12px; }
 .loading-sub { font-family: 'Space Mono', monospace; color: var(--mt-rust); font-size: 14px; text-transform: uppercase; }
 
 /* RESULTS */
@@ -395,7 +395,7 @@
   margin: 0;
   font-weight: 400;
   margin-top: 0px;
-  font-style: italic;
+  
 }
 .pc-subtitle {
   color: #8C7E72;
