@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './ItineraryPage.css';
-import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity } from 'lucide-react';
+import { MapPin, Calendar, Clock, Navigation, Check, ChevronDown, ChevronUp, Sun, Sunrise, Droplets, ArrowRight, Printer, Save, X, Activity, Feather, Search, Utensils, Zap, Camera, PartyPopper } from 'lucide-react';
 
 const MOODS = [
-  { id: 'calm', name: 'Calm', ta: 'அமைதி', emoji: '😌', bg: '#EAF7F0', accent: '#1D9E75', color: '#1D9E75', desc: 'Quiet temples, peaceful beaches, serene parks.' },
-  { id: 'curious', name: 'Curious', ta: 'ஆர்வம்', emoji: '🔍', bg: '#E1F5EE', accent: '#0F6E56', color: '#0F6E56', desc: 'Museums, heritage walks, local history.' },
-  { id: 'hungry', name: 'Hungry', ta: 'பசி', emoji: '🍜', bg: '#FAECE7', accent: '#D85A30', color: '#D85A30', desc: 'Street food, iconic messes, fine dining.' },
-  { id: 'adventurous', name: 'Adventurous', ta: 'துணிவு', emoji: '⚡', bg: '#FAEEDA', accent: '#854F0B', color: '#854F0B', desc: 'Surfing, theme parks, bustling markets.' },
-  { id: 'nostalgic', name: 'Nostalgic', ta: 'நினைவு', emoji: '🌅', bg: '#EEEDFE', accent: '#534AB7', color: '#534AB7', desc: 'Old Madras charm, vintage cafes, classic spots.' },
-  { id: 'celebratory', name: 'Celebratory', ta: 'கொண்டாட்டம்', emoji: '🎉', bg: '#FAEEDA', accent: '#BA7517', color: '#BA7517', desc: 'Shopping, high-energy spots, nightlife.' },
+  { id: 'calm', name: 'Calm', ta: 'அமைதி', icon: <Feather size={24} strokeWidth={1.5} />, bg: '#EAF7F0', accent: '#1D9E75', color: '#1D9E75', desc: 'Quiet temples, peaceful beaches, serene parks.' },
+  { id: 'curious', name: 'Curious', ta: 'ஆர்வம்', icon: <Search size={24} strokeWidth={1.5} />, bg: '#E1F5EE', accent: '#0F6E56', color: '#0F6E56', desc: 'Museums, heritage walks, local history.' },
+  { id: 'hungry', name: 'Hungry', ta: 'பசி', icon: <Utensils size={24} strokeWidth={1.5} />, bg: '#FAECE7', accent: '#D85A30', color: '#D85A30', desc: 'Street food, iconic messes, fine dining.' },
+  { id: 'adventurous', name: 'Adventurous', ta: 'துணிவு', icon: <Zap size={24} strokeWidth={1.5} />, bg: '#FAEEDA', accent: '#854F0B', color: '#854F0B', desc: 'Surfing, theme parks, bustling markets.' },
+  { id: 'nostalgic', name: 'Nostalgic', ta: 'நினைவு', icon: <Camera size={24} strokeWidth={1.5} />, bg: '#EEEDFE', accent: '#534AB7', color: '#534AB7', desc: 'Old Madras charm, vintage cafes, classic spots.' },
+  { id: 'celebratory', name: 'Celebratory', ta: 'கொண்டாட்டம்', icon: <PartyPopper size={24} strokeWidth={1.5} />, bg: '#FAEEDA', accent: '#BA7517', color: '#BA7517', desc: 'Shopping, high-energy spots, nightlife.' },
 ];
 
 const TRANSPORT = [
@@ -166,7 +166,7 @@ const ItineraryPage = () => {
                     onClick={() => setSelectedMood(m.id)}
                   >
                     {selectedMood === m.id && <div className="pc-check-badge"><Check size={10} color="#fff" strokeWidth={4} /></div>}
-                    <div className="pc-mood-emoji">{m.emoji}</div>
+                    <div className="pc-mood-emoji" style={{ color: m.accent, display: 'flex', justifyContent: 'center' }}>{m.icon}</div>
                     <div className="pc-mood-en">{m.name}</div>
                     <div className="pc-mood-ta">{m.ta}</div>
                   </button>
