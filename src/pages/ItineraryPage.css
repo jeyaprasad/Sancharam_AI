@@ -388,13 +388,14 @@
   font-weight: 600;
 }
 .pc-title-en {
-  font-family: 'Emily Street', 'Great Vibes', cursive;
+  font-family: 'Fraunces', Georgia, serif;
   color: #B4451F;
-  font-size: 5rem;
+  font-size: 4rem;
   line-height: 1.1;
   margin: 0;
   font-weight: 400;
   margin-top: 0px;
+  font-style: italic;
 }
 .pc-subtitle {
   color: #8C7E72;
