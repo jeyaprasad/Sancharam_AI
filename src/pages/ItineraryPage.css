@@ -147,10 +147,10 @@
 
 /* SECTIONS COMMON */
 .section-eyebrow {
-  font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mt-muted); margin-bottom: 12px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #8C7E72; margin-bottom: 16px; font-weight: 600;
 }
 .section-h2 {
-  font-family: 'Fraunces', serif; font-size: 32px; color: var(--mt-ink); margin-bottom: 40px;
+  font-family: 'Fraunces', Georgia, serif; font-size: 3rem; color: #1A1410; margin-bottom: 40px; font-weight: 500;
 }
 
 /* MOOD SELECTOR */
