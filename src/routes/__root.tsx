@@ -15,7 +15,7 @@ import sancharamAppCss from "../sancharam-app.css?url";
 import { fetchRiskZones } from "../services/api";
 import useAppStore from "../store/useAppStore";
 import TamilChatbot from "../components/TamilChatbot";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/storage/client";
 
 function NotFoundComponent() {
   return (

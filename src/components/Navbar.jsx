@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from '@/lib/router-compat';
 import { useNavigate } from '@tanstack/react-router';
 import { useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/integrations/storage/client';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -38,10 +38,10 @@ const Navbar = () => {
         </Link>
         <nav>
           <Link to="/" aria-current={currentPath === '/' ? 'page' : undefined}>Home</Link>
-          
+
           <div className="nav-dropdown">
-            <Link 
-              to="/features" 
+            <Link
+              to="/features"
               aria-current={currentPath.startsWith('/features') && currentPath !== '/features/itinerary' ? 'page' : undefined}
               className="dropdown-trigger"
             >

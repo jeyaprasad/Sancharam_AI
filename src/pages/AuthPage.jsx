@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/integrations/storage/client';
 import './auth.css';
 
 const emailSchema = z.string().trim().email('Enter a valid email address').max(255);
