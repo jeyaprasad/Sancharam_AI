@@ -1,0 +1,531 @@
+/* ═══════════════════════════════════════════════════════════════
+   SAFETY (கவசம்) — Terra Coast design, matching Uncharted
+   Cream #FAF5EC · Terracotta #C4552E · Sea-green #2E6E63 · Brown #8C6A4F
+   Headings: Libre Baskerville / Noto Serif Tamil · Body: IBM Plex Sans
+   ═══════════════════════════════════════════════════════════════ */
+
+.sf-page {
+  --tc-cream: #FAF5EC;
+  --tc-cream-2: #F3ECDD;
+  --tc-terra: #C4552E;
+  --tc-terra-deep: #A03F1F;
+  --tc-terra-soft: rgba(196, 85, 46, 0.1);
+  --tc-sea: #2E6E63;
+  --tc-sea-soft: rgba(46, 110, 99, 0.1);
+  --tc-brown: #8C6A4F;
+  --tc-ink: #2B2118;
+  --tc-ink-2: #55452F;
+  --tc-muted: #97836A;
+  --tc-line: #E4D8C2;
+  --risk-high: #D64545;
+  --risk-med: #E09F3E;
+  --risk-low: #2E6E63;
+
+  background:
+    radial-gradient(1100px 500px at 85% -5%, rgba(196, 85, 46, 0.07), transparent 60%),
+    radial-gradient(900px 480px at -10% 30%, rgba(46, 110, 99, 0.06), transparent 60%),
+    var(--tc-cream);
+  color: var(--tc-ink);
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.sf-wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+  box-sizing: border-box;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.sf-hero {
+  padding: clamp(120px, 16vh, 160px) 0 44px;
+  border-bottom: 1px solid var(--tc-line);
+}
+
+.sf-hero-grid {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.sf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tc-sea);
+  background: var(--tc-sea-soft);
+  border: 1px solid rgba(46, 110, 99, 0.28);
+  padding: 7px 16px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+
+/* Kaaval: give the eyebrow badge a large gap before the title so the hero
+   fold can land cleanly after the badge (badge-only visible) */
+.sf-hero .sf-eyebrow { margin-bottom: 64px; }
+
+.sf-eyebrow i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tc-sea);
+}
+
+.sf-title {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-weight: 800;
+  font-size: clamp(3.2rem, 7vw, 5.6rem);
+  line-height: 1.05;
+  color: var(--tc-terra);
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+
+.sf-subtitle {
+  font-family: "Libre Baskerville", "Noto Serif Tamil", serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--tc-ink-2);
+  max-width: 56ch;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.sf-subtitle strong { color: var(--tc-terra); font-style: normal; }
+
+.sf-hero-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--tc-line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(43, 33, 24, 0.06);
+}
+
+.sf-hero-stat { padding: 18px 28px; text-align: center; }
+.sf-hero-stat + .sf-hero-stat { border-left: 1px solid var(--tc-line); }
+
+.sf-hero-stat b {
+  display: block;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--tc-terra);
+}
+
+.sf-hero-stat.is-high b { color: var(--risk-high); }
+.sf-hero-stat.is-med b { color: var(--risk-med); }
+
+.sf-hero-stat span {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tc-muted);
+  font-weight: 600;
+}
+
+/* ── SEARCH RAIL ──────────────────────────────────────────────── */
+.sf-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 0 22px;
+  flex-wrap: wrap;
+}
+
+.sf-search {
+  position: relative;
+  flex: 1 1 320px;
+  max-width: 560px;
+}
+
+.sf-search svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--tc-muted);
+  pointer-events: none;
+}
+
+.sf-search input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 130px 13px 46px;
+  border-radius: 99px;
+  border: 1px solid var(--tc-line);
+  background: #fff;
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", sans-serif;
+  font-size: 0.95rem;
+  color: var(--tc-ink);
+  outline: none;
+  box-shadow: 0 6px 20px rgba(43, 33, 24, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sf-search input:focus {
+  border-color: var(--tc-terra);
+  box-shadow: 0 0 0 3px var(--tc-terra-soft);
+}
+
+.sf-search input::placeholder { color: var(--tc-muted); }
+
+.sf-search-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 9px 20px;
+  background: var(--tc-terra);
+  color: #FAF5EC;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(196, 85, 46, 0.3);
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.sf-search-btn:hover:not(:disabled) { background: var(--tc-terra-deep); }
+.sf-search-btn:disabled { background: var(--tc-line); color: var(--tc-muted); cursor: not-allowed; box-shadow: none; }
+
+/* ── SEARCH RESULT CARD ───────────────────────────────────────── */
+.sf-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  border-radius: 18px;
+  padding: 20px 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 26px rgba(43, 33, 24, 0.06);
+  animation: sfRise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes sfRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sf-result-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tc-sea);
+}
+
+.sf-result h3 {
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.3rem;
+  color: var(--tc-ink);
+  margin: 6px 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sf-result h3 svg { color: var(--tc-terra); }
+
+.sf-result small { color: var(--tc-muted); font-size: 0.85rem; }
+
+.sf-result-score { text-align: right; }
+
+.sf-result-score .num {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sf-result-score .num small { font-size: 1rem; color: var(--tc-muted); font-weight: 400; }
+
+.sf-risk-chip {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid currentColor;
+}
+
+/* ── MAP FRAME ────────────────────────────────────────────────── */
+.sf-map-section { padding-bottom: 60px; }
+
+.sf-map-frame {
+  border: 1px solid var(--tc-line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 16px 44px rgba(43, 33, 24, 0.1);
+}
+
+.sf-map-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--tc-line);
+  background: linear-gradient(180deg, #fff, var(--tc-cream-2));
+}
+
+.sf-map-caption h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1rem;
+  color: var(--tc-ink);
+  margin: 0;
+}
+
+.sf-map-caption h3 svg { color: var(--tc-terra); }
+
+.sf-map-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sf-map-legend .lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--tc-ink-2);
+}
+
+.sf-map-legend .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sf-map-body { height: 620px; position: relative; }
+
+/* ── ZONE SIDE PANEL ──────────────────────────────────────────── */
+@keyframes sfSlideIn {
+  from { transform: translateX(60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.sf-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  max-width: 92vw;
+  height: 100vh;
+  background: var(--tc-cream);
+  border-left: 1px solid var(--tc-line);
+  box-shadow: -16px 0 50px rgba(43, 33, 24, 0.22);
+  z-index: 9999;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: sfSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-sizing: border-box;
+}
+
+.sf-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sf-panel-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--tc-sea);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sf-panel-close {
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  color: var(--tc-ink-2);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.sf-panel-close:hover { border-color: var(--tc-terra); color: var(--tc-terra); }
+
+.sf-panel h2 {
+  font-family: "Libre Baskerville", serif;
+  color: var(--tc-ink);
+  font-size: 1.55rem;
+  margin: 0 0 0.6rem;
+  line-height: 1.3;
+}
+
+.sf-panel-badges {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.sf-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+.sf-badge-src {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--tc-cream-2);
+  border: 1px solid var(--tc-line);
+  color: var(--tc-brown);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sf-panel-card {
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 4px 16px rgba(43, 33, 24, 0.04);
+}
+
+.sf-panel-card label {
+  color: var(--tc-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sf-panel-card p {
+  color: var(--tc-ink-2);
+  font-size: 0.94rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.sf-panel-card h4 {
+  color: var(--tc-terra);
+  font-family: "Libre Baskerville", serif;
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sf-panel-note {
+  color: var(--tc-muted);
+  font-size: 0.74rem;
+  margin-top: 8px;
+  display: block;
+  text-align: center;
+  font-style: italic;
+}
+
+.sf-panel-foot {
+  padding-top: 1rem;
+  border-top: 1px solid var(--tc-line);
+}
+
+.sf-panel-foot button {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--tc-terra);
+  color: #FAF5EC;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(196, 85, 46, 0.3);
+  transition: background 0.2s ease;
+}
+
+.sf-panel-foot button:hover { background: var(--tc-terra-deep); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sf-hero-grid { flex-direction: column; align-items: flex-start; }
+  .sf-hero-stats { align-self: stretch; }
+  .sf-hero-stat { flex: 1 1 0; padding: 14px 10px; }
+  .sf-map-body { height: 70vh; }
+  .sf-map-caption { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .sf-search input { padding-right: 110px; }
+}
+
+/* ── CHART INTERACTIVITY EXTRAS ───────────────────────────────── */
+.sf-hero-stat-hour {
+  background: var(--tc-terra-soft);
+}
+
+.sf-hero-stat-hour b {
+  font-size: 1.15rem;
+  color: var(--tc-terra-deep);
+  white-space: nowrap;
+}
+
+.sf-badge-clear {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: "IBM Plex Sans", sans-serif;
+  border: 1px solid var(--tc-terra);
+  background: var(--tc-terra-soft);
+  color: var(--tc-terra-deep);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sf-badge-clear:hover {
+  background: var(--tc-terra);
+  color: #FAF5EC;
+}
+
+.sf-hero .sf-title-sm { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.sf-hero { padding-top: 2.5rem; }

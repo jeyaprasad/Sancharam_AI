@@ -1,0 +1,203 @@
+/* ══ Guardian live trip tracker — Terra Coast (aligned with Kaaval / Uncharted) ══ */
+.gtrk {
+  --cream: #FAF5EC;
+  --white: #FFFDF8;
+  --rust: #C4552E;
+  --rust-tint: rgba(196, 85, 46, 0.1);
+  --ink: #2B2118;
+  --muted: #97836A;
+  --mid: #55452F;
+  --green: #2E6E63;
+  --green-tint: rgba(46, 110, 99, 0.1);
+  --line: 1px solid #E4D8C2;
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", system-ui, sans-serif;
+  color: var(--ink);
+}
+.gtrk * { box-sizing: border-box; }
+.gtrk-mono { font-family: "Space Mono", monospace; font-size: 11.5px; color: var(--muted); }
+
+/* ── Session bar ── */
+.gtrk-bar {
+  background: var(--white);
+  border: var(--line);
+  border-radius: 18px;
+  padding: 1.15rem 1.4rem;
+  margin-bottom: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.gtrk-bar-title {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-size: 1.05rem; font-weight: 600; margin: 0 0 4px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  color: var(--ink);
+}
+.gtrk-bar-title svg { color: var(--rust); }
+.gtrk-bar-sub { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.55; max-width: 62ch; }
+.gtrk-bar-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* ── Buttons ── */
+.gtrk-btn {
+  font-family: inherit; font-size: 12.5px; font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 9px 18px; border-radius: 30px;
+  cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.gtrk-btn-ghost { background: var(--cream); color: var(--mid); border: var(--line); }
+.gtrk-btn-ghost:hover { background: var(--rust-tint); }
+.gtrk-btn-ghost:disabled { opacity: 0.55; cursor: not-allowed; }
+.gtrk-btn-rust { background: var(--rust); color: #fff; border: 0.5px solid var(--rust); }
+.gtrk-btn-green { background: var(--green); color: #fff; border: 0.5px solid var(--green); }
+.gtrk-btn-line { background: var(--white); color: var(--ink); border: var(--line); }
+.gtrk-btn-rust:hover, .gtrk-btn-green:hover, .gtrk-btn-line:hover { opacity: 0.88; }
+
+.gtrk-toast {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--green-tint); border: 1px solid rgba(46, 110, 99, 0.28);
+  color: var(--green); border-radius: 30px;
+  padding: 9px 16px; font-size: 12px; margin-bottom: 1.2rem;
+}
+
+/* ── Cards ── */
+.gtrk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.gtrk-card {
+  background: var(--white); border: var(--line); border-radius: 18px;
+  padding: 1.4rem;
+  display: flex; flex-direction: column; gap: 0.9rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.gtrk-card.is-active { border-color: rgba(46, 110, 99, 0.45); box-shadow: 0 6px 22px rgba(46, 110, 99, 0.09); }
+.gtrk-card-center { align-items: center; text-align: center; }
+.gtrk-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+.gtrk-card-title {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-size: 1rem; font-weight: 600; margin: 0;
+  display: flex; align-items: center; gap: 8px; color: var(--ink);
+}
+.gtrk-card-title svg { color: var(--rust); flex: none; }
+.gtrk-tag {
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 30px;
+  background: var(--cream); color: var(--muted); border: var(--line); white-space: nowrap;
+}
+.gtrk-tag.is-on { background: var(--green-tint); color: var(--green); border-color: rgba(46, 110, 99, 0.28); }
+.gtrk-meta { font-family: "Space Mono", monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+.gtrk-copy { font-size: 12.5px; line-height: 1.65; color: var(--mid); margin: 0; }
+
+/* Switch */
+.gtrk-switch-row { display: flex; align-items: center; gap: 12px; }
+.gtrk-switch-row strong { font-size: 13px; font-weight: 500; color: var(--mid); }
+.gtrk-switch {
+  width: 46px; height: 25px; border-radius: 30px; border: none; cursor: pointer;
+  background: #E4D8C2; position: relative; transition: background 0.25s; flex: none;
+}
+.gtrk-switch span {
+  position: absolute; top: 3px; left: 3px;
+  width: 19px; height: 19px; border-radius: 50%; background: var(--white);
+  box-shadow: 0 1px 3px rgba(43, 33, 24, 0.25);
+  transition: transform 0.25s ease;
+}
+.gtrk-switch.is-on { background: var(--green); }
+.gtrk-switch.is-on span { transform: translateX(21px); }
+
+.gtrk-note {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  background: var(--cream); border: var(--line); border-radius: 12px;
+  padding: 10px 13px;
+}
+.gtrk-note svg { color: var(--rust); flex: none; }
+.gtrk-note-label { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* Risk ring */
+.gtrk-ring { position: relative; width: 180px; height: 180px; margin: 0.4rem auto; }
+.gtrk-ring-label {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.gtrk-score { font-family: "Libre Baskerville", serif; font-size: 2.3rem; line-height: 1; }
+.gtrk-score-sub {
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-top: 6px;
+}
+.gtrk-nearest {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-size: 12px; color: var(--mid); margin: 0 0 0.2rem;
+}
+.gtrk-nearest svg { color: var(--rust); }
+
+/* SOS panel */
+.gtrk-form { display: block; }
+.gtrk-label {
+  display: block; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.gtrk-field { display: flex; gap: 8px; }
+.gtrk-input {
+  flex: 1; min-width: 0;
+  font-family: inherit; font-size: 12.5px;
+  padding: 9px 14px; border: var(--line); border-radius: 30px;
+  background: var(--cream); color: var(--ink); outline: none;
+}
+.gtrk-input:focus { border-color: var(--rust); box-shadow: 0 0 0 3px rgba(196, 85, 46, 0.15); }
+.gtrk-saved { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--green); margin-top: 7px; }
+
+.gtrk-stack { display: flex; flex-direction: column; gap: 9px; margin-top: auto; }
+.gtrk-sos {
+  position: relative; overflow: hidden; user-select: none;
+  font-family: inherit; font-size: 12.5px; font-weight: 500;
+  padding: 13px 16px; border-radius: 30px; cursor: pointer;
+  background: var(--rust-tint); border: 1.5px solid var(--rust); color: var(--rust);
+}
+.gtrk-sos.is-firing { background: var(--rust); color: #fff; }
+.gtrk-sos-fill { position: absolute; inset: 0 auto 0 0; background: rgba(196, 85, 46, 0.22); transition: width 0.05s linear; }
+.gtrk-sos-text { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+
+/* ── Embedded mode (inside Kaaval slide) ── */
+.gtrk-embed { background: transparent; color: var(--ink, #2B2118); }
+
+/* ── Live trip bar (fixed top) — Terra Coast ── */
+.gtrk-livebar {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 10000;
+  background: #FFFDF8;
+  border-bottom: 1px solid #E4D8C2;
+  box-shadow: 0 6px 24px rgba(43, 33, 24, 0.1);
+  padding: 0.65rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; flex-wrap: wrap;
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", system-ui, sans-serif;
+}
+.gtrk-livebar.is-sos { background: #C4552E; border-bottom-color: #C4552E; }
+.gtrk-livebar.is-sos .gtrk-livebar-info { color: #fff; }
+.gtrk-livebar-info {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: #2B2118;
+}
+.gtrk-livebar-info svg { color: #C4552E; flex: none; }
+.gtrk-livebar.is-sos .gtrk-livebar-info svg { color: #fff; }
+.gtrk-livebar-actions { display: flex; gap: 8px; align-items: center; }
+.gtrk-livebar-btn {
+  font-family: inherit; font-size: 12px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 30px; cursor: pointer;
+  background: #FAF5EC; color: #55452F; border: 1px solid #E4D8C2;
+  transition: background 0.2s, opacity 0.2s;
+}
+.gtrk-livebar-btn:hover { background: rgba(196, 85, 46, 0.1); }
+.gtrk-livebar-btn.is-rust { background: #C4552E; color: #fff; border-color: #C4552E; }
+.gtrk-livebar-btn.is-rust:hover { opacity: 0.88; }
+
+@media (max-width: 720px) {
+  .gtrk-bar { padding: 1rem 1.1rem; }
+  .gtrk-bar-actions .gtrk-btn { flex: 1 1 auto; }
+}

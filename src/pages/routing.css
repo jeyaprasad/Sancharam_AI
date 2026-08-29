@@ -1,0 +1,819 @@
+/* ═══════════════════════════════════════════════════════════════
+   கவசம் · ROUTING — Terra Coast design (matches Uncharted / Kaaval)
+   Cream #FAF5EC · Terracotta #C4552E · Sea-green #2E6E63 · Brown #8C6A4F
+   Headings: Libre Baskerville / Noto Serif Tamil · Body: IBM Plex Sans
+   ═══════════════════════════════════════════════════════════════ */
+
+.rt-page {
+  --tc-cream: #FAF5EC;
+  --tc-cream-2: #F3ECDD;
+  --tc-terra: #C4552E;
+  --tc-terra-deep: #A03F1F;
+  --tc-terra-soft: rgba(196, 85, 46, 0.1);
+  --tc-sea: #2E6E63;
+  --tc-sea-soft: rgba(46, 110, 99, 0.1);
+  --tc-brown: #8C6A4F;
+  --tc-ink: #2B2118;
+  --tc-ink-2: #55452F;
+  --tc-muted: #97836A;
+  --tc-line: #E4D8C2;
+
+  background:
+    radial-gradient(1100px 500px at 85% -5%, rgba(196, 85, 46, 0.07), transparent 60%),
+    radial-gradient(900px 480px at -10% 30%, rgba(46, 110, 99, 0.06), transparent 60%),
+    var(--tc-cream);
+  color: var(--tc-ink);
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.rt-wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+  box-sizing: border-box;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.rt-hero {
+  margin: 0 calc(-1 * clamp(20px, 4vw, 56px));
+  padding: clamp(120px, 15vh, 150px) clamp(20px, 4vw, 56px) 34px;
+  border-bottom: 1px solid var(--tc-line);
+  background-image:
+    linear-gradient(120deg, rgba(250, 245, 236, 0.94) 0%, rgba(250, 245, 236, 0.78) 42%, rgba(250, 245, 236, 0.55) 100%),
+    url("/__l5e/assets-v1/1ae8b2d8-9104-4332-b9e9-f6f9495922bc/uncharted-beach.jpg");
+  background-size: cover;
+  background-position: center 62%;
+  background-repeat: no-repeat;
+}
+
+/* Band 1 — title + live stats */
+.rt-band1 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.rt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tc-sea);
+  background: var(--tc-sea-soft);
+  border: 1px solid rgba(46, 110, 99, 0.28);
+  padding: 7px 16px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+
+.rt-eyebrow i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tc-sea);
+}
+
+.rt-h1 { margin: 0 0 14px; line-height: 1.05; }
+
+.rt-h1 .ta {
+  display: block;
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  color: var(--tc-terra);
+  letter-spacing: -0.01em;
+}
+
+.rt-h1 .en {
+  display: block;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.9rem);
+  color: var(--tc-ink);
+  margin-top: 6px;
+}
+
+.rt-sub {
+  font-family: "Libre Baskerville", "Noto Serif Tamil", serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--tc-ink-2);
+  margin: 0;
+}
+
+/* Live stat strip — white card stats like Uncharted hero */
+.rt-livepill {
+  display: flex;
+  border: 1px solid var(--tc-line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(43, 33, 24, 0.06);
+}
+
+.rt-livepill > div {
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.rt-livepill > div + div { border-left: 1px solid var(--tc-line); }
+
+.rt-livepill b {
+  display: block;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.5rem;
+  color: var(--tc-terra);
+  line-height: 1.1;
+}
+
+.rt-livepill span {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tc-muted);
+  font-weight: 600;
+}
+
+/* Band 2 — divider */
+.rt-divider {
+  height: 1px;
+  background: var(--tc-line);
+  margin: 30px 0 0;
+}
+
+/* Band 3 — route input panel */
+.rt-band3 {
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin-top: 26px;
+  box-shadow: 0 6px 20px rgba(43, 33, 24, 0.05);
+}
+
+.rt-seclabel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tc-muted);
+  margin-bottom: 16px;
+}
+
+.rt-seclabel::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--tc-line);
+}
+
+.rt-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rt-field {
+  flex: 1 1 240px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--tc-cream);
+  border: 1px solid var(--tc-line);
+  border-radius: 99px;
+  padding: 4px 8px 4px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rt-field:focus-within {
+  border-color: var(--tc-terra);
+  box-shadow: 0 0 0 3px var(--tc-terra-soft);
+}
+
+.rt-field .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.rt-field.is-from .dot { background: var(--tc-sea); }
+.rt-field.is-to .dot { background: var(--tc-terra); }
+
+.rt-field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", sans-serif;
+  font-size: 0.95rem;
+  color: var(--tc-ink);
+  padding: 10px 8px 10px 0;
+}
+
+.rt-field input::placeholder { color: var(--tc-muted); }
+
+.rt-swap {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--tc-ink);
+  color: var(--tc-cream);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.35s ease, background 0.2s ease;
+}
+
+.rt-swap:hover { background: var(--tc-terra); }
+.rt-swap.is-spun { transform: rotate(180deg); }
+
+/* Transport chips */
+.rt-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.rt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 99px;
+  border: 1px solid var(--tc-line);
+  background: var(--tc-cream);
+  color: var(--tc-ink-2);
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rt-chip:hover { border-color: var(--tc-terra); color: var(--tc-terra); }
+
+.rt-chip.is-active {
+  background: var(--tc-terra);
+  border-color: var(--tc-terra);
+  color: #FAF5EC;
+  box-shadow: 0 4px 14px rgba(196, 85, 46, 0.3);
+}
+
+/* Band 4 — context + CTA */
+.rt-band4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--tc-line);
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.rt-context {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--tc-ink-2);
+}
+
+.rt-context.is-empty {
+  font-style: italic;
+  color: var(--tc-muted);
+}
+
+.rt-context .num {
+  font-family: "Libre Baskerville", serif;
+  color: var(--tc-terra);
+  font-weight: 700;
+}
+
+.rt-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 99px;
+  border: none;
+  background: var(--tc-terra);
+  color: #FAF5EC;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(196, 85, 46, 0.3);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rt-cta:hover { background: var(--tc-terra-deep); transform: translateY(-1px); }
+.rt-cta:disabled { opacity: 0.7; cursor: wait; transform: none; }
+
+.rt-spin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(250, 245, 236, 0.4);
+  border-top-color: #FAF5EC;
+  animation: rtSpin 0.7s linear infinite;
+}
+
+@keyframes rtSpin { to { transform: rotate(360deg); } }
+
+/* ── RESULTS GRID ─────────────────────────────────────────────── */
+.rt-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding: 34px 0 20px;
+  animation: rtReveal 0.5s ease both;
+}
+
+@keyframes rtReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rt-card {
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  border-radius: 18px;
+  padding: 26px 28px;
+  box-shadow: 0 4px 18px rgba(43, 33, 24, 0.04);
+  animation: rtCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rtCardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rt-span2 { grid-column: 1 / -1; }
+
+.rt-card-title {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--tc-ink);
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--tc-line);
+}
+
+/* Card 1 — risk score */
+.rt-score { text-align: center; margin-bottom: 22px; }
+
+.rt-score .val {
+  font-family: "Libre Baskerville", serif;
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rt-arc { display: block; margin: 8px auto 4px; }
+
+.rt-arc-track { stroke: var(--tc-cream-2); }
+
+.rt-arc-fill {
+  transition: stroke-dashoffset 0.8s ease-out;
+}
+
+.rt-arc-tick {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 10px;
+  fill: var(--tc-muted);
+}
+
+.rt-verdict {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  margin: 6px 0 0;
+}
+
+/* Explainability bars */
+.rt-bar { margin-bottom: 16px; }
+
+.rt-bar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tc-ink-2);
+  margin-bottom: 6px;
+}
+
+.rt-bar-head b {
+  font-family: "Libre Baskerville", serif;
+}
+
+.rt-bar-track {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--tc-cream-2);
+  overflow: hidden;
+}
+
+.rt-bar-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 99px;
+  animation: rtBarGrow 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rtBarGrow { to { width: var(--w); } }
+
+.rt-bar-note {
+  font-size: 0.74rem;
+  font-style: italic;
+  color: var(--tc-muted);
+  margin: 5px 0 0;
+}
+
+/* Card 2 — route options */
+.rt-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--tc-line);
+  border-left-width: 3px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.rt-opt:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196, 85, 46, 0.45);
+  box-shadow: 0 10px 24px rgba(43, 33, 24, 0.08);
+}
+
+.rt-opt.is-sel {
+  border-color: var(--tc-terra);
+  background: #FFFBF3;
+  box-shadow: 0 0 0 1px var(--tc-terra), 0 10px 24px rgba(196, 85, 46, 0.14);
+}
+
+.rt-opt-ico {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.rt-opt-body { flex: 1; min-width: 0; }
+
+.rt-opt-body h4 {
+  font-family: "Libre Baskerville", serif;
+  font-size: 0.92rem;
+  color: var(--tc-ink);
+  margin: 0 0 2px;
+}
+
+.rt-opt-body p {
+  font-size: 0.8rem;
+  color: var(--tc-brown);
+  font-weight: 600;
+  margin: 0;
+}
+
+.rt-badge {
+  flex: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* Why accordion */
+.rt-why {
+  border-top: 1px solid var(--tc-line);
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.rt-why-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--tc-terra);
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.rt-why-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.rt-why-body.is-open {
+  max-height: 320px;
+  opacity: 1;
+}
+
+.rt-why-body p {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--tc-ink-2);
+  margin: 10px 0 0;
+}
+
+/* Card 3 — map */
+.rt-map {
+  position: relative;
+  height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--tc-line);
+  background: var(--tc-cream-2);
+}
+
+.rt-map .leaflet-container { font-family: "IBM Plex Sans", sans-serif; }
+
+.rt-map-legend {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--tc-line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 18px rgba(43, 33, 24, 0.1);
+}
+
+.rt-map-legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--tc-ink-2);
+}
+
+.rt-map-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Card 4 — zones */
+.rt-zone-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.rt-zone {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 4px;
+  border-bottom: 1px solid var(--tc-line);
+}
+
+.rt-zone:last-child { border-bottom: none; }
+
+.rt-zone > i {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.rt-zone-body { flex: 1; min-width: 0; }
+
+.rt-zone-body b {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--tc-ink);
+}
+
+.rt-zone-body span {
+  font-size: 0.74rem;
+  color: var(--tc-muted);
+}
+
+.rt-zone-body em {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--tc-muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.rt-zone .dist {
+  flex: none;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--tc-terra);
+}
+
+.rt-zone-none {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 36px 0;
+  text-align: center;
+}
+
+.rt-zone-none .ck {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--tc-sea-soft);
+  color: var(--tc-sea);
+}
+
+.rt-zone-none p {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  color: var(--tc-sea);
+  margin: 0;
+}
+
+/* ── FOOTER NAV ───────────────────────────────────────────────── */
+.rt-footnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--tc-line);
+  padding: 26px 0 60px;
+  margin-top: 14px;
+}
+
+.rt-footnav small {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tc-muted);
+  font-weight: 600;
+}
+
+.rt-footnav nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rt-footnav nav a {
+  padding: 8px 16px;
+  border-radius: 99px;
+  border: 1px solid var(--tc-line);
+  background: #fff;
+  color: var(--tc-ink-2);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.rt-footnav nav a:hover { border-color: var(--tc-terra); color: var(--tc-terra); }
+
+.rt-footnav nav a.is-active {
+  background: var(--tc-terra-soft);
+  border-color: rgba(196, 85, 46, 0.4);
+  color: var(--tc-terra);
+  font-weight: 700;
+}
+
+/* ── TOAST ────────────────────────────────────────────────────── */
+.rt-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  background: var(--tc-ink);
+  color: var(--tc-cream);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 99px;
+  box-shadow: 0 14px 34px rgba(43, 33, 24, 0.3);
+  z-index: 1000;
+  animation: rtToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rtToastIn {
+  from { opacity: 0; transform: translate(-50%, 14px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .rt-results { grid-template-columns: 1fr; }
+  .rt-band1 { align-items: flex-start; }
+  .rt-livepill { width: 100%; }
+  .rt-livepill > div { flex: 1; padding: 14px 10px; }
+  .rt-swap { transform: rotate(90deg); }
+  .rt-swap.is-spun { transform: rotate(270deg); }
+}
+
+@media (max-width: 560px) {
+  .rt-band4 { flex-direction: column; align-items: stretch; }
+  .rt-cta { justify-content: center; }
+  .rt-map-legend { position: static; margin-top: 10px; }
+  .rt-map { height: auto; }
+  .rt-map .leaflet-container { height: 260px !important; }
+}
+
+/* ── Location autocomplete (Chennai → Chengalpattu) ── */
+.rt-field { position: relative; }
+.rt-suggest {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #eadfd2;
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(90, 62, 40, 0.14);
+  max-height: 240px;
+  overflow-y: auto;
+}
+.rt-suggest li + li { margin-top: 2px; }
+.rt-suggest button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: #3d2f26;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.rt-suggest button:hover {
+  background: #fbe9de;
+  color: #b45a2b;
+}
+
+/* ── Out-of-corridor error ── */
+.rt-error {
+  margin: 14px 0 0;
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #FDEDE8;
+  border: 1px solid #E0A98E;
+  border-left: 4px solid #B4451F;
+  border-radius: 12px;
+  color: #7A2E12;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  animation: rt-err-in 0.25s ease;
+}
+.rt-error i {
+  font-style: normal;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+@keyframes rt-err-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

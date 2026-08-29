@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from '@/lib/router-compat';
 import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -19,6 +19,9 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import { Activity, Check, Link2, MapPin, Phone, Route, ShieldCheck, Siren, Zap } from 'lucide-react';
+import '@/pages/guardian-tracker.css';
+
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -56,7 +59,7 @@ const SIMULATED_ROUTE_POINTS = [
   [13.0532, 80.2833]  // Marina Beach
 ];
 
-const GuardianPage = () => {
+const GuardianPage = ({ embedded = false }) => {
   const { tripId } = useParams(); // Public Live Tracking URL (/guardian/track/:tripId or /guardian/:tripId)
   const userLocation = useAppStore((state) => state.userLocation);
   const setUserLocation = useAppStore((state) => state.setUserLocation);
@@ -414,9 +417,10 @@ const GuardianPage = () => {
 
   // Ring calculations
   const score = riskData?.score ?? 0;
-  let ringColor = '#2ec4b6';
-  if (score > 60) ringColor = '#ff4d4d';
-  else if (score >= 30) ringColor = '#ffd700';
+  let ringColor = '#2E6E63';
+  if (score > 60) ringColor = '#C4552E';
+  else if (score >= 30) ringColor = '#B98A2E';
+
 
   const strokeWidth = 12;
   const radius = 70;
@@ -561,68 +565,29 @@ const GuardianPage = () => {
 
   // ── TRAVELLER MODE VIEW (Default Page) ──
   return (
-    <div className="features-container">
+    <div className={embedded ? 'gtrk-embed' : 'features-container'}>
       {/* ── PERSISTENT TOP BANNER WHEN TRIP IS ACTIVE ── */}
       {isTripActive && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            background: tripStatus === 'SOS' ? '#ff4d4d' : 'linear-gradient(90deg, #1e1e2d, #14141f)',
-            color: tripStatus === 'SOS' ? '#fff' : '#FFD700',
-            borderBottom: '2px solid #FFD700',
-            padding: '0.75rem 1.5rem',
-            display: 'flex',
-            justify: 'space-between',
-            alignItems: 'center',
-            zIndex: 10000,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
-          }}
-        >
-          <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>
-            🛡️ Guardian active — sharing with {emergencyPhone} · ETA {etaTime}
+        <div className={`gtrk-livebar${tripStatus === 'SOS' ? ' is-sos' : ''}`}>
+          <div className="gtrk-livebar-info">
+            <ShieldCheck size={15} strokeWidth={1.8} />
+            Guardian active — sharing with {emergencyPhone} · ETA {etaTime}
           </div>
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-            <button
-              type="button"
-              onClick={handleShareTrackerLink}
-              style={{
-                background: '#2ec4b6',
-                color: '#000',
-                border: 'none',
-                padding: '5px 14px',
-                borderRadius: '14px',
-                fontSize: '0.8rem',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}
-            >
-              🔗 Tracker Link
+          <div className="gtrk-livebar-actions">
+            <button type="button" onClick={handleShareTrackerLink} className="gtrk-livebar-btn">
+              <Link2 size={13} strokeWidth={1.8} />
+              Tracker link
             </button>
-
-            <button
-              type="button"
-              onClick={handleArrivedAtDestination}
-              style={{
-                background: '#FFD700',
-                color: '#000',
-                border: 'none',
-                padding: '5px 14px',
-                borderRadius: '14px',
-                fontSize: '0.8rem',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}
-            >
-              I've Arrived ✅
+            <button type="button" onClick={handleArrivedAtDestination} className="gtrk-livebar-btn is-rust">
+              <Check size={13} strokeWidth={2} />
+              I've arrived
             </button>
           </div>
         </div>
       )}
 
       {/* ── HERO BANNER ── */}
+      {!embedded && (
       <div className="features-hero-bg">
         <Navbar />
 
@@ -636,10 +601,11 @@ const GuardianPage = () => {
           </div>
         </section>
       </div>
+      )}
 
-      <div className="wrap" style={{ padding: '3rem 2rem 5rem 2rem' }}>
+      <div className="wrap" style={{ padding: embedded ? '1.25rem 0 2rem 0' : '3rem 2rem 5rem 2rem' }}>
         {/* ── FIREBASE CONFIGURATION FALLBACK NOTICE BANNER ── */}
-        {!isFbConfigured && (
+        {!embedded && !isFbConfigured && (
           <div
             style={{
               background: '#1a1a28',
@@ -668,204 +634,102 @@ VITE_FIREBASE_APP_ID=your_app_id`}
           </div>
         )}
 
-        {/* ── DEV SIMULATION & TRIP CONTROLS BAR ── */}
-        <div
-          style={{
-            background: '#14141d',
-            border: '1px solid #FFD700',
-            borderRadius: '16px',
-            padding: '1.25rem 1.75rem',
-            marginBottom: '2.5rem',
-            display: 'flex',
-            justify: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            boxShadow: '0 8px 25px rgba(255, 215, 0, 0.15)'
-          }}
-        >
-          <div>
-            <h3 style={{ color: '#fff', fontSize: '1.2rem', margin: '0 0 4px 0', fontFamily: "'Bebas Neue', cursive" }}>
-              🚀 Live Guardian Trip Session ({activeTripId})
-            </h3>
-            <p style={{ color: '#aaa', fontSize: '0.85rem', margin: 0 }}>
-              Share your live route with emergency contacts & auto-disarm within 200m of destination.
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-            <button
-              type="button"
-              onClick={handleSimulateJourney}
-              disabled={isSimulating}
-              style={{
-                background: isSimulating ? '#555' : '#3b82f6',
-                color: '#fff',
-                border: 'none',
-                padding: '0.75rem 1.25rem',
-                borderRadius: '50px',
-                fontWeight: 'bold',
-                fontSize: '0.88rem',
-                cursor: isSimulating ? 'not-allowed' : 'pointer'
-              }}
-            >
-              {isSimulating ? 'Simulating Journey...' : '⚡ Simulate Journey (Dev Demo)'}
-            </button>
-
-            {!isTripActive ? (
-              <button
-                type="button"
-                onClick={handleStartTrip}
-                style={{
-                  background: 'var(--accent, #FFD700)',
-                  color: '#000',
-                  border: 'none',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '50px',
-                  fontWeight: 'bold',
-                  fontSize: '0.88rem',
-                  cursor: 'pointer'
-                }}
-              >
-                Start Active Trip 🛡️
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleShareTrackerLink}
-                style={{
-                  background: '#2ec4b6',
-                  color: '#000',
-                  border: 'none',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '50px',
-                  fontWeight: 'bold',
-                  fontSize: '0.88rem',
-                  cursor: 'pointer'
-                }}
-              >
-                🔗 Share Tracker Link
-              </button>
-            )}
-          </div>
-        </div>
-
-        {(copiedSuccess || shareSuccessToast) && (
-          <div style={{ background: 'rgba(46, 196, 182, 0.15)', border: '1px solid #2ec4b6', color: '#2ec4b6', padding: '0.75rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
-            ✓ Live Tracker Link Copied & Web Share Menu Opened!
-          </div>
-        )}
-
-        {/* ── EXISTING THREE PANELS GRID ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-          {/* SECTION 1: GUARDIAN MODE TOGGLE */}
-          <div
-            style={{
-              background: '#14141d',
-              border: isGuardianActive ? '2px solid #2ec4b6' : '1px solid #282838',
-              borderRadius: '16px',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
-              boxShadow: isGuardianActive ? '0 0 25px rgba(46, 196, 182, 0.2)' : '0 8px 30px rgba(0,0,0,0.4)',
-              transition: 'all 0.3s ease'
-            }}
-          >
+        <div className="gtrk">
+          {/* ── TRIP SESSION BAR ── */}
+          <div className="gtrk-bar">
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: 0, fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                  🛡️ Guardian Mode
+              <h3 className="gtrk-bar-title">
+                <Route size={16} strokeWidth={1.6} />
+                Live Guardian trip session
+              </h3>
+              <p className="gtrk-bar-sub">
+                Share your live route with emergency contacts &amp; auto-disarm within 200m of your destination.
+              </p>
+            </div>
+
+            <div className="gtrk-bar-actions">
+              <button type="button" onClick={handleSimulateJourney} disabled={isSimulating} className="gtrk-btn gtrk-btn-ghost">
+                <Zap size={14} strokeWidth={1.7} />
+                {isSimulating ? 'Simulating journey…' : 'Simulate journey'}
+              </button>
+
+              {!isTripActive ? (
+                <button type="button" onClick={handleStartTrip} className="gtrk-btn gtrk-btn-rust">
+                  <ShieldCheck size={14} strokeWidth={1.7} />
+                  Start active trip
+                </button>
+              ) : (
+                <button type="button" onClick={handleShareTrackerLink} className="gtrk-btn gtrk-btn-green">
+                  <Link2 size={14} strokeWidth={1.7} />
+                  Share tracker link
+                </button>
+              )}
+            </div>
+          </div>
+
+          {(copiedSuccess || shareSuccessToast) && (
+            <div className="gtrk-toast">
+              <Check size={14} strokeWidth={2} />
+              Live tracker link copied — share menu opened.
+            </div>
+          )}
+
+          {/* ── THREE PANELS ── */}
+          <div className="gtrk-grid">
+            {/* GUARDIAN MODE TOGGLE */}
+            <div className={`gtrk-card${isGuardianActive ? ' is-active' : ''}`}>
+              <div className="gtrk-card-head">
+                <h3 className="gtrk-card-title">
+                  <ShieldCheck size={16} strokeWidth={1.6} />
+                  காவல் நிலை · Guardian mode
                 </h3>
-                <span
-                  style={{
-                    background: isGuardianActive ? 'rgba(46, 196, 182, 0.2)' : 'rgba(255, 255, 255, 0.08)',
-                    color: isGuardianActive ? '#2ec4b6' : '#888',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '0.75rem',
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px'
-                  }}
-                >
-                  {isGuardianActive ? 'ACTIVE WATCH' : 'DISARMED'}
+                <span className={`gtrk-tag${isGuardianActive ? ' is-on' : ''}`}>
+                  {isGuardianActive ? 'Active watch' : 'Disarmed'}
                 </span>
               </div>
 
-              <p style={{ color: '#aaa', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '2rem' }}>
-                When Guardian Mode is turned ON, Sancharam monitors your live location in the background, updating your safety coordinates every 10 seconds.
+              <p className="gtrk-copy">
+                When Guardian mode is ON, Sancharam watches your live location in the background and refreshes your
+                safety coordinates every 10 seconds.
               </p>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.5rem' }}>
+              <div className="gtrk-switch-row">
                 <button
                   type="button"
                   onClick={() => setIsGuardianActive(!isGuardianActive)}
-                  style={{
-                    width: '80px',
-                    height: '42px',
-                    borderRadius: '50px',
-                    background: isGuardianActive ? '#2ec4b6' : '#333345',
-                    border: 'none',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    transition: 'background 0.3s ease',
-                    boxShadow: isGuardianActive ? '0 0 15px rgba(46, 196, 182, 0.5)' : 'none'
-                  }}
+                  className={`gtrk-switch${isGuardianActive ? ' is-on' : ''}`}
+                  aria-pressed={isGuardianActive}
+                  aria-label="Toggle Guardian mode"
                 >
-                  <div
-                    style={{
-                      width: '34px',
-                      height: '34px',
-                      borderRadius: '50%',
-                      background: '#fff',
-                      position: 'absolute',
-                      top: '4px',
-                      left: isGuardianActive ? '42px' : '4px',
-                      transition: 'left 0.3s ease',
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.3)'
-                    }}
-                  />
+                  <span />
                 </button>
-                <span style={{ color: isGuardianActive ? '#fff' : '#aaa', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                  {isGuardianActive ? 'Protection Enabled' : 'Enable Guardian'}
+                <strong>{isGuardianActive ? 'Protection enabled' : 'Enable Guardian'}</strong>
+              </div>
+
+              <div className="gtrk-note">
+                <MapPin size={13} strokeWidth={1.7} />
+                <span className="gtrk-note-label">GPS</span>
+                <span className="gtrk-mono">
+                  {userLocation ? `${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}` : 'Waiting for signal…'}
                 </span>
               </div>
             </div>
 
-            <div style={{ background: '#1a1a28', padding: '1rem', borderRadius: '10px', fontSize: '0.85rem', color: '#ccc' }}>
-              <strong style={{ color: '#FFD700' }}>GPS Coordinates:</strong>{' '}
-              {userLocation ? `${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}` : 'Waiting for GPS signal...'}
-            </div>
-          </div>
-
-          {/* SECTION 2: LIVE RISK INDICATOR */}
-          <div
-            style={{
-              background: '#14141d',
-              border: '1px solid #282838',
-              borderRadius: '16px',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justify: 'space-between',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.4)'
-            }}
-          >
-            <div style={{ width: '100%', textAlign: 'center' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: 0, fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                  ⚡ Live Risk Indicator
+            {/* LIVE RISK INDICATOR */}
+            <div className="gtrk-card gtrk-card-center">
+              <div className="gtrk-card-head">
+                <h3 className="gtrk-card-title">
+                  <Activity size={16} strokeWidth={1.6} />
+                  நுண்ணறிவு · Live risk
                 </h3>
-                <span style={{ fontSize: '0.75rem', color: '#777' }}>
-                  Auto-updates 30s {lastRiskFetched && `(${lastRiskFetched})`}
+                <span className="gtrk-meta">
+                  30s {lastRiskFetched && `· ${lastRiskFetched}`}
                 </span>
               </div>
 
-              <div style={{ position: 'relative', width: '180px', height: '180px', margin: '1.5rem auto' }}>
+              <div className="gtrk-ring">
                 <svg width="180" height="180" viewBox="0 0 180 180" style={{ transform: 'rotate(-90deg)' }}>
-                  <circle cx="90" cy="90" r={radius} stroke="#222233" strokeWidth={strokeWidth} fill="transparent" />
+                  <circle cx="90" cy="90" r={radius} stroke="#E4D8C2" strokeWidth={strokeWidth} fill="transparent" />
                   <circle
                     cx="90"
                     cy="90"
@@ -879,181 +743,82 @@ VITE_FIREBASE_APP_ID=your_app_id`}
                     style={{ transition: 'stroke-dashoffset 0.8s ease, stroke 0.5s ease' }}
                   />
                 </svg>
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justify: 'center'
-                  }}
-                >
-                  <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: ringColor, lineHeight: 1 }}>
-                    {score}
-                  </span>
-                  <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>
-                    {riskData?.risk_level ?? 'Safe'} Risk
-                  </span>
+                <div className="gtrk-ring-label">
+                  <span className="gtrk-score" style={{ color: ringColor }}>{score}</span>
+                  <span className="gtrk-score-sub">{riskData?.risk_level ?? 'Safe'} risk</span>
                 </div>
               </div>
 
-              <div style={{ fontSize: '0.9rem', color: '#ccc', textAlign: 'center' }}>
-                <strong>Nearest Focus:</strong> {riskData?.nearest_zones?.[0] ?? 'Chennai Center'}
-              </div>
+              <p className="gtrk-nearest">
+                <MapPin size={13} strokeWidth={1.7} />
+                Nearest focus — {riskData?.nearest_zones?.[0] ?? 'Chennai Center'}
+              </p>
             </div>
-          </div>
 
-          {/* SECTION 3: EMERGENCY CONTACTS PANEL WITH 2-SECOND SOS PRESS-AND-HOLD */}
-          <div
-            style={{
-              background: '#14141d',
-              border: '1px solid #282838',
-              borderRadius: '16px',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.4)'
-            }}
-          >
-            <div>
-              <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '1rem', fontFamily: "'Bebas Neue', cursive", letterSpacing: '1px' }}>
-                🚨 Emergency SOS Panel
-              </h3>
+            {/* EMERGENCY SOS PANEL */}
+            <div className="gtrk-card">
+              <div className="gtrk-card-head">
+                <h3 className="gtrk-card-title">
+                  <Siren size={16} strokeWidth={1.6} />
+                  அவசரம் · Emergency SOS
+                </h3>
+              </div>
 
-              <form onSubmit={handleSavePhone} style={{ marginBottom: '1.25rem' }}>
-                <label style={{ display: 'block', color: '#FFD700', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
-                  Saved Emergency Contact Phone
-                </label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <form onSubmit={handleSavePhone} className="gtrk-form">
+                <label className="gtrk-label" htmlFor="gtrk-phone">Emergency contact</label>
+                <div className="gtrk-field">
                   <input
+                    id="gtrk-phone"
                     type="text"
                     value={emergencyPhone}
                     onChange={(e) => setEmergencyPhone(e.target.value)}
                     required
                     placeholder="+91 98765 43210"
-                    style={{
-                      flex: 1,
-                      padding: '0.7rem 0.9rem',
-                      background: '#1a1a26',
-                      border: '1px solid #33334d',
-                      borderRadius: '8px',
-                      color: '#fff',
-                      fontSize: '0.95rem',
-                      outline: 'none'
-                    }}
+                    className="gtrk-input"
                   />
-                  <button
-                    type="submit"
-                    style={{
-                      padding: '0.7rem 1rem',
-                      background: '#33334d',
-                      color: '#FFD700',
-                      border: '1px solid #555577',
-                      borderRadius: '8px',
-                      fontWeight: 'bold',
-                      fontSize: '0.85rem',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Save
-                  </button>
+                  <button type="submit" className="gtrk-btn gtrk-btn-ghost">Save</button>
                 </div>
                 {savedSuccess && (
-                  <span style={{ color: '#2ec4b6', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>
-                    ✓ Contact saved to localStorage!
-                  </span>
+                  <span className="gtrk-saved"><Check size={12} strokeWidth={2} /> Contact saved on this device</span>
                 )}
               </form>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ position: 'relative' }}>
-                  <button
-                    type="button"
-                    onMouseDown={handleSosMouseDown}
-                    onMouseUp={handleSosMouseUp}
-                    onMouseLeave={handleSosMouseUp}
-                    onTouchStart={handleSosMouseDown}
-                    onTouchEnd={handleSosMouseUp}
-                    style={{
-                      width: '100%',
-                      padding: '1rem',
-                      background: tripStatus === 'SOS' ? '#ff1a1a' : '#ff4d4d',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '10px',
-                      fontWeight: 'bold',
-                      fontSize: '1.05rem',
-                      cursor: 'pointer',
-                      textTransform: 'uppercase',
-                      letterSpacing: '1px',
-                      boxShadow: '0 4px 15px rgba(255, 77, 77, 0.4)',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      userSelect: 'none'
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        height: '100%',
-                        width: `${sosHoldProgress}%`,
-                        background: 'rgba(255, 255, 255, 0.35)',
-                        transition: 'width 0.05s linear'
-                      }}
-                    />
-                    <span style={{ position: 'relative', zIndex: 2 }}>
-                      {sosHoldProgress > 0 ? `HOLD SOS (${Math.round((2000 - (sosHoldProgress / 100) * 2000) / 1000 * 10) / 10}s)...` : '🚨 HOLD 2 SECONDS FOR EMERGENCY SOS'}
-                    </span>
-                  </button>
-                </div>
-
-                <a
-                  href="tel:100"
-                  style={{
-                    padding: '0.85rem',
-                    background: '#33334d',
-                    color: '#fff',
-                    textAlign: 'center',
-                    borderRadius: '10px',
-                    fontWeight: 'bold',
-                    fontSize: '0.95rem',
-                    textDecoration: 'none',
-                    display: 'block'
-                  }}
-                >
-                  📞 Call Police Control (100)
-                </a>
-
+              <div className="gtrk-stack">
                 <button
                   type="button"
-                  onClick={handleShareTrackerLink}
-                  style={{
-                    padding: '0.85rem',
-                    background: '#2ec4b6',
-                    color: '#000',
-                    border: 'none',
-                    borderRadius: '10px',
-                    fontWeight: 'bold',
-                    fontSize: '0.95rem',
-                    cursor: 'pointer'
-                  }}
+                  onMouseDown={handleSosMouseDown}
+                  onMouseUp={handleSosMouseUp}
+                  onMouseLeave={handleSosMouseUp}
+                  onTouchStart={handleSosMouseDown}
+                  onTouchEnd={handleSosMouseUp}
+                  className={`gtrk-sos${tripStatus === 'SOS' ? ' is-firing' : ''}`}
                 >
-                  🔗 Share Live Tracker Link
+                  <span className="gtrk-sos-fill" style={{ width: `${sosHoldProgress}%` }} />
+                  <span className="gtrk-sos-text">
+                    <Siren size={15} strokeWidth={1.8} />
+                    {sosHoldProgress > 0
+                      ? `Hold SOS (${Math.round((2000 - (sosHoldProgress / 100) * 2000) / 100) / 10}s)…`
+                      : 'Hold 2 seconds for SOS'}
+                  </span>
+                </button>
+
+                <a href="tel:100" className="gtrk-btn gtrk-btn-line">
+                  <Phone size={14} strokeWidth={1.7} />
+                  Call police control · 100
+                </a>
+
+                <button type="button" onClick={handleShareTrackerLink} className="gtrk-btn gtrk-btn-green">
+                  <Link2 size={14} strokeWidth={1.7} />
+                  Share live tracker link
                 </button>
               </div>
             </div>
           </div>
         </div>
+
       </div>
 
-      <Footer />
+      {!embedded && <Footer />}
     </div>
   );
 };

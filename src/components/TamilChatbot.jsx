@@ -1,12 +1,25 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Send,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX,
+  Languages,
+  X,
+  AlertTriangle,
+  User,
+} from 'lucide-react';
+import vaagaiFlower from '@/assets/vaagai-flower.png';
 
 const TamilChatbot = ({ floating = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'வணக்கம்! I am your Sancharam AI travel guide for Tamil Nadu. Ask me anything about places, local food, culture, or safety tips in Tamil or English! (என்னிடம் தமிழில் அல்லது ஆங்கிலத்தில் கேளுங்கள்)'
-    }
+      content:
+        'வணக்கம்! I am Vaagai, your Sancharam travel companion for Tamil Nadu. Ask me anything about places, local food, culture, or safety tips in Tamil or English! (என்னிடம் தமிழில் அல்லது ஆங்கிலத்தில் கேளுங்கள்)',
+    },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,15 +83,15 @@ const TamilChatbot = ({ floating = false }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          language: speechLang === 'ta-IN' ? 'tamil' : 'english'
-        })
+          language: speechLang === 'ta-IN' ? 'tamil' : 'english',
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
         const assistantMsgObj = {
           role: 'assistant',
-          content: data.reply || 'வணக்கம்! How can I assist your Tamil Nadu journey today?'
+          content: data.reply || 'வணக்கம்! How can I assist your Tamil Nadu journey today?',
         };
         setMessages((prev) => [...prev, assistantMsgObj]);
       } else {
@@ -90,8 +103,9 @@ const TamilChatbot = ({ floating = false }) => {
         ...prev,
         {
           role: 'assistant',
-          content: 'வணக்கம்! I am here to help. You can explore heritage spots like Mylapore Kapaleeshwarar Temple (மயிலாப்பூர் கபாலீஸ்வரர் கோவில்) or taste Marina Beach Sundal (மெரினா பீச் சுண்டல்).'
-        }
+          content:
+            'வணக்கம்! I am here to help. You can explore heritage spots like Mylapore Kapaleeshwarar Temple (மயிலாப்பூர் கபாலீஸ்வரர் கோவில்) or taste Marina Beach Sundal (மெரினா பீச் சுண்டல்).',
+        },
       ]);
     } finally {
       setLoading(false);
@@ -153,128 +167,203 @@ const TamilChatbot = ({ floating = false }) => {
     }
   };
 
+  const BotAvatar = ({ size = 30 }) => (
+    <div
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        borderRadius: '50%',
+        background: 'rgba(255, 250, 240, 0.92)',
+        border: '1px solid rgba(180, 83, 10, 0.35)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        boxShadow: '0 2px 8px rgba(180, 83, 10, 0.15)',
+      }}
+    >
+      <img
+        src={vaagaiFlower}
+        alt="Vaagai flower"
+        style={{ width: `${size * 0.72}px`, height: `${size * 0.72}px`, objectFit: 'contain' }}
+      />
+    </div>
+  );
+
   const chatContent = (
     <div
       style={{
-        background: '#ffffff',
-        border: '1px solid var(--line)',
-        borderRadius: '16px',
+        background: 'rgba(253, 248, 240, 0.98)',
+        border: '1px solid rgba(180, 83, 10, 0.22)',
+        borderRadius: '22px',
         width: '100%',
-        maxWidth: floating ? '380px' : '750px',
+        maxWidth: floating ? '384px' : '750px',
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
-        height: floating ? '480px' : '540px',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.08)',
-        overflow: 'hidden'
+        height: floating ? '520px' : '560px',
+        boxShadow: '0 24px 60px -18px rgba(46, 36, 26, 0.4), 0 4px 16px rgba(180, 83, 10, 0.12)',
+        overflow: 'hidden',
+        animation: floating ? 'vaagaiRise 0.32s cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+        backdropFilter: 'blur(8px)',
       }}
     >
-      {/* ── CHATBOT HEADER ── */}
+      {/* ── HEADER ── */}
       <div
         style={{
-          padding: '0.85rem 1.2rem',
-          background: 'var(--wash)',
-          borderBottom: '1px solid var(--line)',
+          padding: '0.9rem 1.1rem',
+          background: 'linear-gradient(120deg, #8a3c06 0%, #b4530a 55%, #c96a1f 100%)',
           display: 'flex',
-          justify: 'space-between',
-          alignItems: 'center'
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'relative',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        {/* subtle texture glow */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(120px 60px at 85% 20%, rgba(255, 236, 200, 0.22), transparent 70%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', position: 'relative' }}>
           <div
             style={{
-              width: '34px',
-              height: '34px',
+              width: '40px',
+              height: '40px',
               borderRadius: '50%',
-              background: 'rgba(255, 215, 0, 0.15)',
-              border: '1px solid #FFD700',
+              background: 'rgba(255, 250, 240, 0.95)',
+              border: '2px solid rgba(255, 236, 200, 0.7)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.1rem'
+              boxShadow: '0 3px 10px rgba(60, 25, 4, 0.35)',
             }}
           >
-            🛕
+            <img
+              src={vaagaiFlower}
+              alt="Vaagai flower"
+              style={{ width: '30px', height: '30px', objectFit: 'contain' }}
+            />
           </div>
           <div>
-            <h3 style={{ color: 'var(--ink)', fontSize: '1rem', margin: 0, fontWeight: 'bold' }}>
-              Sancharam AI
+            <h3
+              style={{
+                color: '#fff8ec',
+                fontSize: '1.05rem',
+                margin: 0,
+                fontFamily: "'Noto Serif Tamil', 'Libre Baskerville', serif",
+                fontWeight: 700,
+                letterSpacing: '0.01em',
+                lineHeight: 1.1,
+              }}
+            >
+              வாகை <span style={{ fontFamily: "'Libre Baskerville', serif", fontStyle: 'italic' }}>Vaagai</span>
             </h3>
-            <span style={{ color: '#FFD700', fontSize: '0.7rem', fontFamily: "'Yatra One', cursive" }}>
-              தமிழ்நாடு வழிகாட்டி
+            <span
+              style={{
+                color: 'rgba(255, 236, 200, 0.85)',
+                fontSize: '0.68rem',
+                fontFamily: "'Libre Baskerville', serif",
+                letterSpacing: '0.06em',
+              }}
+            >
+              உங்கள் தமிழ்நாடு பயண தோழி · travel companion
             </span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          {/* Global Mute / Auto-Speech Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', position: 'relative' }}>
+          {/* Mute / Auto-Speech Toggle */}
           <button
             type="button"
             onClick={() => {
               if (!isMuted) window.speechSynthesis?.cancel();
               setIsMuted(!isMuted);
             }}
-            title={isMuted ? 'Unmute Auto-Speech' : 'Mute Auto-Speech'}
+            title={isMuted ? 'Unmute auto-speech' : 'Mute auto-speech'}
             style={{
-              background: isMuted ? 'rgba(255, 77, 77, 0.15)' : 'rgba(46, 196, 182, 0.15)',
-              color: isMuted ? '#ff4d4d' : '#2ec4b6',
-              border: isMuted ? '1px solid #ff4d4d' : '1px solid #2ec4b6',
-              padding: '3px 8px',
-              borderRadius: '12px',
-              fontSize: '0.7rem',
-              fontWeight: 'bold',
-              cursor: 'pointer'
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: isMuted ? 'rgba(255, 77, 77, 0.25)' : 'rgba(255, 248, 236, 0.16)',
+              color: isMuted ? '#ffd2d2' : '#fff8ec',
+              border: `1px solid ${isMuted ? 'rgba(255, 120, 120, 0.6)' : 'rgba(255, 236, 200, 0.35)'}`,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
             }}
           >
-            {isMuted ? '🔇 Muted' : '🔊 Voice ON'}
+            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
           </button>
 
           {/* Voice Language Selector */}
           <button
             type="button"
             onClick={() => setSpeechLang((prev) => (prev === 'ta-IN' ? 'en-IN' : 'ta-IN'))}
+            title="Toggle voice language"
             style={{
-              background: '#ffffff',
-              color: '#FFD700',
-              border: '1px solid var(--line)',
-              padding: '3px 8px',
-              borderRadius: '12px',
+              height: '32px',
+              padding: '0 10px',
+              borderRadius: '999px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px',
+              background: 'rgba(255, 248, 236, 0.16)',
+              color: '#fff8ec',
+              border: '1px solid rgba(255, 236, 200, 0.35)',
               fontSize: '0.7rem',
-              fontWeight: 'bold',
-              cursor: 'pointer'
+              fontWeight: 600,
+              fontFamily: "'Noto Serif Tamil', 'Libre Baskerville', serif",
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
             }}
           >
-            🌐 {speechLang === 'ta-IN' ? 'தமிழ்' : 'Eng'}
+            <Languages size={13} />
+            {speechLang === 'ta-IN' ? 'தமிழ்' : 'Eng'}
           </button>
 
           {floating && (
             <button
               type="button"
               onClick={() => setIsOpen(false)}
+              title="Close Vaagai"
               style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--muted)',
-                fontSize: '1.2rem',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255, 248, 236, 0.16)',
+                color: '#fff8ec',
+                border: '1px solid rgba(255, 236, 200, 0.35)',
                 cursor: 'pointer',
-                padding: '0 4px'
+                transition: 'all 0.2s ease',
               }}
             >
-              ✕
+              <X size={15} />
             </button>
           )}
         </div>
       </div>
 
-      {/* ── SCROLLABLE MESSAGES LIST ── */}
+      {/* ── MESSAGES ── */}
       <div
         style={{
           flex: 1,
-          padding: '1rem',
+          padding: '1rem 1rem 0.5rem',
           overflowY: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.85rem'
+          gap: '0.85rem',
+          background:
+            'radial-gradient(400px 200px at 50% -40px, rgba(180, 83, 10, 0.06), transparent 70%)',
         }}
       >
         {messages.map((msg, index) => {
@@ -286,47 +375,33 @@ const TamilChatbot = ({ floating = false }) => {
                 display: 'flex',
                 justifyContent: isUser ? 'flex-end' : 'flex-start',
                 alignItems: 'flex-start',
-                gap: '0.5rem'
+                gap: '0.5rem',
               }}
             >
-              {!isUser && (
-                <div
-                  style={{
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    background: '#ffffff',
-                    border: '1px solid var(--line)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '0.85rem',
-                    flexShrink: 0
-                  }}
-                >
-                  🤖
-                </div>
-              )}
+              {!isUser && <BotAvatar />}
 
               <div
                 style={{
                   maxWidth: '82%',
-                  padding: '0.75rem 0.95rem',
-                  borderRadius: isUser ? '16px 16px 2px 16px' : '16px 16px 16px 2px',
+                  padding: '0.7rem 0.95rem',
+                  borderRadius: isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                   background: isUser
-                    ? 'linear-gradient(135deg, #FFD700, #ffb300)'
-                    : '#1e1e2d',
-                  color: isUser ? '#000' : '#fff',
-                  border: isUser ? 'none' : '1px solid #2e2e42',
-                  fontSize: '0.9rem',
-                  lineHeight: '1.45',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                  position: 'relative'
+                    ? 'linear-gradient(135deg, #b4530a, #8a3c06)'
+                    : '#ffffff',
+                  color: isUser ? '#fff8ec' : '#2e241a',
+                  border: isUser ? 'none' : '1px solid rgba(180, 83, 10, 0.18)',
+                  fontSize: '0.88rem',
+                  lineHeight: '1.5',
+                  fontFamily: "'Libre Baskerville', 'Noto Serif Tamil', serif",
+                  boxShadow: isUser
+                    ? '0 6px 16px rgba(180, 83, 10, 0.28)'
+                    : '0 2px 10px rgba(46, 36, 26, 0.08)',
+                  position: 'relative',
                 }}
               >
                 {msg.content}
 
-                {/* Per-Message Speaker Icon Button on Assistant Cards */}
+                {/* Per-Message Speaker Button on Assistant Cards */}
                 {!isUser && (
                   <button
                     type="button"
@@ -335,16 +410,17 @@ const TamilChatbot = ({ floating = false }) => {
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: '#FFD700',
+                      color: '#b4530a',
                       cursor: 'pointer',
-                      fontSize: '0.85rem',
                       marginLeft: '6px',
                       padding: '0 2px',
                       display: 'inline-flex',
-                      alignItems: 'center'
+                      alignItems: 'center',
+                      verticalAlign: 'middle',
+                      opacity: 0.75,
                     }}
                   >
-                    🔊
+                    <Volume2 size={13} />
                   </button>
                 )}
               </div>
@@ -355,17 +431,16 @@ const TamilChatbot = ({ floating = false }) => {
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
-                    background: '#FFD700',
-                    color: 'var(--ink)',
+                    background: '#1d6b5f',
+                    color: '#f5efe4',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.85rem',
-                    fontWeight: 'bold',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    boxShadow: '0 2px 8px rgba(29, 107, 95, 0.3)',
                   }}
                 >
-                  👤
+                  <User size={14} />
                 </div>
               )}
             </div>
@@ -374,38 +449,25 @@ const TamilChatbot = ({ floating = false }) => {
 
         {loading && (
           <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '0.5rem' }}>
-            <div
-              style={{
-                width: '30px',
-                height: '30px',
-                borderRadius: '50%',
-                background: '#ffffff',
-                border: '1px solid var(--line)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.85rem'
-              }}
-            >
-              🤖
-            </div>
+            <BotAvatar />
             <div
               style={{
                 background: '#ffffff',
-                color: 'var(--muted)',
-                padding: '0.65rem 0.85rem',
-                borderRadius: '16px 16px 16px 2px',
+                color: '#8a6a4a',
+                padding: '0.65rem 0.9rem',
+                borderRadius: '18px 18px 18px 4px',
                 fontSize: '0.8rem',
-                border: '1px solid var(--line)',
+                border: '1px solid rgba(180, 83, 10, 0.18)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '5px'
+                gap: '5px',
+                fontFamily: "'Libre Baskerville', 'Noto Serif Tamil', serif",
               }}
             >
               <div className="typing-dot" />
               <div className="typing-dot" style={{ animationDelay: '0.2s' }} />
               <div className="typing-dot" style={{ animationDelay: '0.4s' }} />
-              <span style={{ marginLeft: '4px' }}>Thinking...</span>
+              <span style={{ marginLeft: '4px' }}>Vaagai யோசிக்கிறது...</span>
             </div>
           </div>
         )}
@@ -416,29 +478,33 @@ const TamilChatbot = ({ floating = false }) => {
       {voiceErrorMsg && (
         <div
           style={{
-            background: 'rgba(255, 77, 77, 0.15)',
-            color: '#ff4d4d',
-            borderTop: '1px solid rgba(255, 77, 77, 0.3)',
-            padding: '0.4rem 0.8rem',
-            fontSize: '0.75rem',
-            textAlign: 'center',
-            fontWeight: 'bold'
+            background: 'rgba(180, 83, 10, 0.08)',
+            color: '#8a3c06',
+            borderTop: '1px solid rgba(180, 83, 10, 0.25)',
+            padding: '0.45rem 0.9rem',
+            fontSize: '0.74rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            fontFamily: "'Libre Baskerville', serif",
           }}
         >
-          ⚠️ {voiceErrorMsg}
+          <AlertTriangle size={13} />
+          {voiceErrorMsg}
         </div>
       )}
 
-      {/* ── INPUT ROW AT BOTTOM ── */}
+      {/* ── INPUT ROW ── */}
       <form
         onSubmit={handleFormSubmit}
         style={{
-          padding: '0.85rem 1rem',
-          background: 'var(--wash)',
-          borderTop: '1px solid var(--line)',
+          padding: '0.75rem 0.9rem',
+          background: '#fdf8f0',
+          borderTop: '1px solid rgba(180, 83, 10, 0.16)',
           display: 'flex',
           gap: '0.5rem',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <input
@@ -452,14 +518,23 @@ const TamilChatbot = ({ floating = false }) => {
           }
           style={{
             flex: 1,
-            padding: '0.75rem 0.95rem',
+            padding: '0.7rem 1rem',
             background: '#ffffff',
-            border: isListening ? '2px solid #ff4d4d' : '1px solid var(--line)',
-            borderRadius: '50px',
-            color: 'var(--ink)',
-            fontSize: '0.88rem',
+            border: isListening ? '2px solid #b91c1c' : '1px solid rgba(180, 83, 10, 0.25)',
+            borderRadius: '999px',
+            color: '#2e241a',
+            fontSize: '0.85rem',
+            fontFamily: "'Libre Baskerville', 'Noto Serif Tamil', serif",
             outline: 'none',
-            transition: 'border-color 0.25s ease'
+            transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          }}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#b4530a';
+            e.target.style.boxShadow = '0 0 0 3px rgba(180, 83, 10, 0.14)';
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = isListening ? '#b91c1c' : 'rgba(180, 83, 10, 0.25)';
+            e.target.style.boxShadow = 'none';
           }}
         />
 
@@ -469,45 +544,47 @@ const TamilChatbot = ({ floating = false }) => {
           onClick={handleVoiceInput}
           title={isListening ? 'Listening...' : 'Click to speak'}
           style={{
-            width: '38px',
-            height: '38px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
-            background: isListening ? '#ff4d4d' : '#ffffff',
-            color: isListening ? '#fff' : 'var(--rust)',
-            border: isListening ? '2px solid #ff1a1a' : '1px solid var(--line)',
-            fontSize: '1rem',
+            background: isListening ? '#b91c1c' : '#ffffff',
+            color: isListening ? '#fff8ec' : '#b4530a',
+            border: isListening ? '2px solid #b91c1c' : '1px solid rgba(180, 83, 10, 0.3)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
             flexShrink: 0,
             animation: isListening ? 'micPulse 1.2s infinite' : 'none',
-            boxShadow: isListening ? '0 0 15px rgba(255, 77, 77, 0.8)' : 'none',
-            transition: 'all 0.25s ease'
+            boxShadow: isListening ? '0 0 15px rgba(185, 28, 28, 0.5)' : '0 2px 8px rgba(46,36,26,0.08)',
+            transition: 'all 0.25s ease',
           }}
         >
-          {isListening ? '🎙️' : '🎤'}
+          {isListening ? <MicOff size={16} /> : <Mic size={16} />}
         </button>
 
         {/* Send Button */}
         <button
           type="submit"
           disabled={loading || !inputMessage.trim()}
+          title="Send message"
           style={{
-            padding: '0.75rem 1.1rem',
-            background: loading || !inputMessage.trim() ? '#e0e0e0' : 'var(--accent, #FFD700)',
-            color: 'var(--ink)',
-            fontWeight: 'bold',
-            fontSize: '0.88rem',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: loading || !inputMessage.trim() ? '#e8e0d2' : 'linear-gradient(135deg, #b4530a, #8a3c06)',
+            color: loading || !inputMessage.trim() ? '#a89880' : '#fff8ec',
             border: 'none',
-            borderRadius: '50px',
             cursor: loading || !inputMessage.trim() ? 'not-allowed' : 'pointer',
-            boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)',
+            boxShadow: loading || !inputMessage.trim() ? 'none' : '0 6px 16px rgba(180, 83, 10, 0.35)',
             transition: 'all 0.25s ease',
-            flexShrink: 0
+            flexShrink: 0,
           }}
         >
-          Send 🚀
+          <Send size={16} />
         </button>
       </form>
 
@@ -515,7 +592,7 @@ const TamilChatbot = ({ floating = false }) => {
         .typing-dot {
           width: 5px;
           height: 5px;
-          background: #FFD700;
+          background: #b4530a;
           border-radius: 50%;
           animation: bounce 1.2s infinite ease-in-out;
         }
@@ -524,9 +601,18 @@ const TamilChatbot = ({ floating = false }) => {
           40% { transform: scale(1.0); }
         }
         @keyframes micPulse {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
-          70% { transform: scale(1.1); box-shadow: 0 0 0 12px rgba(255, 77, 77, 0); }
-          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.5); }
+          70% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(185, 28, 28, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
+        }
+        @keyframes vaagaiRise {
+          from { opacity: 0; transform: translateY(18px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes vaagaiPulse {
+          0% { box-shadow: 0 0 0 0 rgba(180, 83, 10, 0.35), 0 8px 24px rgba(46, 36, 26, 0.35); }
+          70% { box-shadow: 0 0 0 14px rgba(180, 83, 10, 0), 0 8px 24px rgba(46, 36, 26, 0.35); }
+          100% { box-shadow: 0 0 0 0 rgba(180, 83, 10, 0), 0 8px 24px rgba(46, 36, 26, 0.35); }
         }
       `}</style>
     </div>
@@ -535,33 +621,53 @@ const TamilChatbot = ({ floating = false }) => {
   if (floating) {
     return (
       <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 10000 }}>
-        {isOpen && (
-          <div style={{ marginBottom: '12px' }}>
-            {chatContent}
-          </div>
-        )}
+        {isOpen && <div style={{ marginBottom: '14px' }}>{chatContent}</div>}
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           style={{
-            width: '60px',
-            height: '60px',
+            width: '62px',
+            height: '62px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #FFD700, #ff9800)',
-            color: 'var(--ink)',
-            border: 'none',
-            fontSize: '1.6rem',
+            background: isOpen
+              ? '#2e241a'
+              : 'linear-gradient(135deg, #b4530a 0%, #c96a1f 60%, #d9822b 100%)',
+            color: '#fff8ec',
+            border: '2px solid rgba(255, 248, 236, 0.55)',
             cursor: 'pointer',
-            boxShadow: '0 6px 20px rgba(255, 215, 0, 0.5)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginLeft: 'auto',
-            transition: 'transform 0.3s ease'
+            transition: 'transform 0.3s ease, background 0.3s ease',
+            animation: isOpen ? 'none' : 'vaagaiPulse 2.6s infinite',
           }}
-          title="Sancharam AI Travel Assistant"
+          title="Vaagai · Sancharam travel companion"
+          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.07)')}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
         >
-          {isOpen ? '✕' : '🛕'}
+          {isOpen ? (
+            <X size={22} />
+          ) : (
+            <div
+              style={{
+                width: '46px',
+                height: '46px',
+                borderRadius: '50%',
+                background: 'rgba(255, 250, 240, 0.96)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(60, 25, 4, 0.3)',
+              }}
+            >
+              <img
+                src={vaagaiFlower}
+                alt="Open Vaagai assistant"
+                style={{ width: '34px', height: '34px', objectFit: 'contain' }}
+              />
+            </div>
+          )}
         </button>
       </div>
     );
@@ -571,5 +677,3 @@ const TamilChatbot = ({ floating = false }) => {
 };
 
 export default TamilChatbot;
-
-

@@ -1,0 +1,498 @@
+/* ══ காவல் · Kaaval Guardian Mode ══ */
+.kv {
+  --cream: #FAF5EC;
+  --white: #FFFDF8;
+  --rust: #C4552E;
+  --rust-tint: rgba(196, 85, 46, 0.1);
+  --coral-bg: rgba(46, 110, 99, 0.1);
+  --coral-tx: #2E6E63;
+  --coral-bd: rgba(46, 110, 99, 0.28);
+  --ink: #2B2118;
+  --muted: #97836A;
+  --mid: #55452F;
+  --gold: #E8C77A;
+  --green: #2E6E63;
+  --line: 1px solid #E4D8C2;
+  background:
+    radial-gradient(1100px 500px at 85% -5%, rgba(196, 85, 46, 0.07), transparent 60%),
+    radial-gradient(900px 480px at -10% 30%, rgba(46, 110, 99, 0.06), transparent 60%),
+    var(--cream);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", "Noto Sans Tamil", system-ui, sans-serif;
+  padding-top: 64px;
+}
+
+.kv * { box-sizing: border-box; }
+.kv-mono { font-family: "Space Mono", monospace; }
+.kv-wrap { max-width: 1200px; margin: 0 auto; }
+
+/* ── HERO ── */
+.kv-hero {
+  border-bottom: var(--line);
+  background-image:
+    linear-gradient(120deg, rgba(250, 245, 236, 0.94) 0%, rgba(250, 245, 236, 0.78) 42%, rgba(250, 245, 236, 0.55) 100%),
+    url("/__l5e/assets-v1/1ae8b2d8-9104-4332-b9e9-f6f9495922bc/uncharted-beach.jpg");
+  background-size: cover;
+  background-position: center 62%;
+  background-repeat: no-repeat;
+}
+
+.kv-band1 {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.kv-band1 {
+  padding: clamp(48px, 9vh, 90px) 1.75rem clamp(48px, 8vh, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.kv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--coral-bg);
+  color: var(--coral-tx);
+  border: 1px solid var(--coral-bd);
+  border-radius: 99px;
+  padding: 7px 16px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.kv-eyebrow i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--coral-tx); display: block;
+}
+
+.kv-h1 {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  margin: 0 0 18px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.kv-h1 span { display: block; }
+.kv-h1 .ta { font-size: clamp(3.2rem, 7vw, 5.6rem); color: var(--rust); font-weight: 800; }
+
+.kv-eyebrow [lang="ta"] { font-family: 'Noto Serif Tamil', serif; font-weight: 700; letter-spacing: 0.02em; }
+.kv-h1 .en {
+  font-family: "Libre Baskerville", serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  color: var(--mid); font-style: italic; font-weight: 400;
+  margin-top: 0.35rem;
+}
+
+.kv-tagline {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--mid);
+  max-width: 56ch;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.kv-hero-desc {
+  max-width: 52ch;
+  color: var(--mid);
+  line-height: 1.75;
+  font-size: 0.98rem;
+  margin: 0 0 22px;
+}
+
+.kv-hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.kv-hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border: var(--line);
+  border-radius: 99px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  box-shadow: 0 4px 14px rgba(43, 33, 24, 0.05);
+}
+.kv-hero-chip svg { color: var(--rust); flex-shrink: 0; }
+
+.kv-livepill {
+  background: #fff;
+  border: var(--line);
+  border-radius: 16px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(43, 33, 24, 0.06);
+}
+.kv-livepill > div { padding: 18px 28px; text-align: center; }
+.kv-livepill > div + div { border-left: var(--line); }
+.kv-livepill b {
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--rust);
+  display: block; line-height: 1;
+}
+.kv-livepill small {
+  display: block; margin-top: 6px;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+}
+.kv-livepill .is-high b { color: #D64545; }
+.kv-livepill .is-med b { color: #E09F3E; }
+
+.kv-divider { display: none; }
+
+/* Band 3 — guardian status */
+.kv-band3 {
+  padding: 1.1rem max(1.75rem, calc((100% - 1160px) / 2)) 1.25rem;
+  background: var(--cream);
+}
+.kv-seclabel {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--muted); margin-bottom: 0.85rem;
+}
+.kv-seclabel::after { content: ""; flex: 1; height: 0; border-top: var(--line); }
+
+.kv-status-card {
+  background: var(--white);
+  border: var(--line);
+  border-left: 3px solid var(--rust);
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 0.95rem;
+  align-items: flex-start;
+}
+.kv-status-card.is-active { border-left-color: var(--green); }
+
+.kv-shield-circle {
+  width: 34px; height: 34px; flex: none;
+  border-radius: 50%;
+  background: var(--coral-bg);
+  display: grid; place-items: center;
+  font-size: 15px;
+}
+.kv-status-card h3 { font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-size: 1rem; margin: 0 0 3px; font-weight: 600; }
+.kv-status-card p { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.5; max-width: 60ch; }
+
+.kv-setup-row { display: flex; gap: 8px; margin-top: 0.85rem; flex-wrap: wrap; }
+.kv-input {
+  font-family: inherit; font-size: 12.5px;
+  padding: 8px 13px;
+  border: var(--line);
+  border-radius: 30px;
+  background: var(--cream);
+  color: var(--ink);
+  outline: none;
+  min-width: 150px;
+}
+.kv-input:focus { border-color: var(--rust); box-shadow: 0 0 0 3px rgba(196, 85, 46, 0.15); }
+.kv-btn-rust {
+  font-family: inherit; font-size: 12.5px; font-weight: 500;
+  padding: 8px 18px; border-radius: 30px;
+  background: var(--rust); color: #fff;
+  border: 0.5px solid var(--rust);
+  cursor: pointer; transition: opacity 0.2s;
+}
+.kv-btn-rust:hover { opacity: 0.88; }
+.kv-preview-name { font-size: 11px; color: var(--rust); margin: 0.6rem 0 0; font-style: italic; }
+
+.kv-guard-name { font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-size: 1.5rem; margin: 0; color: var(--ink); font-weight: 600; }
+.kv-guard-phone { font-family: "Space Mono", monospace; font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+.kv-active-line { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--green); margin-top: 8px; }
+.kv-pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: kvPulseDot 1.6s infinite; }
+@keyframes kvPulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(46,110,99,0.5); } 50% { box-shadow: 0 0 0 6px rgba(46,110,99,0); } }
+
+.kv-chips { display: flex; gap: 8px; margin-top: 0.9rem; flex-wrap: wrap; }
+.kv-chip {
+  font-family: inherit; font-size: 11.5px;
+  padding: 6px 14px; border-radius: 30px;
+  background: var(--cream); color: var(--mid);
+  border: var(--line); cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.kv-chip:hover { background: var(--rust-tint); }
+.kv-chip.is-rust { background: var(--rust); color: #fff; border-color: var(--rust); }
+
+/* Band 4 — foot */
+.kv-band4 {
+  border-top: var(--line);
+  padding: 0.875rem max(1.75rem, calc((100% - 1160px) / 2));
+  background: var(--cream);
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.kv-footstatus { font-size: 11.5px; color: var(--mid); margin: 0; }
+.kv-footstatus b { color: var(--rust); }
+.kv-footstatus b.safe { color: var(--green); }
+
+.kv-sos-mini {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--rust); color: #fff; font-size: 1.4rem;
+  border: none; cursor: pointer; flex: none;
+  display: grid; place-items: center;
+  position: relative;
+}
+.kv-sos-mini::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(196, 85, 46, 0.25);
+  animation: kvRing 2.2s infinite;
+}
+.kv-sos-mini.is-fired { background: #A03F1F; }
+@keyframes kvRing {
+  0% { box-shadow: 0 0 0 0 rgba(196, 85, 46, 0.35); }
+  100% { box-shadow: 0 0 0 22px rgba(196, 85, 46, 0); }
+}
+
+/* ── GRID ── */
+.kv-grid {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;
+}
+.kv-card {
+  background: var(--white); border: var(--line); border-radius: 18px;
+  padding: 1.5rem;
+}
+.kv-card-title { font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-size: 1.1rem; margin: 0 0 1rem; font-weight: 600; }
+
+/* Live trip tracker — sits directly on the Kaaval cream canvas, no extra card chrome */
+.kv-tracker-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 8px 2rem 28px;
+  background: transparent; border: none;
+}
+
+.kv-dial-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0.8rem 0; border-top: var(--line);
+}
+.kv-dial-row:first-of-type { border-top: none; }
+.kv-dial-icon { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; flex: none; }
+.kv-dial-row strong { display: block; font-size: 13.5px; font-weight: 500; }
+.kv-dial-row small { display: block; font-size: 11px; color: var(--muted); }
+.kv-dial-row a {
+  margin-left: auto; text-decoration: none;
+  font-size: 12px; padding: 5px 14px; border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Night card */
+.kv-card-dark { background: var(--ink); border: none; border-radius: 18px; padding: 2rem; color: #fff; }
+.kv-card-dark h3 { font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-size: 1rem; margin: 0; color: #fff; font-weight: 600; }
+.kv-clock { font-family: "Space Mono", monospace; font-size: 2.2rem; color: var(--gold); margin: 0.6rem 0 0.4rem; }
+.kv-card-dark p { font-size: 12px; color: rgba(255,255,255,0.62); margin: 0; line-height: 1.55; }
+.kv-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.4rem; padding-top: 1rem;
+  border-top: 0.5px solid rgba(255,255,255,0.16);
+  font-size: 12px; color: rgba(255,255,255,0.65);
+}
+.kv-toggle {
+  width: 44px; height: 24px; border-radius: 30px; border: none; cursor: pointer;
+  background: rgba(255,255,255,0.22); position: relative; transition: background 0.25s;
+}
+.kv-toggle span {
+  position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: #fff;
+  transition: transform 0.25s ease;
+}
+.kv-toggle.is-on { background: var(--gold); }
+.kv-toggle.is-on span { transform: translateX(20px); background: var(--ink); }
+
+/* SOS panel */
+.kv-sos-big {
+  width: 140px; height: 140px; border-radius: 50%;
+  margin: 1.2rem auto 0; display: grid; place-items: center;
+  background: var(--rust-tint); border: 2px solid var(--rust);
+  color: var(--rust); font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-size: 1.5rem;
+  cursor: pointer; position: relative;
+}
+.kv-sos-big::before, .kv-sos-big::after {
+  content: ""; position: absolute; inset: -2px; border-radius: 50%;
+  border: 1px solid rgba(180,69,31,0.35); animation: kvExpand 2.6s infinite ease-out;
+}
+.kv-sos-big::after { animation-delay: 1.3s; }
+@keyframes kvExpand { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.45); opacity: 0; } }
+.kv-sos-hint { text-align: center; font-size: 11px; color: var(--muted); margin: 0.9rem 0 0; }
+
+.kv-log-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.6rem 0; border-top: var(--line); font-size: 12px; color: var(--mid);
+}
+.kv-log-row .ts { margin-left: auto; font-family: "Space Mono", monospace; font-size: 11px; color: var(--muted); }
+.kv-empty { text-align: center; padding: 1.6rem 0; }
+.kv-empty .em { font-size: 2rem; display: block; }
+.kv-empty h4 { font-family: "Noto Serif Tamil", "Libre Baskerville", serif; font-style: italic; font-size: 1rem; margin: 0.5rem 0 3px; font-weight: 400; }
+.kv-empty p { font-size: 12px; color: var(--muted); margin: 0; }
+.kv-none { font-style: italic; color: var(--muted); font-size: 12px; margin: 0.9rem 0 0; }
+.kv-scroll { max-height: 220px; overflow-y: auto; }
+.kv-ghost {
+  font-family: inherit; font-size: 11.5px; margin-top: 1rem;
+  background: none; border: var(--line); border-radius: 30px;
+  padding: 6px 14px; color: var(--muted); cursor: pointer;
+}
+
+/* Footer nav */
+.kv-footnav {
+  border-top: var(--line); margin-top: 0.5rem;
+  padding: 1.25rem 2rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+  max-width: 1200px; margin-left: auto; margin-right: auto;
+}
+.kv-footnav > span { font-size: 12px; color: var(--muted); }
+.kv-footnav nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.kv-footnav a {
+  font-size: 11.5px; text-decoration: none; color: var(--mid);
+  padding: 5px 13px; border-radius: 30px; border: var(--line);
+}
+.kv-footnav a.is-active { background: var(--rust-tint); color: var(--rust); border-color: var(--coral-bd); }
+
+/* Toast */
+.kv-toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+  background: var(--ink); color: #fff;
+  font-size: 12px; padding: 10px 20px; border-radius: 30px;
+  z-index: 900; animation: kvToast 0.35s ease;
+  font-family: "Space Mono", monospace;
+}
+@keyframes kvToast { from { opacity: 0; transform: translate(-50%, 16px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+@media (max-width: 860px) {
+  .kv-grid { grid-template-columns: 1fr; padding: 1.25rem; }
+  .kv-band1 { padding: 2rem 1.25rem; }
+}
+
+/* Validation */
+.kv-field { display: flex; flex-direction: column; gap: 4px; }
+.kv-input.has-error { border-color: var(--rust); background: rgba(196, 85, 46, 0.06); }
+.kv-error {
+  font-size: 10.5px; color: var(--rust); margin: 0; padding-left: 12px;
+  font-family: "Noto Sans Tamil", "IBM Plex Sans", sans-serif;
+}
+.kv-setup-row { align-items: flex-start; }
+
+/* ── SWIPE PAGES (carousel + dot buttons) ─────────────────────── */
+/* ── Segmented page navigation ── */
+.kv-pagenav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 4px auto 30px;
+  padding: 6px;
+  width: max-content;
+  background: #fff;
+  border: 1.5px solid var(--line, #E4D8C2);
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(43, 33, 24, 0.08);
+}
+
+.kv-pagetab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px 10px 12px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted, #97836A);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kv-pagetab-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cream, #F6EFE2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kv-pagetab-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.kv-pagetab-ta {
+  font-family: "Noto Serif Tamil", "Libre Baskerville", serif;
+  font-weight: 800;
+  font-size: 0.98rem;
+}
+
+.kv-pagetab-en {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.kv-pagetab:hover:not(.is-active) {
+  color: var(--rust, #C4552E);
+  background: rgba(196, 85, 46, 0.06);
+}
+
+.kv-pagetab.is-active {
+  background: var(--rust, #C4552E);
+  color: #FAF5EC;
+  box-shadow: 0 8px 20px rgba(196, 85, 46, 0.32);
+}
+
+.kv-pagetab.is-active .kv-pagetab-icon {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.kv-carousel {
+  overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kv-carousel-track {
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kv-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Embedded risk-intelligence slide — drop its page-top hero padding */
+.kv-slide .sf-hero {
+  padding: 8px 0 0;
+  border-bottom: none;
+}
+
+.kv-slide .sf-wrap {
+  max-width: 1200px;
+  padding: 0 2rem;
+}
+
+@media (max-width: 700px) {
+  .kv-pagenav { gap: 4px; padding: 5px; }
+  .kv-pagetab { padding: 8px 14px 8px 9px; gap: 7px; }
+  .kv-pagetab-icon { width: 28px; height: 28px; font-size: 0.8rem; }
+  .kv-pagetab-ta { font-size: 0.82rem; }
+  .kv-pagetab-en { font-size: 0.52rem; }
+}

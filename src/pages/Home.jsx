@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/lib/router-compat';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

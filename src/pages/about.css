@@ -1,0 +1,489 @@
+/* ===== About page — Heritage Paper bento ===== */
+
+.about-page {
+  --paper: #FBFAF7;
+  --ink: #1A1815;
+  --ink-2: #4A463E;
+  --muted: #868074;
+  --rust: #B4451F;
+  --rust-soft: #FBEDE7;
+  --moss: #2F5D45;
+  --moss-soft: #EBF1ED;
+  --line: #E7E1D5;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+}
+
+/* Hero with Chennai background image */
+.about-hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(251, 250, 247, 0.78) 0%, rgba(251, 250, 247, 0.86) 55%, rgba(251, 250, 247, 0.96) 100%);
+}
+
+.about-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 120px 24px 56px;
+}
+
+.about-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rust);
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.about-hero h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+  color: var(--ink);
+  text-shadow: 0 1px 2px rgba(251, 250, 247, 0.6);
+}
+
+.about-hero h1 em {
+  color: var(--rust);
+  font-style: italic;
+}
+
+.about-lede {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Bento grid */
+.about-bento {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 24px 56px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.bento-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -18px rgba(26, 24, 21, 0.25);
+}
+
+.bento-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 16px;
+}
+
+.bento-card h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+
+.bento-card h2 em {
+  color: var(--rust);
+}
+
+.bento-card p {
+  color: var(--ink-2);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* Mission — large */
+.bento-mission {
+  grid-column: span 4;
+  grid-row: span 2;
+  background: var(--rust-soft);
+  border-color: #f0d9cd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+
+.kolam-dots {
+  display: grid;
+  grid-template-columns: repeat(5, 10px);
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.kolam-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rust);
+  opacity: 0.35;
+}
+
+/* Tall image */
+.bento-image {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+  border: none;
+}
+
+.bento-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bento-image-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  background: rgba(26, 24, 21, 0.72);
+  color: var(--paper);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 8px 14px;
+  border-radius: 99px;
+  backdrop-filter: blur(6px);
+}
+
+/* Stats */
+.bento-stat {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  background: #fff;
+}
+
+.stat-number {
+  font-family: "Playfair Display", serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--rust);
+  line-height: 1;
+}
+
+.bento-stat-moss .stat-number {
+  color: var(--moss);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Technology — wide */
+.bento-tech {
+  grid-column: span 4;
+}
+
+.tech-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 28px;
+}
+
+.tech-list li {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+.tech-list strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Why Chennai */
+.bento-why {
+  grid-column: span 2;
+  background: var(--moss-soft);
+  border-color: #d4e0d8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bento-why .bento-label {
+  color: var(--moss);
+}
+
+.why-quote {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ink) !important;
+}
+
+/* Values */
+.bento-value {
+  grid-column: span 2;
+}
+
+.value-icon {
+  color: var(--rust);
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.bento-value h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.bento-value p {
+  font-size: 0.92rem;
+}
+
+/* CTA band — nocturnal glow */
+.about-cta {
+  padding: 0 24px 56px;
+}
+
+.about-cta-card {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #121212;
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: 0 24px 48px -22px rgba(32, 26, 22, 0.45);
+}
+
+.cta-glow {
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  pointer-events: none;
+}
+
+.cta-glow-a {
+  top: -50%;
+  left: -25%;
+  background: radial-gradient(circle at center, rgba(186, 77, 45, 0.15) 0%, transparent 70%);
+  opacity: 0.6;
+}
+
+.cta-glow-b {
+  bottom: -50%;
+  right: -25%;
+  background: radial-gradient(circle at center, rgba(186, 77, 45, 0.12) 0%, transparent 70%);
+  opacity: 0.6;
+}
+
+.cta-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#fff 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.cta-contours {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.about-cta-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: 9999px;
+  background: rgba(186, 77, 45, 0.1);
+  color: #ba4d2d;
+  box-shadow: 0 0 0 1px rgba(186, 77, 45, 0.3);
+}
+
+.about-cta h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  max-width: 40rem;
+  margin: 0 0 14px;
+}
+
+.about-cta h2 em {
+  color: #ba4d2d;
+  font-style: italic;
+}
+
+.about-cta p {
+  color: #a1a1aa;
+  font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 30rem;
+  margin: 0 0 22px;
+}
+
+.about-cta-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 12px 26px;
+  background: #ba4d2d;
+  color: #fff;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.about-cta-btn:hover {
+  background: #d15632;
+  box-shadow: 0 0 30px rgba(186, 77, 45, 0.4);
+}
+
+.cta-btn-arrow {
+  transition: transform 0.3s;
+}
+
+.about-cta-btn:hover .cta-btn-arrow {
+  transform: translateX(4px);
+}
+
+.cta-btn-shine {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: transform 0.5s;
+  pointer-events: none;
+}
+
+.about-cta-btn:hover .cta-btn-shine {
+  transform: translateX(100%);
+}
+
+.cta-hint {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #71717a;
+}
+
+.cta-hint-rule {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: #27272a;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .bento-mission,
+  .bento-image,
+  .bento-tech,
+  .bento-why,
+  .bento-stat,
+  .bento-value {
+    grid-column: span 6;
+  }
+
+  .bento-image {
+    min-height: 320px;
+  }
+
+  .tech-list {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero-inner {
+    padding: 96px 20px 40px;
+  }
+
+  .about-bento {
+    padding: 12px 16px 40px;
+    gap: 12px;
+  }
+
+  .bento-card {
+    padding: 24px;
+  }
+
+  .bento-mission {
+    padding: 28px;
+  }
+
+  .about-cta {
+    padding: 0 16px 40px;
+  }
+}

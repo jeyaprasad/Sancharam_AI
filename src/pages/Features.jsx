@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Landmark, Clock, Shield, MapPin, IndianRupee } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
+import { Link } from '@/lib/router-compat';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -34,37 +35,43 @@ const Features = () => {
     <div className="features-container">
       <Navbar />
       {/* 🔹 HERO BANNER 🔹 */}
-      <div className="features-hero-bg">
-        <div className="bento-hero-overlay"></div>
-        <div className="wrap" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
-          <section className="bento-hero rv" ref={addToRefs}>
-            <span className="pill" lang="ta" style={{ margin: '0 auto 24px auto' }}><i></i>நம்ம சென்னை</span>
-            <h1 className="bento-hero-title">Discover the Soul of <em>Madras</em></h1>
-            <p className="bento-hero-subtitle">
-              Sancharam goes beyond standard maps. Experience deep heritage, real-time safety, 
-              and hyper-local secrets wrapped in a next-generation digital guide.
+      <section className="fh-hero" ref={addToRefs}>
+        <div className="fh-hero-grid un-wrap">
+          <div className="fh-hero-text">
+            <span className="fh-eyebrow"><i></i>நம்ம சென்னை · Namma Chennai</span>
+            <h1 className="fh-title">Discover the Soul of <em>Madras</em></h1>
+            <p className="fh-subtitle">
+              Sancharam goes beyond standard maps. Experience <strong>deep heritage</strong>,
+              real-time safety, and hyper-local secrets wrapped in a next-generation digital guide.
             </p>
-            
-            <div className="bento-stats" style={{ marginBottom: "80px" }}>
-              <div className="bento-stat">
-                <b>6</b>
-                <span>Curated<br/>Zones</span>
-              </div>
-              <div className="bento-stat">
-                <b>4</b>
-                <span>Core<br/>Features</span>
-              </div>
-              <div className="bento-stat">
-                <b>24/7</b>
-                <span>Safety<br/>Focus</span>
-              </div>
+            <div className="fh-hero-actions">
+              <a href="#features-tabs" className="fh-btn-primary">
+                Explore Features
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <Link to="/about" className="fh-btn-ghost">Why Sancharam</Link>
             </div>
-          </section>
+          </div>
+
+          <div className="fh-hero-stats">
+            <div className="fh-hero-stat">
+              <b>6</b>
+              <span>Curated Zones</span>
+            </div>
+            <div className="fh-hero-stat">
+              <b>4</b>
+              <span>Core Features</span>
+            </div>
+            <div className="fh-hero-stat">
+              <b>24/7</b>
+              <span>Safety Focus</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* 🔹 TABS & PANELS 🔹 */}
-      <div className="tabs">
+      <div className="tabs" id="features-tabs">
         <button className={`tab ${activeTab === 0 ? 'on' : ''}`} role="tab" aria-selected={activeTab === 0} onClick={() => setActiveTab(0)}>
           <span className="icon"><Landmark size={16} /></span>
           <span className="lbl">Unarvu</span>
@@ -94,7 +101,7 @@ const Features = () => {
             <p className="panel-en-title">Unarvu</p>
             <span className="panel-tag">Context-Aware Heritage</span>
             <p>Stand before Kapaleeshwarar and immediately understand its Dravidian architecture without reading a textbook.</p>
-            <Link to="/features/safety" className="panel-go">Explore Safety &rarr;</Link>
+            <Link to="/features/uncharted" className="panel-go">Explore Unarvu &rarr;</Link>
           </div>
           <div className="panel-art">
             <img src="/assets/images/index/temples.jpg" alt="Unarvu" loading="lazy" />
@@ -107,7 +114,7 @@ const Features = () => {
             <p className="panel-en-title">Neram</p>
             <span className="panel-tag">Time-Aware Discovery</span>
             <p>Marina at 5 AM and 5 PM are different places. See what Chennai offers right now.</p>
-            <Link to="/features/routing" className="panel-go">Explore Routing &rarr;</Link>
+            <Link to="/features/itinerary" className="panel-go">Plan with Neram &rarr;</Link>
           </div>
           <div className="panel-art">
             <img src="/assets/images/features/neram.jpg" alt="Neram" loading="lazy" />
@@ -120,7 +127,7 @@ const Features = () => {
             <p className="panel-en-title">Kaaval</p>
             <span className="panel-tag">Solo Safety Mode</span>
             <p>Register emergency contacts, activate SOS, get night-mode warnings after 9 PM.</p>
-            <Link to="/features/itinerary" className="panel-go">Plan Trip &rarr;</Link>
+            <Link to="/features/safety" className="panel-go">Explore Kaaval &rarr;</Link>
           </div>
           <div className="panel-art">
             <img src="/assets/images/features/kaaval.jpg" alt="Kaaval" loading="lazy" />
@@ -177,12 +184,17 @@ const Features = () => {
         {/* 🔹 CTA 🔹 */}
         <section className="cta rv" ref={addToRefs}>
           <div className="cta-content-wrapper">
-            <h2>Ready for <em>Madras</em>?</h2>
-            <p>Start with a curated plan, or just wander the uncharted paths—the city rewards both.</p>
+            <span className="cta-kicker">சென்னை • Chennai</span>
+            <h2 className="cta-tamil">வந்தாரை வாழ வைக்கும் ஊர்</h2>
+            <p className="cta-translit">Vandhaarai Vaazha Vaikkum Ooru</p>
+            <p className="cta-lede">The city that makes a living for everyone who comes to it. Start with a curated plan, or wander the uncharted lanes — Madras rewards both.</p>
+            <div className="cta-actions">
+              <Link to="/features/itinerary" className="cta-btn">Start your journey
+                <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </Link>
+              <Link to="/about" className="cta-btn-ghost">Why Sancharam</Link>
+            </div>
           </div>
-          <Link to="/features/itinerary" className="cta-btn">Start your journey
-            <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </Link>
         </section>
       </div>
       
