@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import sancharamBaseCss from "../sancharam-base.css?url";
 import sancharamAppCss from "../sancharam-app.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { fetchRiskZones } from "../services/api";
 import useAppStore from "../store/useAppStore";
 import TamilChatbot from "../components/TamilChatbot";
@@ -43,9 +42,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">

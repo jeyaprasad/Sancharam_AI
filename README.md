@@ -1,14 +1,13 @@
-# Welcome to your Lovable project
+# Welcome to your Sancharam project
 
-This project was built with [Lovable](https://lovable.dev).
+This project is the core frontend for Sancharam AI.
 
-## Build with Lovable
+## Building Sancharam
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+You can run the project locally using:
+```sh
+npm run dev
+```
 
 ## Development
 
